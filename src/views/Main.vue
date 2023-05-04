@@ -352,5 +352,28 @@ a {
 .slide {
   background-repeat: no-repeat;
   background-size: cover;
+  color: whitesmoke;
+}
+
+a {
+  text-decoration: none;
+}
+.btn-get-started {
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  display: inline-block;
+  line-height: 1;
+  color: rgb(255, 255, 255);
+  animation-delay: 0.8s;
+  padding: 12px 32px;
+  border-radius: 5px;
+  transition: all 0.5s ease 0s;
+  margin: 10px;
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  background: rgb(66, 139, 202);
 }
 </style>
