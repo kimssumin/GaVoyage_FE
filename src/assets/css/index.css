@@ -1,0 +1,14 @@
+@import url('https://webfontworld.github.io/pretendard/Pretendard.css');
+:root {
+  --color-white : whitesmoke;
+  --color-blue : #0064FF;
+  --color-gray : #202632;
+  --color-black : #060606;
+  --font : 'Pretendard';
+
+}
+
+*{
+  color : var(--color-black);
+  font-family: var(--font);
+}
