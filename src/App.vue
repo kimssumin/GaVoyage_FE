@@ -1,31 +1,42 @@
 <template>
   <div id="app">
     <Header></Header>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view />
   </div>
 </template>
- 
-<script>
-import Header from "./components/common/Header.vue";
-import HelloWorld from './components/HelloWorld.vue'
 
+<script>
+import "@/assets/css/index.css";
+import Vue from "vue";
+import VueAgile from "vue-agile";
+import Header from "./components/common/Header.vue";
+
+Vue.use(VueAgile);
 export default {
-  name: 'App',
+  name: "App",
   components: {
+    agile: VueAgile,
     Header,
-    HelloWorld
-  }
-}
+  },
+};
 </script>
 
 <style>
-@import "@/assets/css/index.css";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
