@@ -2,21 +2,20 @@
   <div id="app">
     <Header></Header>
     <router-view />
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import "@/assets/css/index.css";
-import Vue from "vue";
-import VueAgile from "vue-agile";
-import Header from "./components/common/Header.vue";
+import '@/assets/css/index.css';
 
-Vue.use(VueAgile);
+import Header from './components/common/Header.vue';
+import Footer from './components/common/Footer.vue';
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    agile: VueAgile,
     Header,
+    Footer,
   },
 };
 </script>

@@ -1,3 +1,4 @@
+d
 <template>
   <div class="hello">
     <section id="hero">
@@ -8,7 +9,7 @@
           <div class="inner" role="listbox">
             <agile
               :nav-buttons="false"
-              :autoplay-speed="3500"
+              :autoplay-speed="4000"
               :speed="4000"
               fade="fade"
               pause-on-hover="pause-on-hover"
@@ -17,312 +18,91 @@
             >
               <!-- Slide 1 -->
               <div
-                class="slide d-flex justify-content-center"
+                class="slide1 d-flex justify-content-center"
                 style="
-                  background-image: url('https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Gyeongbokgung-Palace.jpg');
+                  <!--background-image : linear-gradient(to right bottom, #35EBDF, #BA8FFB);-->
+                  <!--background-image: url('https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Gyeongbokgung-Palace.jpg');-->
                 "
               >
                 <div class="container align-self-center">
-                  <h2 class="animate__animated animate__fadeInDown">
-                    <span>Enjoy Trip</span>을 방문해주셔서 감사합니다!
-                  </h2>
-                  <p class="animate__animated animate__fadeInUp">
+                  <h2 class="">GaVoyage를 방문해주셔서 감사합니다!</h2>
+                  <p class="">
                     여행을 떠나고 싶으신가요? <br />
                     당신에게 맞는 여행지를 발견해보세요.
                   </p>
-                  <a
-                    href="./tour-plan"
-                    class="btn-get-started animate__animated animate__fadeInUp scrollto"
-                    >나만의 여행 계획</a
-                  >
+                  <a href="./tour-plan" class="btn-get-started">여행지 구경 가기</a>
                 </div>
               </div>
 
               <!-- Slide 2 -->
               <div
-                class="slide d-flex justify-content-center"
+                class="slide2 d-flex justify-content-center"
                 style="
-                  background-image: url('https://t1.daumcdn.net/cfile/tistory/252FA9345225669928');
+                <!--background-image : linear-gradient(to right bottom, #FF709C, #859BFF);-->
+                  <!--background-image: url('https://t1.daumcdn.net/cfile/tistory/252FA9345225669928');-->
                 "
               >
                 <div class="container align-self-center">
-                  <h2 class="animate__animated animate__fadeInDown">
-                    우리나라의 아름다움을 음미해보세요.
-                  </h2>
-                  <p class="animate__animated animate__fadeInUp">
-                    생각지도 못한 곳을 발견할 수도 있어요.
-                  </p>
-                  <a
-                    href="./region-search"
-                    class="btn-get-started animate__animated animate__fadeInUp scrollto"
-                    >지역별 여행지 찾아보기</a
-                  >
+                  <h2 class="InDown">인기있는 여행지를 만나보세요</h2>
+                  <p class="InUp">생각지도 못한 곳을 발견할 수도 있어요.</p>
+                  <a href="./region-search" class="btn-get-started">금주의 인기 여행기 보기</a>
                 </div>
               </div>
 
               <!-- Slide 3 -->
               <div
-                class="slide d-flex justify-content-center"
+                class="slide3 d-flex justify-content-center"
                 style="
-                  background-image: url('http://www.traveldaily.co.kr/news/photo/202004/24938_32935_151.jpg');
+                <!--background-image : linear-gradient(to right bottom, #CFFFEF, #FFC3BF);-->
+                  <!--background-image: url('https://www.lottehotel.com/content/dam/lotte-hotel/signiel/seoul/overview/local-guide/180708-7-2000-ove-seoul-signiel.jpg.thumb.768.768.jpg');-->
                 "
               >
                 <div class="container align-self-center">
-                  <h2 class="animate__animated animate__fadeInDown">
-                    각자의 핫플레이스를 자랑해요.
-                  </h2>
-                  <p class="animate__animated animate__fadeInUp">
-                    자신만의 아지트를 공유하고 같이 이야기 나눠봐요.
-                  </p>
-                  <a
-                    href="./hot-place"
-                    class="btn-get-started animate__animated animate__fadeInUp scrollto"
-                    >구경가기</a
-                  >
+                  <h2 class="InDown">여행 떠날 준비, 되셨나요 ?</h2>
+                  <p class="InUp">당신의 여행에 시작을 함께하고싶어요</p>
+                  <a href="./hot-place" class="btn-get-started">여행 계획 세우기</a>
                 </div>
               </div>
             </agile>
           </div>
-
-          <a class="control-prev" href="#hero" role="button" data-bs-slide="prev">
-            <span class="-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-          </a>
-          <a class="control-next" href="#hero" role="button" data-bs-slide="next">
-            <span class="-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-          </a>
         </div>
       </div>
     </section>
     <!-- End Hero -->
 
-    <main id="main">
-      <!-- ======= About Us Section ======= -->
-      <section id="about" class="about">
-        <div class="container" data-aos="fade-up">
-          <div class="row no-gutters">
-            <div class="col-lg-6 d-flex flex-column justify-content-center mt-3">
-              <img
-                src="http://www.traveldaily.co.kr/news/photo/202004/24938_32935_151.jpg"
-                class="img"
-                alt=""
-              />
-            </div>
+    <!-- ======= 여기 어때  ======= -->
+    <section id="aboutReview" class="about">
+      <div class="section-title d-flex align-items-center ml-5">
+        <h2 class="align-self-center mr-3">여기 어때 ?</h2>
+        <button class="btn-get-started">더 살펴보기</button>
+      </div>
 
-            <div class="col-lg-6 d-flex flex-column justify-content-center about-content">
-              <div class="section-title">
-                <h2>오늘의 핫플레이스</h2>
-              </div>
+      <p class="section-title d-flex">최근 한 달간 사랑받은 여행후기들을 만나보세요</p>
 
-              <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon">
-                  <i class="bx bx-fingerprint"></i>
-                </div>
-                <h4 class="title">
-                  <a href="">을지로의 골목골목을 거닐어보세요.</a>
-                </h4>
-                <p class="description">
-                  Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-                  occaecati cupiditate non provident
-                </p>
-              </div>
+      <div id="hotplaceArea"></div>
+    </section>
+    <!-- End 여기어때 -->
 
-              <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-                <div class="icon">
-                  <i class="bx bx-gift"></i>
-                </div>
-                <h4 class="title">
-                  <a href="">특별한 기념품을 구매해보세요.</a>
-                </h4>
-                <p class="description">
-                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                  praesentium voluptatum deleniti atque
-                </p>
-              </div>
-            </div>
-          </div>
+    <!-- 어디든 좋아요======= -->
+    <section id="searchAbout" class="portfolio section-bg">
+      <div class="searchAbout">
+        <div class="section-title">
+          <h2>어디든 좋아요 🙋‍♀️</h2>
+          <p>클릭하는 그 곳이 당신의 여행지가 될 거에요</p>
         </div>
-      </section>
-      <!-- End About Us Section -->
-
-      <!-- ======= Our Portfolio Section ======= -->
-      <section id="portfolio" class="portfolio section-bg">
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-          <div class="section-title">
-            <h2>핫플레이스 목록</h2>
-            <p>자신만의 핫플레이스를 공유해봐요. 새로운 만남이 이루어질 지도 몰라요!</p>
-          </div>
-
-          <div class="row portfolio-container">
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="https://post-phinf.pstatic.net/MjAxNzA1MTFfMTQg/MDAxNDk0NDgyODE4OTI2.P7H0n7pqJChBq_g42dZAwi_K16adlRxBerf26cW1Hvgg.oqVaoHWzt7D7dFhW_W62oMaoRn9TCStRJ6A9j_D7C0Yg.JPEG/%EC%84%AC.jpg?type=w1200"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플1</h4>
-                  <p>핫플1</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="https://post-phinf.pstatic.net/MjAxNzA1MTFfMTQg/MDAxNDk0NDgyODE4OTI2.P7H0n7pqJChBq_g42dZAwi_K16adlRxBerf26cW1Hvgg.oqVaoHWzt7D7dFhW_W62oMaoRn9TCStRJ6A9j_D7C0Yg.JPEG/%EC%84%AC.jpg?type=w1200"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 1"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="https://www.agoda.com/wp-content/uploads/2019/03/Seoul-attractions-N-Seoul-Tower.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플2</h4>
-                  <p>핫플2</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="https://www.agoda.com/wp-content/uploads/2019/03/Seoul-attractions-N-Seoul-Tower.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 3"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="https://www.lottehotel.com/content/dam/lotte-hotel/signiel/seoul/overview/local-guide/180708-7-2000-ove-seoul-signiel.jpg.thumb.768.768.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플3</h4>
-                  <p>핫플3</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="https://www.lottehotel.com/content/dam/lotte-hotel/signiel/seoul/overview/local-guide/180708-7-2000-ove-seoul-signiel.jpg.thumb.768.768.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 2"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-              <div class="portfolio-wrap">
-                <img
-                  src="http://www.ttlnews.com/upload/board/KOREA/8773c8e265d5.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플4</h4>
-                  <p>핫플4</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="http://www.ttlnews.com/upload/board/KOREA/8773c8e265d5.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Card 2"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-              <div class="portfolio-wrap">
-                <img
-                  src="https://www.korea.kr/goNewsRes/attaches/innods/images/000126/19_640_2.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플5</h4>
-                  <p>핫플5</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="https://www.korea.kr/goNewsRes/attaches/innods/images/000126/19_640_2.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="Web 2"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-              <div class="portfolio-wrap">
-                <img
-                  src="http://www.travelnbike.com/news/photo/201901/73424_131291_5057.jpg"
-                  class="img-fluid"
-                  alt=""
-                />
-                <div class="portfolio-info">
-                  <h4>핫플6</h4>
-                  <p>핫플6</p>
-                  <div class="portfolio-links">
-                    <a
-                      href="http://www.travelnbike.com/news/photo/201901/73424_131291_5057.jpg"
-                      data-gallery="portfolioGallery"
-                      class="portfolio-lightbox"
-                      title="App 3"
-                      ><i class="bi bi-plus"></i
-                    ></a>
-                    <a href="portfolio-details.html" title="More Details"
-                      ><i class="bi bi-link"></i
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- End Our Portfolio Section -->
-    </main>
+      </div>
+    </section>
+    <!-- End Our Portfolio Section -->
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import VueAgile from "vue-agile";
+import Vue from 'vue';
+import VueAgile from 'vue-agile';
 
 Vue.use(VueAgile);
 export default {
-  name: "Main",
+  name: 'InitMain',
   props: {
     msg: String,
   },
@@ -334,6 +114,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h2 {
+  margin: 0;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -347,17 +130,22 @@ li {
 }
 a {
   color: #42b983;
-}
-
-.slide {
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: whitesmoke;
-}
-
-a {
   text-decoration: none;
 }
+
+.section-title {
+  margin-left: 300px;
+}
+
+#aboutReview,
+#searchAbout {
+  margin-top: 100px;
+}
+
+#hero {
+  margin-top: -14px;
+}
+
 .btn-get-started {
   font-weight: 500;
   font-size: 14px;
@@ -374,6 +162,45 @@ a {
   border-style: initial;
   border-color: initial;
   border-image: initial;
-  background: rgb(66, 139, 202);
+  background: var(--color-blue);
+}
+
+.section-title {
+  text-align: left;
+}
+
+.slide1 {
+  width: 100%;
+  background-position: center;
+  background: url(https://cdn.pixabay.com/photo/2018/09/25/17/14/airplane-3702676_960_720.jpg);
+  background-size: cover;
+}
+.slide2 {
+  width: 100%;
+  background-position: center;
+  background: url(https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1380&t=st=1683301728~exp=1683302328~hmac=f35d04d0d74823d97cf3c1bbde24a8523600c3be10fcfa331be48d8a0ce968e7);
+  background-size: cover;
+}
+.slide3 {
+  width: 100%;
+  background-position: center;
+  background: url(https://img.freepik.com/free-photo/crumpled-white-paperboard_95678-119.jpg?w=1380&t=st=1683301032~exp=1683301632~hmac=f4f337315f1d37c52110c1123be314aab47e4c80015021f02cbc559d59d0097f);
+}
+.slide1::before,
+.slide2::before {
+  content: '';
+  opacity: 0.65;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: #000;
+}
+.slide1 *,
+.slide2 * {
+  color: #fff;
+  text-align: center;
+  position: relative;
 }
 </style>

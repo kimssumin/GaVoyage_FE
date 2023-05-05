@@ -1,21 +1,20 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <!-- <router-link to="/">Home</router-link>
-|
 <router-link to="/about">About</router-link> -->
 
 <template>
-  <header id="header" class="d-flex align-items-center mt-3">
+  <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
       <div class="logo me-auto">
-        <h1>Ga Voyage</h1>
+        <h2 id="logoTitle"><i class="fa fa-car me-3" aria-hidden="true"></i>Ga Voyage</h2>
       </div>
       <nav id="navbar" class="navbar d-flex">
         <ul id="navbarul" class="align-self-center">
           <li>
-            <a class="nav-link scrollto active" href="./region-search">지역별여행지</a>
+            <a class="nav-link scrollto active" href="./region-search">여행 계획 짜기</a>
           </li>
-          <li><a class="nav-link scrollto" href="./tour-plan">나의여행계획</a></li>
-          <li><a class="nav-link scrollto" href="./hot-place">핫플자랑하기</a></li>
-          <li><a class="nav-link scrollto" href="./board">여행정보공유</a></li>
+          <li><a class="nav-link scrollto" href="./tour-plan">나의 여행기</a></li>
+          <li><a class="nav-link scrollto" href="./hot-place">여행기 게시판</a></li>
           <li>
             <a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#registerModal"
               >회원가입</a
@@ -29,6 +28,7 @@
           <li>
             <a class="nav-link scrollto" href="./memberdetail"><b>[${login.nickname}]님</b></a>
           </li>
+
           <li>
             <a class="nav-link scrollto" href="./logout">로그아웃</a>
           </li>
@@ -47,14 +47,24 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+header {
+  margin-top: 24px;
+  padding-bottom: 10px;
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.07);
+}
+
 ul li {
   list-style-type: none;
   float: left;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 #navbarul {
   margin: 0;
+}
+
+.nav-link:hover {
+  color: var(--color-blue);
 }
 </style>
