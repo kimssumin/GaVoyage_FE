@@ -1,161 +1,99 @@
 <template>
   <div class="searchBox">
     <!--시도 선택-->
-    <div class="select-box">
-      <div class="options-container">
-        <div class="option">
-          <input type="radio" class="radio" id="automobiles" name="category" value="12" />
-          <label for="automobiles">관광지</label>
-        </div>
-        <div class="option">
-          <input type="radio" class="radio" id="film" name="category" value="14" />
-          <label for="film">문화시설</label>
-        </div>
+    <div id="search-area" class="select-box">
+      <div class="options-container"></div>
 
-        <div class="option">
-          <input type="radio" class="radio" id="science" name="category" value="15" />
-          <label for="science">축제공연행사</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="art" name="category" value="25" />
-          <label for="art">여행코스</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="music" name="category" value="28" />
-          <label for="music">레포츠</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="travel" name="category" value="32" />
-          <label for="travel">숙박</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="sports" name="category" value="38" />
-          <label for="sports">쇼핑</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="news" name="category" value="39" />
-          <label for="news">음식점</label>
-        </div>
-      </div>
-
-      <div class="selected" v-on:click="selectClick1">관광지 선택</div>
+      <div class="selected" value="-1" v-on:click="selectArea">지역</div>
     </div>
 
     <!--구/군 선택-->
-    <div class="select-box">
-      <div class="options-container">
-        <div class="option">
-          <input type="radio" class="radio" id="automobiles" name="category" value="12" />
-          <label for="automobiles">관광지</label>
-        </div>
-        <div class="option">
-          <input type="radio" class="radio" id="film" name="category" value="14" />
-          <label for="film">문화시설</label>
-        </div>
+    <div id="search-sigungu" class="select-box">
+      <div class="options-container"></div>
 
-        <div class="option">
-          <input type="radio" class="radio" id="science" name="category" value="15" />
-          <label for="science">축제공연행사</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="art" name="category" value="25" />
-          <label for="art">여행코스</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="music" name="category" value="28" />
-          <label for="music">레포츠</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="travel" name="category" value="32" />
-          <label for="travel">숙박</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="sports" name="category" value="38" />
-          <label for="sports">쇼핑</label>
-        </div>
-
-        <div class="option">
-          <input type="radio" class="radio" id="news" name="category" value="39" />
-          <label for="news">음식점</label>
-        </div>
-      </div>
-
-      <div class="selected" v-on:click="selectClick2">관광지 선택</div>
+      <div class="selected" value="-1" v-on:click="selectSigungu">시/군/구</div>
     </div>
 
     <!--관광지 선택-->
-    <div class="select-box">
+    <div id="search-content-id" class="select-box">
       <div class="options-container">
         <div class="option">
           <input type="radio" class="radio" id="automobiles" name="category" value="12" />
-          <label for="automobiles">관광지</label>
+          <label for="">관광지</label>
         </div>
         <div class="option">
           <input type="radio" class="radio" id="film" name="category" value="14" />
-          <label for="film">문화시설</label>
+          <label>문화시설</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="science" name="category" value="15" />
-          <label for="science">축제공연행사</label>
+          <label>축제공연행사</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="art" name="category" value="25" />
-          <label for="art">여행코스</label>
+          <label>여행코스</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="music" name="category" value="28" />
-          <label for="music">레포츠</label>
+          <label>레포츠</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="travel" name="category" value="32" />
-          <label for="travel">숙박</label>
+          <label>숙박</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="sports" name="category" value="38" />
-          <label for="sports">쇼핑</label>
+          <label>쇼핑</label>
         </div>
 
         <div class="option">
           <input type="radio" class="radio" id="news" name="category" value="39" />
-          <label for="news">음식점</label>
+          <label>음식점</label>
         </div>
       </div>
 
-      <div class="selected" v-on:click="selectClick">관광지 선택</div>
+      <div class="selected" id="selectedContent" v-on:click="selectContent">관광지 선택</div>
     </div>
 
     <!--최종 제출 버튼-->
-    <div><button class="btn-get-started">검색</button></div>
+    <div><button class="btn-get-started" id="submit" v-on:click="searchFin">검색</button></div>
   </div>
 </template>
+
 <script>
-import { selectClick } from '@/assets/js/selectBox.js';
+import { selectArea, selectContent, selectSigungu, searchFin } from "@/assets/js/selectBox.js";
 export default {
   methods: {
-    selectClick: selectClick,
+    selectArea: selectArea,
+    selectSigungu: selectSigungu,
+    selectContent: selectContent,
+    searchFin: searchFin,
   },
 };
 </script>
 <style>
+.searchBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+#submit {
+  margin-left: 40px;
+  line-height: unset;
+  font-size: 15px;
+}
 .select-box {
   display: flex;
-  width: 400px;
+  width: 300px;
   flex-direction: column;
-  margin-left: 200px;
+  margin-left: 80px;
 }
 
 .select-box .options-container {
@@ -174,15 +112,15 @@ export default {
 .selected {
   background-color: #0064ff;
   border-radius: 8px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   color: whitesmoke;
   position: relative;
   order: 0;
 }
 
 .selected::after {
-  content: '';
-  background: url('@/assets/img/arrow-down.svg');
+  content: "";
+  background: url("@/assets/img/arrow-down.svg");
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;

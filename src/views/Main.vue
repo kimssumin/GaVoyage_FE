@@ -23,6 +23,7 @@
         <ReviewBoard></ReviewBoard>
         <ReviewBoard></ReviewBoard>
         <ReviewBoard></ReviewBoard>
+        <ReviewBoard></ReviewBoard>
       </div>
     </section>
     <!-- End 여기어때 -->
@@ -46,11 +47,11 @@
 </template>
 
 <script>
-import ReviewBoard from '../components/board/ReviewBoard.vue';
-import SelectBox from '../components/button/SelectBox.vue';
-import Slider from '../components/common/Slider.vue';
+import ReviewBoard from "../components/board/ReviewBoard.vue";
+import SelectBox from "../components/button/SelectBox.vue";
+import Slider from "../components/common/Slider.vue";
 export default {
-  name: 'InitMain',
+  name: "InitMain",
   props: {
     msg: String,
   },

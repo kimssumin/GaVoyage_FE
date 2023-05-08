@@ -66,5 +66,6 @@ ul li {
 
 .nav-link:hover {
   color: var(--color-blue);
+  font-weight: bold;
 }
 </style>
