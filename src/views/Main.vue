@@ -39,6 +39,8 @@
           <div class="searchBox">
             <SelectBox></SelectBox>
           </div>
+          <getMap></getMap>
+          <getAttractionInfo></getAttractionInfo>
         </div>
       </div>
     </section>
@@ -50,6 +52,9 @@
 import ReviewBoard from "../components/board/ReviewBoard.vue";
 import SelectBox from "../components/button/SelectBox.vue";
 import Slider from "../components/common/Slider.vue";
+import getAttractionInfo from "../components/map/getAttractionInfo.vue";
+import getMap from "../components/map/getMap.vue";
+
 export default {
   name: "InitMain",
   props: {
@@ -59,6 +64,8 @@ export default {
     Slider,
     ReviewBoard,
     SelectBox,
+    getAttractionInfo,
+    getMap,
   },
 };
 </script>

@@ -1,3 +1,5 @@
+import { showMap } from "./showMap";
+
 export function selectArea() {
   let areaUrl = "/region/sido";
   fetch(areaUrl)
@@ -100,4 +102,5 @@ const selectForSearch = () => {
   searchAreaAll[1] = document.querySelector("#search-sigungu").querySelector(".selected").value;
   searchAreaAll[2] = document.querySelector("#search-content-id").querySelector(".selected").value;
   console.log(searchAreaAll);
+  showMap(searchAreaAll);
 };
