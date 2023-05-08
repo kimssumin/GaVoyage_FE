@@ -6,7 +6,11 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
       <div class="logo me-auto">
-        <h2 id="logoTitle"><i class="fa fa-car me-3" aria-hidden="true"></i>Ga Voyage</h2>
+        <router-link to="/"
+          ><h2 id="logoTitle">
+            <i class="fa fa-car me-3" aria-hidden="true"></i>Ga Voyage
+          </h2></router-link
+        >
       </div>
       <nav id="navbar" class="navbar d-flex">
         <ul id="navbarul" class="align-self-center">

@@ -14,13 +14,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">
-            <label class="fw-bold border-bottom border-warning border-5"> 로그인</label>
+            <label class="fw-bold border-bottom border-primary border-5"> 로그인</label>
           </h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
-        <div class="modal-body">
-          <div class="mb-3">
+        <div class="modal-body loginbody">
+          <div class="mb-3 ms-2 me-2">
             <label for="loginid" class="form-label">아이디:</label>
             <input
               type="text"
@@ -30,7 +30,7 @@
               name="member_id"
             />
           </div>
-          <div class="mb-3">
+          <div class="mb-3 ms-2 me-2">
             <label for="loginpwd" class="form-label">비밀번호:</label>
             <input
               type="password"
@@ -73,4 +73,8 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.loginbody {
+  text-align: left;
+}
+</style>

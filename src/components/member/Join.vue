@@ -20,13 +20,13 @@
           <input type="hidden" id="action" name="action" value="join" />
           <div class="modal-header">
             <h4 class="modal-title">
-              <label class="fw-bold border-bottom border-warning border-5"> 회원가입</label>
+              <label class="fw-bold border-bottom border-primary border-5"> 회원가입</label>
             </h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
 
-          <div class="modal-body">
-            <div class="mb-3">
+          <div class="modal-body joinbody">
+            <div class="mb-4 ms-2 me-2">
               <label for="name" class="form-label">이름:</label>
               <input
                 type="text"
@@ -36,7 +36,7 @@
                 name="nickname"
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-4 ms-2 me-2">
               <label for="id" class="form-label">아이디:</label>
               <input
                 type="text"
@@ -46,7 +46,7 @@
                 name="member_id"
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-4 ms-2 me-2">
               <label for="password" class="form-label">비밀번호:</label>
               <input
                 type="password"
@@ -56,7 +56,7 @@
                 name="member_password"
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-4 ms-2 me-2">
               <label for="passwordcheck" class="form-label">비밀번호확인:</label>
               <input
                 type="password"
@@ -66,7 +66,7 @@
                 name="passwordcheck"
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-4 ms-2 me-2">
               <label for="email" class="form-label">전화번호:</label>
               <input
                 type="text"
@@ -77,7 +77,7 @@
                 required
               />
             </div>
-            <div class="mb-3">
+            <div class="mb-4 ms-2 me-2">
               <label for="email" class="form-label">Email:</label>
               <input class="form-control" name="email" id="email" placeholder="Email" required />
             </div>
@@ -110,4 +110,8 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.joinbody {
+  text-align: left;
+}
+</style>
