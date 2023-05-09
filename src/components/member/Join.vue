@@ -90,7 +90,7 @@
               type="button"
               id="btn-reset"
               class="btn btn-outline-success btn-sm"
-              onclick="resetForm()"
+              @click="resetForm"
             >
               초기화
             </button>
@@ -106,10 +106,11 @@
 </template>
 
 <script>
-import { passwordCheck } from "@/assets/js/member/passwordCheck.js";
+import { passwordCheck, resetForm } from "@/assets/js/member/registerCheck.js";
 export default {
   methods: {
     passwordCheck: passwordCheck,
+    resetForm: resetForm,
   },
 };
 </script>
