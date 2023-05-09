@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { selectArea, selectContent, selectSigungu, searchFin } from "@/assets/js/selectBox.js";
+import { selectArea, selectContent, selectSigungu, searchFin } from "@/assets/js/map/selectBox.js";
 
 export default {
   methods: {

@@ -1,6 +1,6 @@
 import { showMap } from "./showMap";
-import api from "./util/axios";
-import { $, createElement } from "./util/elementTool";
+import api from "../util/axios";
+import { $, createElement } from "../util/elementTool";
 
 export async function selectArea() {
   let areaUrl = "/region/sido";

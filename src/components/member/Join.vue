@@ -32,18 +32,18 @@
                 type="text"
                 class="form-control"
                 id="nickname"
-                placeholder="이름..."
+                placeholder="사용자명을 입력해주세요"
                 name="nickname"
               />
             </div>
             <div class="mb-4 ms-2 me-2">
-              <label for="id" class="form-label">아이디:</label>
+              <label for="email" class="form-label">이메일:</label>
               <input
                 type="text"
                 class="form-control"
-                id="id"
-                placeholder="아이디..."
-                name="member_id"
+                id="email"
+                placeholder="이메일을 입력해주세요"
+                name="email"
               />
             </div>
             <div class="mb-4 ms-2 me-2">
@@ -51,20 +51,23 @@
               <input
                 type="password"
                 class="form-control"
-                id="member_password"
-                placeholder="비밀번호..."
-                name="member_password"
+                id="password"
+                placeholder="비밀번호를 입력해주세요"
+                name="password"
+                @keyup="passwordCheck"
               />
             </div>
             <div class="mb-4 ms-2 me-2">
-              <label for="passwordcheck" class="form-label">비밀번호확인:</label>
+              <label for="confirm_password" class="form-label">비밀번호 확인:</label>
               <input
                 type="password"
                 class="form-control"
-                id="passwordcheck"
-                placeholder="비밀번호확인..."
-                name="passwordcheck"
+                id="confirm_password"
+                placeholder="비밀번호를 한번 더 입력해주세요"
+                name="confirm_password"
+                @keyup="passwordCheck"
               />
+              <p class="ms-2 mt-sm-1" id="message"></p>
             </div>
             <div class="mb-4 ms-2 me-2">
               <label for="email" class="form-label">전화번호:</label>
@@ -76,10 +79,6 @@
                 placeholder="Phone Number"
                 required
               />
-            </div>
-            <div class="mb-4 ms-2 me-2">
-              <label for="email" class="form-label">Email:</label>
-              <input class="form-control" name="email" id="email" placeholder="Email" required />
             </div>
           </div>
 
@@ -107,7 +106,12 @@
 </template>
 
 <script>
-export default {};
+import { passwordCheck } from "@/assets/js/member/passwordCheck.js";
+export default {
+  methods: {
+    passwordCheck: passwordCheck,
+  },
+};
 </script>
 
 <style scoped>
