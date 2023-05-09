@@ -94,44 +94,46 @@ export default {
 }
 .select-box {
   display: flex;
-  width: 300px;
+  width: 280px;
   flex-direction: column;
   margin-left: 80px;
 }
 
 .select-box .options-container {
-  background: whitesmoke;
-  color: #f5f6fa;
+  background: var(--color-lightgray);
   max-height: 0;
   width: 100%;
   opacity: 0;
   transition: all 0.4s;
   border-radius: 8px;
   overflow: hidden;
-
   order: 1;
 }
 
 .selected {
-  background-color: #0064ff;
+  /* main 에 보이는 select box */
+  background-color: var(--color-white);
+  border: 2px solid var(--color-darkgray);
   border-radius: 8px;
   /* margin-bottom: 8px; */
-  color: whitesmoke;
+  color: var(--color-black);
+  font-weight: bold;
   position: relative;
   order: 0;
 }
 
 .selected::after {
   content: "";
-  background: url("@/assets/img/arrow-down.svg");
-  background-size: contain;
+  /* background: url("@/assets/img/arrow-down.svg"); */
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg>');
+  /* background-size: contain; */
   background-repeat: no-repeat;
+  opacity: 40%;
   position: absolute;
-  height: 100%;
+  height: 50%;
   width: 32px;
   right: 10px;
-  top: 5px;
-
+  background-position: center;
   transition: all 0.4s;
 }
 
@@ -143,17 +145,16 @@ export default {
 
 .select-box .options-container.active + .selected::after {
   transform: rotateX(180deg);
-  top: -6px;
 }
 
 .select-box .options-container::-webkit-scrollbar {
   width: 8px;
-  background: whitesmoke;
+  background: var(--color-lightgray);
   border-radius: 0 8px 8px 0;
 }
 
 .select-box .options-container::-webkit-scrollbar-thumb {
-  background: rgb(197, 195, 195);
+  background: var(--color-semigray);
   border-radius: 0 8px 8px 0;
 }
 
@@ -164,8 +165,7 @@ export default {
 }
 
 .select-box .option:hover {
-  background: rgb(197, 195, 195);
-  color: white;
+  background: var(--color-semigray);
 }
 
 .select-box label {

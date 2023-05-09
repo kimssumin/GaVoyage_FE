@@ -19,11 +19,11 @@
   </div>
 </template>
 <script>
-import BookMark from '../button/BookMark.vue';
-import Like from '../button/Like.vue';
+import BookMark from "../button/BookMark.vue";
+import Like from "../button/Like.vue";
 
 export default {
-  name: 'ReviewBoard',
+  name: "ReviewBoard",
   props: {
     msg: String,
   },
@@ -39,7 +39,6 @@ export default {
   border-radius: 8px;
   overflow: hidden;
   margin: 20px auto 10px 0px;
-
   transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
 }
 

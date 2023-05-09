@@ -46,6 +46,8 @@ export function regist() {
     alert("비밀번호를 확인해주세요.");
     return false;
   }
-  alert("회원가입 성공!");
+  alert("회원가입이 완료되었습니다.");
   return true;
 }
+
+export function emailCheck() {}

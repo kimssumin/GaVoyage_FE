@@ -32,7 +32,7 @@
                 type="text"
                 class="form-control"
                 id="nickname"
-                placeholder="사용자명을 입력해주세요"
+                placeholder="사용자 명을 입력해주세요"
                 name="nickname"
               />
             </div>
@@ -44,6 +44,7 @@
                 id="email"
                 placeholder="이메일을 입력해주세요"
                 name="email"
+                @keyup="emailCheck"
               />
             </div>
             <div class="mb-4 ms-2 me-2">
@@ -76,7 +77,7 @@
                 class="form-control"
                 name="phone_number"
                 id="phoneNumber"
-                placeholder="Phone Number"
+                placeholder="전화번호를 입력해주세요"
                 required
               />
             </div>
@@ -106,11 +107,12 @@
 </template>
 
 <script>
-import { passwordCheck, resetForm } from "@/assets/js/member/registerCheck.js";
+import { passwordCheck, resetForm, emailCheck } from "@/assets/js/member/registerCheck.js";
 export default {
   methods: {
     passwordCheck: passwordCheck,
     resetForm: resetForm,
+    emailCheck: emailCheck,
   },
 };
 </script>

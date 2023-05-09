@@ -12,7 +12,7 @@
     <!-- ======= 여기 어때  ======= -->
     <section id="aboutReview" class="about">
       <div class="section-title d-flex align-items-center ml-5">
-        <h2 class="align-self-center mr-3">여기 어때 ?</h2>
+        <h2 class="align-self-center">여기 어때 ?</h2>
         <button class="btn-get-started">더 살펴보기</button>
       </div>
 
@@ -33,7 +33,7 @@
       <div class="searchAbout">
         <div class="section-title">
           <h2>어디든 좋아요 🙋‍♀️</h2>
-          <p>클릭하는 그 곳이 당신의 여행지가 될 거에요</p>
+          <p class="mt-2">클릭하는 그 곳이 당신의 여행지가 될 거에요</p>
         </div>
         <div class="sectionSearch">
           <div class="searchBox">
@@ -78,6 +78,7 @@ export default {
 <style scoped>
 h2 {
   margin: 0;
+  font-weight: bold;
 }
 h3 {
   margin: 40px 0 0;
@@ -97,14 +98,11 @@ a {
 
 #aboutReview,
 #searchAbout {
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .section-title {
   margin-left: 200px;
-}
-
-.section-title {
   text-align: left;
 }
 
