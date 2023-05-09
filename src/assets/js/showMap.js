@@ -1,29 +1,31 @@
-export function showMap(searchList) {
-  let searchUrl =
-    "/region/search?sido=" +
-    searchList[0] +
-    "&gugun=" +
-    searchList[1] +
-    "&content_type_id=" +
-    searchList[2];
-  fetch(searchUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      try {
-        makeMap(data);
-      } catch (e) {
-        alert("검색 결과가 없습니다.");
-        console.log(e);
-      }
-    });
+import api from "./util/axios.js";
+import { $, createElement } from "./util/elementTool";
+
+export async function showMap(searchList) {
+  try {
+    let searchUrl =
+      "/region/search?sido=" +
+      searchList[0] +
+      "&gugun=" +
+      searchList[1] +
+      "&content_type_id=" +
+      searchList[2];
+    const res = await api(searchUrl);
+    const data = await res.data;
+    makeMap(data);
+  } catch (e) {
+    alert("검색 결과가 없습니다.");
+    console.log(e);
+  }
 }
 
 function makeMap(data) {
   //console.log("map" , data);
+  console.log(data);
   let startX = data[0].latitude;
   let startY = data[0].longitude;
   console.log(startX, startY);
-  let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+  let mapContainer = $("#map"), // 지도를 표시할 div
     mapOption = {
       center: new kakao.maps.LatLng(Number(startX), Number(startY)), // 지도의 중심좌표.
       level: 6, // 지도의 확대 레벨
@@ -79,15 +81,15 @@ function makeMap(data) {
 }
 
 function showDescription(data) {
-  return function () {
+  return async function () {
     let detailUrl = "/region/description?contentId=" + data.content_id;
-    fetch(detailUrl)
-      .then((response) => response.json())
-      .then((description) => {
-        let mlist = document.getElementById("my-list");
-        mlist.replaceChildren();
-        let li = document.createElement("li");
-        let content = `<div class="m1">
+    try {
+      const res = await api.get(detailUrl);
+      const description = await res.data;
+      let mlist = $("#my-list");
+      mlist.replaceChildren();
+      let li = document.createElement("li");
+      let content = `<div class="m1">
 			    					<hr>
 				    				<h5 style="font-weight: bold;">${data.title}</h5>
 				    				<hr/>
@@ -99,9 +101,11 @@ function showDescription(data) {
 				        				<span">${description.overview}</span>
 				    				</div>
 			    				</div>`;
-        li.innerHTML = content;
-        mlist.appendChild(li);
-      });
+      li.innerHTML = content;
+      mlist.appendChild(li);
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 

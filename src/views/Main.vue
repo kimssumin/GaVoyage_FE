@@ -45,10 +45,13 @@
       </div>
     </section>
     <!-- End Our Portfolio Section -->
+
+    <TopButton></TopButton>
   </div>
 </template>
 
 <script>
+import TopButton from "@/components/button/TopButton.vue";
 import ReviewBoard from "../components/board/ReviewBoard.vue";
 import SelectBox from "../components/button/SelectBox.vue";
 import Slider from "../components/common/Slider.vue";
@@ -61,6 +64,7 @@ export default {
     msg: String,
   },
   components: {
+    TopButton,
     Slider,
     ReviewBoard,
     SelectBox,
