@@ -10,6 +10,13 @@ export async function showMap(searchList) {
       searchList[1] +
       "&content_type_id=" +
       searchList[2];
+
+    // let params = {
+    //   sido: searchList[0],
+    //   gugun: searchList[1],
+    //   content_type_id = searchList[2],
+    // }
+    // const res = await api(searchUrl, params);
     const res = await api(searchUrl);
     const data = await res.data;
     makeMap(data);
@@ -91,10 +98,11 @@ function showDescription(data) {
       let li = document.createElement("li");
       let content = `<div class="m1">
 			    					<hr>
-				    				<h5 style="font-weight: bold;">${data.title}</h5>
+				    				<h5 id = "data-title" style="font-weight: bold;">${data.title}</h5>
+                    <span id = "data-id" style = "visibility:hidden; height : 0px;" >${data.content_id}</span>
 				    				<hr/>
 				    				<div style="margin: 10px";>
-				        				<img style="width: 500px" src="${data.first_image}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
+				        				<img style="width: 80%" src="${data.first_image}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
 				        				<br/>
 				        				<span style="font-size: 18px;">주소 : ${data.addr1}</span> <span>${data.addr2}</span>
 				        				<br/>

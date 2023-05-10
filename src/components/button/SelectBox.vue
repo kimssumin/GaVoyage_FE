@@ -83,20 +83,19 @@ export default {
 .searchBox {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
 }
 
 #submit {
-  margin-left: 40px;
   line-height: unset;
   font-size: 15px;
 }
 .select-box {
   display: flex;
-  width: 280px;
+  width: 250px;
   flex-direction: column;
-  margin-left: 80px;
+  margin: 0px 6px;
 }
 
 .select-box .options-container {
