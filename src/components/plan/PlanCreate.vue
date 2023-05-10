@@ -2,7 +2,7 @@
   <div class="hello">
     <!-- #f5f9fc -->
     <div class="selectAll" data-aos="fade-up">
-      <div class="row" style="background-color: white">
+      <div class="row">
         <div class="mt-5">
           <div class="">
             <h2 class="text-center fw-bold">나의 여행 계획🚗</h2>
@@ -22,22 +22,23 @@
                   <option value="0" selected>일자</option>
                 </select>
               </div>
-              <!-- <h3 class="dateSelect"></h3> -->
-              <!-- 관광지 검색 start -->
-              <div class="sectionSearch">
-                <SelectBox></SelectBox>
-                <getMap></getMap>
+              <SelectBox></SelectBox>
+            </div>
+            <!-- sectionSearch  -->
+            <div class="row">
+              <div class="col-md-8 leftBox"><getMap></getMap></div>
+              <div class="col-md-3 rightBox">
+                <getAttractionInfo></getAttractionInfo>
+                <button class="btn-get-started" type="button" id="addPlanBtn" @click="addPlan">
+                  추가
+                </button>
               </div>
             </div>
           </div>
           <div>
-            <div style="width: 100%; text-align: center; margin-top: 20px">
-              <!-- <div id="my-list"></div> -->
-              <div class="createAttr" style="display: none">
-                <h2 class="h2Text">선택한 장소를 추가하시겠습니까?</h2>
-                <button class="btn-get-started" type="button" id="addPlanBtn">추가</button>
-              </div>
-            </div>
+            <!-- <div style="width: 100%; text-align: center; margin-top: 20px"> -->
+            <!-- <div id="my-list"></div> -->
+            <!-- </div> -->
           </div>
         </div>
       </div>
@@ -47,7 +48,7 @@
       <div id="dailyPlans"></div>
     </div>
 
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end">
+    <div style="margin-top: 20px; display: flex; justify-content: center">
       <button
         class="btn-get-started"
         id="resultBtn"
@@ -92,21 +93,28 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .hello {
-  margin-top: 50px;
+  background: var(--color-background);
+  margin-top: 5px;
 }
 
-.selectAll {
+.row {
   display: flex;
+  flex-wrap: wrap;
+  margin: auto;
   justify-content: center;
 }
 
-.rowPlans {
-  background-color: white;
-  border: 1px;
-  display: flex;
-  width: 30%;
+.rightBox {
+  background: var(--color-white);
+  margin: 0px 10px;
+  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+  border: 1px solid #eee;
 }
 
+.mapContent {
+  width: 100%;
+  margin: 30px auto;
+}
 h2 {
   margin: 0;
   font-weight: bold;

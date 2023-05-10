@@ -99,14 +99,16 @@ function showDescription(data) {
       let content = `<div class="m1">
 			    					<hr>
 				    				<h5 id = "data-title" style="font-weight: bold;">${data.title}</h5>
-                    <span id = "data-id" style = "visibility:hidden; height : 0px;" >${data.content_id}</span>
+                    <span id = "data-id" style = "display:none;" >${data.content_id}</span>
 				    				<hr/>
 				    				<div style="margin: 10px";>
-				        				<img style="width: 80%" src="${data.first_image}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
+				        				<img style="width: 80%" src="${
+                          data.first_image
+                        }" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
 				        				<br/>
-				        				<span style="font-size: 18px;">주소 : ${data.addr1}</span> <span>${data.addr2}</span>
+				        				<span style="font-size: 14px; font-weight:bold;">주소 : ${data.addr1}</span>
 				        				<br/>
-				        				<span">${description.overview}</span>
+				        				<span class = "mt-2" style="font-size: 14px;">${description.overview.substr(0, 201)}</span>
 				    				</div>
 			    				</div>`;
       li.innerHTML = content;
