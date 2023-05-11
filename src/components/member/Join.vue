@@ -46,6 +46,7 @@
                 name="email"
                 @keyup="emailCheck"
               />
+              <p class="ms-2 mt-sm-1" id="message-email"></p>
             </div>
             <div class="mb-4 ms-2 me-2">
               <label for="password" class="form-label">비밀번호:</label>
@@ -71,7 +72,7 @@
               <p class="ms-2 mt-sm-1" id="message"></p>
             </div>
             <div class="mb-4 ms-2 me-2">
-              <label for="email" class="form-label">전화번호:</label>
+              <label for="phoneNumber" class="form-label">전화번호:</label>
               <input
                 type="text"
                 class="form-control"

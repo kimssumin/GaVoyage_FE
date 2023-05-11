@@ -1,4 +1,5 @@
 import { $ } from "../util/elementTool";
+import api from "../util/axios.js";
 
 export function passwordCheck() {
   if ($("#password").value.length == 0) {
@@ -50,4 +51,30 @@ export function regist() {
   return true;
 }
 
-export function emailCheck() {}
+export function emailCheck() {
+  if ($("#email").value.includes("@")) {
+    if (emailDuplicateCheck($("#email").value)) {
+      $("#message-email").style.color = "green";
+      $(
+        "#message-email"
+      ).innerHTML = `<i class="far fa-check-circle me-1"></i>이메일 중복검사가 완료되었습니다`;
+      $("#message-email").querySelector(".far").style.color = "green";
+    } else {
+      $("#message-email").style.color = "red";
+      $("#message-email").innerHTML = `중복된 이메일 주소가 존재합니다`;
+    }
+  } else {
+    $("#message-email").style.color = "red";
+    $("#message-email").innerHTML = `이메일 형식을 확인해주세요`;
+  }
+}
+
+async function emailDuplicateCheck(value) {
+  let emailUrl = `/user/emailCheck/${value}`;
+  const res = await api(emailUrl);
+  const data = await res.data;
+  if (data == 1) {
+    return false;
+  }
+  return true;
+}

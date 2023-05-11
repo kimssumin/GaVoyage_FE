@@ -40,6 +40,7 @@ export default {
   overflow: hidden;
   margin: 20px auto 10px 0px;
   transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
+  background: var(--color-white);
 }
 
 #box:hover {
@@ -66,7 +67,7 @@ export default {
 #box .data {
   display: flex;
   flex-direction: column;
-  padding: 8px 0px 0px 10px;
+  padding: 8px 8px 8px 10px;
   font-size: 12px;
   color: #666;
 }

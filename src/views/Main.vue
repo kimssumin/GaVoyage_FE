@@ -101,6 +101,11 @@ a {
   margin-top: 150px;
 }
 
+.sectionSearch {
+  width: 80%;
+  margin: auto;
+}
+
 .section-title {
   margin-left: 200px;
   text-align: left;

@@ -4,12 +4,19 @@ import { $ } from "../util/elementTool.js";
 export async function showMap(searchList) {
   try {
     let searchUrl =
-      "/region/search?sido=" +
+      "/region/search?sido-code=" +
       searchList[0] +
-      "&gugun=" +
+      "&gugun-code=" +
       searchList[1] +
-      "&content_type_id=" +
+      "&content-type-id=" +
       searchList[2];
+
+    // let params = {
+    //   sido-code: searchList[0],
+    //   gugun-code: searchList[1],
+    //   content-type-id: searchList[2],
+    // };
+    // const res = await api.get(searchUrl, params);
     const res = await api(searchUrl);
     const data = await res.data;
     makeMap(data);
@@ -91,14 +98,17 @@ function showDescription(data) {
       let li = document.createElement("li");
       let content = `<div class="m1">
 			    					<hr>
-				    				<h5 style="font-weight: bold;">${data.title}</h5>
+				    				<h5 id = "data-title" style="font-weight: bold;">${data.title}</h5>
+                    <span id = "data-id" style = "display:none;" >${data.content_id}</span>
 				    				<hr/>
 				    				<div style="margin: 10px";>
-				        				<img style="width: 500px" src="${data.first_image}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
+				        				<img style="width: 80%" src="${
+                          data.first_image
+                        }" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'" />
 				        				<br/>
-				        				<span style="font-size: 18px;">주소 : ${data.addr1}</span> <span>${data.addr2}</span>
+				        				<span style="font-size: 14px; font-weight:bold;">주소 : ${data.addr1}</span>
 				        				<br/>
-				        				<span">${description.overview}</span>
+				        				<span class = "mt-2" style="font-size: 14px;">${description.overview.substr(0, 201)}</span>
 				    				</div>
 			    				</div>`;
       li.innerHTML = content;

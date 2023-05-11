@@ -6,12 +6,21 @@
   --color-black: #060606;
   --color-semigray : rgb(197, 195, 195);
   --color-lightgray : whitesmoke; 
+  --color-background : #f2f3f8;
   --font: 'Pretendard';
 }
 
 * {
   color: var(--color-black);
   font-family: var(--font);
+}
+
+#app{
+  background-color: var(--color-background);
+}
+
+header{
+  background-color: var(--color-white);
 }
 
 .agile__dots {

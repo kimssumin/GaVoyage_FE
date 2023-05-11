@@ -15,7 +15,9 @@
       <nav id="navbar" class="navbar d-flex">
         <ul id="navbarul" class="align-self-center">
           <li>
-            <a class="nav-link scrollto active" href="./region-search">여행 계획 짜기</a>
+            <router-link to="/plan/create"
+              ><a class="nav-link scrollto active">여행 계획 짜기</a></router-link
+            >
           </li>
           <li><a class="nav-link scrollto" href="./tour-plan">나의 여행기</a></li>
           <li><a class="nav-link scrollto" href="./hot-place">여행기 게시판</a></li>
@@ -71,5 +73,8 @@ ul li {
 .nav-link:hover {
   color: var(--color-blue);
   font-weight: bold;
+}
+nav a.router-link-exact-active {
+  color: var(--color-blue);
 }
 </style>
