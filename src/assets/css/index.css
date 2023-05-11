@@ -15,6 +15,14 @@
   font-family: var(--font);
 }
 
+#app{
+  background-color: var(--color-background);
+}
+
+header{
+  background-color: var(--color-white);
+}
+
 .agile__dots {
   bottom: 10px;
   flex-direction: column;

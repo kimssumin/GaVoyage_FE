@@ -1,8 +1,10 @@
+import { selectFor } from "../map/selectBox";
+import { $, createElement } from "../util/elementTool";
+
 export const planDate = () => {
   const dailyPlan = document.querySelector("#dailyPlans");
   const startDate = document.querySelector("#startDate").value;
   const endDate = document.querySelector("#endDate").value;
-  const planDate = document.querySelector(".planDate");
 
   if (!startDate.includes("-") || !endDate.includes("-")) {
     alert("날짜를 입력해주세요");
@@ -13,6 +15,9 @@ export const planDate = () => {
     dailyPlan.innerHTML = "";
 
     const totalDay = Number(endDate.split("-")[2]) - Number(startDate.split("-")[2]) + 1;
+    let optionsContainer = document.querySelector(".options-container");
+    optionsContainer.innerHTML = "";
+
     for (let i = 0; i < totalDay; i++) {
       const newPlan = document.createElement("div");
       newPlan.style.width = "85%";
@@ -25,10 +30,17 @@ export const planDate = () => {
       dailyPlan.appendChild(newPlan);
 
       //일자 선택 추가
-      let opt = document.createElement("option");
-      opt.setAttribute("value", Number(i + 1));
-      opt.appendChild(document.createTextNode("Day" + Number(i + 1)));
-      planDate.appendChild(opt);
+      let opt = createElement("div");
+      opt.className = "option";
+      let inpt = createElement("input");
+      inpt.type = "radio";
+      inpt.className = "radio";
+      inpt.name = i + 1;
+      inpt.value = Number(i + 1);
+      let lnpt = createElement("label", "Day " + Number(i + 1));
+      opt.appendChild(inpt);
+      opt.appendChild(lnpt);
+      optionsContainer.appendChild(opt);
 
       document.querySelector(".selectDate").style.display = "block";
     }
@@ -53,7 +65,7 @@ const day = {};
 export function addPlan() {
   console.log(day);
   // const createBtn = document.querySelector("#addPlanBtn");
-  const nowDate = document.querySelector(".planDate").value;
+  const nowDate = $(".planData").querySelector(".selected").value;
   const dataTitle = document.querySelector("#data-title").innerHTML;
   const dataId = document.querySelector("#data-id").innerHTML;
 
@@ -111,7 +123,7 @@ function showDailyPlan(now) {
     div.appendChild(li);
     div.appendChild(dbtn);
     dbtn.addEventListener("click", () => {
-      deletePlan(attr.id, nowDate);
+      deletePlan(attr.id, now);
     });
   });
   eachPlan.innerHTML = "";
@@ -126,4 +138,8 @@ export function submitResult() {
   result.startDate = document.querySelector("#startDate").value;
   result.endDate = document.querySelector("#endDate").value;
   console.log(result);
+}
+
+export function selectDate() {
+  selectFor(".selectDate");
 }

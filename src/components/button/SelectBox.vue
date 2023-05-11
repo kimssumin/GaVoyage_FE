@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { selectArea, selectContent, selectSigungu, searchFin } from "@/assets/js/map/selectBox.js";
+import { searchFin, selectArea, selectContent, selectSigungu } from "@/assets/js/map/selectBox.js";
 
 export default {
   methods: {
@@ -112,7 +112,9 @@ export default {
 .selected {
   /* main 에 보이는 select box */
   background-color: var(--color-white);
-  border: 2px solid var(--color-darkgray);
+  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+  border: 1px solid #eee;
+  /* border: 2px solid var(--color-darkgray); */
   border-radius: 8px;
   /* margin-bottom: 8px; */
   color: var(--color-black);
@@ -125,11 +127,11 @@ export default {
   content: "";
   /* background: url("@/assets/img/arrow-down.svg"); */
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg>');
-  /* background-size: contain; */
   background-repeat: no-repeat;
-  opacity: 40%;
+  opacity: 20%;
   position: absolute;
-  height: 50%;
+  top: 17px;
+  height: 30%;
   width: 32px;
   right: 10px;
   background-position: center;

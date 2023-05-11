@@ -4,19 +4,19 @@ import { $ } from "../util/elementTool.js";
 export async function showMap(searchList) {
   try {
     let searchUrl =
-      "/region/search?sido=" +
+      "/region/search?sido-code=" +
       searchList[0] +
-      "&gugun=" +
+      "&gugun-code=" +
       searchList[1] +
-      "&content_type_id=" +
+      "&content-type-id=" +
       searchList[2];
 
     // let params = {
-    //   sido: searchList[0],
-    //   gugun: searchList[1],
-    //   content_type_id = searchList[2],
-    // }
-    // const res = await api(searchUrl, params);
+    //   sido-code: searchList[0],
+    //   gugun-code: searchList[1],
+    //   content-type-id: searchList[2],
+    // };
+    // const res = await api.get(searchUrl, params);
     const res = await api(searchUrl);
     const data = await res.data;
     makeMap(data);
