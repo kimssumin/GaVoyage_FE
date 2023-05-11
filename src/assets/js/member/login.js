@@ -10,7 +10,7 @@ export async function onLogin() {
     userPassword: pw,
   };
 
-  const searchUrl = "/user/login";
+  const searchUrl = "/users/login";
   const res = await api.post(searchUrl, login);
   const data = await res.data;
 

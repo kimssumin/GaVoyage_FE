@@ -73,7 +73,7 @@ export function emailCheck() {
 
 async function emailDuplicateCheck(value) {
   console.log(value);
-  let emailUrl = `/user/emailCheck/${value}`;
+  let emailUrl = `/users/emailCheck/${value}`;
   const res = await api(emailUrl);
   const data = await res.data;
   if (data == "1") {
