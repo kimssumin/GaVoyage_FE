@@ -31,11 +31,11 @@
             />
           </div>
           <div class="mb-3 ms-2 me-2">
-            <label for="loginpwd" class="form-label">비밀번호:</label>
+            <label for="loginpw" class="form-label">비밀번호:</label>
             <input
               type="password"
               class="form-control"
-              id="loginpwd"
+              id="loginpw"
               placeholder="비밀번호..."
               name="member_password"
             />
@@ -43,7 +43,12 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" id="btn-login" class="btn btn-outline-primary btn-sm">
+          <button
+            @click="onLogin"
+            type="button"
+            id="btn-login"
+            class="btn btn-outline-primary btn-sm"
+          >
             로그인
           </button>
           <button
@@ -70,7 +75,12 @@
 </template>
 
 <script>
-export default {};
+import { onLogin } from "@/assets/js/member/login.js";
+export default {
+  methods: {
+    onLogin: onLogin,
+  },
+};
 </script>
 
 <style scoped>

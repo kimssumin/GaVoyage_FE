@@ -23,7 +23,7 @@
             <div>
               <div class="selectDate select-box mt-3" style="display: none">
                 <h6>작성할 계획일자를 선택하고 장소를 추가하세요</h6>
-                <div class="planDate options-container">
+                <div class="planDate options-container" style="z-index: 101; position: relative">
                   <div class="option">
                     <input type="radio" class="radio" name="category" value="0" />
                     <label for="">Select Date</label>

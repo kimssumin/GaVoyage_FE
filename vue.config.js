@@ -7,7 +7,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       "/": {
-        target: "http://localhost:8080",
+        target: "http://70.12.50.218:8080",
         chageOrigin: true,
         ws: false,
       },

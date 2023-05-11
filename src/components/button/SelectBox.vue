@@ -1,6 +1,6 @@
 <template>
   <div class="mapBox mt-3">
-    <div class="searchBox">
+    <div class="searchBox" style="position: relative; z-index: 101">
       <!--시도 선택-->
       <div id="search-area" class="select-box">
         <div class="options-container"></div>
@@ -85,6 +85,8 @@ export default {
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
+  z-index: 101;
+  position: relative;
 }
 
 #submit {
@@ -96,9 +98,12 @@ export default {
   width: 250px;
   flex-direction: column;
   margin: 0px 6px;
+  position: relative;
 }
 
 .select-box .options-container {
+  position: absolute;
+  top: 100%;
   background: var(--color-lightgray);
   max-height: 0;
   width: 100%;
@@ -107,6 +112,7 @@ export default {
   border-radius: 8px;
   overflow: hidden;
   order: 1;
+  z-index: 100;
 }
 
 .selected {
