@@ -85,7 +85,12 @@
           </div>
 
           <div class="modal-footer">
-            <button type="submit" id="btn-register" class="btn btn-outline-primary btn-sm">
+            <button
+              type="button"
+              id="btn-register"
+              class="btn btn-outline-primary btn-sm"
+              @click="join"
+            >
               회원가입
             </button>
             <button
@@ -109,11 +114,13 @@
 
 <script>
 import { passwordCheck, resetForm, emailCheck } from "@/assets/js/member/registerCheck.js";
+import { join } from "@/assets/js/member/regist.js";
 export default {
   methods: {
     passwordCheck: passwordCheck,
     resetForm: resetForm,
     emailCheck: emailCheck,
+    join: join,
   },
 };
 </script>

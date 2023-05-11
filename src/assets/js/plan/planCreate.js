@@ -65,7 +65,7 @@ const day = {};
 export function addPlan() {
   console.log(day);
   // const createBtn = document.querySelector("#addPlanBtn");
-  const nowDate = $(".planData").querySelector(".selected").value;
+  const nowDate = $("#selectedContent").value;
   const dataTitle = document.querySelector("#data-title").innerHTML;
   const dataId = document.querySelector("#data-id").innerHTML;
 

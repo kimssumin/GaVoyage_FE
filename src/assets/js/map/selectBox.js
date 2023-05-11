@@ -3,7 +3,7 @@ import api from "../util/axios";
 import { $, createElement } from "../util/elementTool";
 
 export async function selectArea() {
-  let areaUrl = "/region/sido";
+  let areaUrl = "/regions/sido";
   const res = await api(areaUrl);
   const data = await res.data;
   console.log(data);
@@ -16,7 +16,7 @@ export async function selectSigungu() {
 
     let selval = sel.querySelector(".selected").value;
     let areaCode = selval;
-    let sigunguUrl = "/region/gugun?sidoCode=" + areaCode;
+    let sigunguUrl = "/regions/gugun?sidoCode=" + areaCode;
 
     let selSigungu = $("#search-sigungu");
     let optionsContainer = selSigungu.querySelector(".options-container");
@@ -76,7 +76,7 @@ function makeArea(data) {
   selectFor("#search-area");
 }
 
-const selectFor = (query) => {
+export const selectFor = (query) => {
   const contentId = $(query);
   const selected = contentId.querySelector(".selected");
   const optionsContainer = contentId.querySelector(".options-container");
