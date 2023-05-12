@@ -24,8 +24,12 @@ export const planDate = () => {
       newPlan.style.height = "300px";
       newPlan.style.borderRadius = "20px";
       newPlan.style.margin = "10px";
-      newPlan.style.backgroundColor = "whitesmoke";
-      newPlan.className = "plan" + i;
+      newPlan.style.backgroundColor = "white";
+      if (i == 0) {
+        newPlan.className = "plan" + i + " carousel-item active";
+      } else {
+        newPlan.className = "plan" + i + " carousel-item";
+      }
       newPlan.innerHTML = getPlanBox(i);
       dailyPlan.appendChild(newPlan);
 
@@ -49,11 +53,11 @@ export const planDate = () => {
 
 const getPlanBox = (i) => {
   return `
-  <div class="planBox${i + 1}">
+  <div class="planBox${i + 1} d-block w-100">
   <h3>  Day ${i + 1}입니다</h3>
 
 
-<div class="eachAttr" style="background-color: whitesmoke;">
+<div class="eachAttr" style="background-color: white;">
   
 </div>
 </div>

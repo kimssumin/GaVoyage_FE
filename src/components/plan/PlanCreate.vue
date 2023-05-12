@@ -53,8 +53,42 @@
       </div>
     </div>
 
-    <div class="rowPlans">
-      <div id="dailyPlans"></div>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner" id="dailyPlans">
+        <div class="carousel-item active"></div>
+        <div class="carousel-item">
+          <img
+            class="d-block w-100"
+            src="https://source.unsplash.com/collection/190727/1600x900"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            class="d-block w-100"
+            src="https://source.unsplash.com/WLUHO9A_xik/1600x900"
+            alt="..."
+          />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleControls"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
 
     <div style="margin-top: 20px; display: flex; justify-content: center">
@@ -102,6 +136,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.test-wrap {
+  height: 3000px;
+}
+.carousel-wrap {
+  width: 300px;
+  margin: 0 auto;
+}
 #title {
   width: 400px;
   border: 0;
@@ -178,7 +219,10 @@ a {
 
 #dailyPlans {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .select-box {
