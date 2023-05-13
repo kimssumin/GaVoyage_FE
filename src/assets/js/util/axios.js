@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
+import { baseURL } from './url';
 
 // axios 객체 생성
 const instance = axios.create({
-  baseURL: "http://70.12.50.218:8080",
+  baseURL: baseURL, //"http://70.12.50.218:8080",
   headers: {
-    "Content-type": "application/json",
+    'Content-type': 'application/json',
   },
   withCredentials: true,
 });
