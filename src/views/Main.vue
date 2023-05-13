@@ -51,15 +51,15 @@
 </template>
 
 <script>
-import TopButton from "@/components/button/TopButton.vue";
-import ReviewBoard from "../components/board/ReviewBoard.vue";
-import SelectBox from "../components/button/SelectBox.vue";
-import Slider from "../components/common/Slider.vue";
-import getAttractionInfo from "../components/map/getAttractionInfo.vue";
-import getMap from "../components/map/getMap.vue";
+import TopButton from '@/components/button/TopButton.vue';
+import ReviewBoard from '../components/board/ReviewBoard.vue';
+import SelectBox from '../components/button/SelectBox.vue';
+import Slider from '../components/common/Slider.vue';
+import getAttractionInfo from '../components/map/getAttractionInfo.vue';
+import getMap from '../components/map/getMap.vue';
 
 export default {
-  name: "InitMain",
+  name: 'InitMain',
   props: {
     msg: String,
   },
@@ -88,7 +88,6 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block;
   margin: 0 10px;
 }
 a {
@@ -117,5 +116,9 @@ a {
   display: flex;
   flex-wrap: wrap;
   height: 100%;
+}
+
+.dataImg {
+  width: 400px !important;
 }
 </style>

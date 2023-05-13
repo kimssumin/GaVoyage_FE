@@ -12,18 +12,18 @@
     </div>
 
     <div class="data">
-      <span class="date">2023-05-06</span>
+      <span class="writeDate">2023-05-06</span>
       <span class="user-id">김싸피 님의 여행</span>
     </div>
     <p class="texts">여기엔 뭘 넣으면 좋지 넣을까뺼까, 간단 본문내용..</p>
   </div>
 </template>
 <script>
-import BookMark from "../button/BookMark.vue";
-import Like from "../button/Like.vue";
+import BookMark from '../button/BookMark.vue';
+import Like from '../button/Like.vue';
 
 export default {
-  name: "ReviewBoard",
+  name: 'ReviewBoard',
   props: {
     msg: String,
   },

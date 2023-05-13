@@ -34,7 +34,7 @@
               <SelectBox></SelectBox>
             </div>
             <!-- sectionSearch  -->
-            <div class="row">
+            <div class="row mt-5">
               <div class="col-md-8 leftBox"><getMap></getMap></div>
               <div class="col-md-3 rightBox">
                 <getAttractionInfo></getAttractionInfo>
@@ -44,52 +44,14 @@
               </div>
             </div>
           </div>
-          <div>
-            <!-- <div style="width: 100%; text-align: center; margin-top: 20px"> -->
-            <!-- <div id="my-list"></div> -->
-            <!-- </div> -->
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
 
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner" id="dailyPlans">
-        <div class="carousel-item active"></div>
-        <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="https://source.unsplash.com/collection/190727/1600x900"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            class="d-block w-100"
-            src="https://source.unsplash.com/WLUHO9A_xik/1600x900"
-            alt="..."
-          />
-        </div>
-      </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleControls"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleControls"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
+    <section class="container mt-5" id="dailyPlans">
+      <h1>Plans</h1>
+    </section>
 
     <div style="margin-top: 20px; display: flex; justify-content: center">
       <button
@@ -110,14 +72,14 @@
   <button class="btn-get-started" type="button" @click="addPlan">등록</button>
 </div> -->
 <script>
-import { addPlan, planDate, selectDate, submitResult } from "@/assets/js/plan/planCreate.js";
-import TopButton from "@/components/button/TopButton.vue";
-import SelectBox from "../button/SelectBox.vue";
-import getAttractionInfo from "../map/getAttractionInfo.vue";
-import getMap from "../map/getMap.vue";
+import { addPlan, planDate, selectDate, submitResult } from '@/assets/js/plan/planCreate.js';
+import TopButton from '@/components/button/TopButton.vue';
+import SelectBox from '../button/SelectBox.vue';
+import getAttractionInfo from '../map/getAttractionInfo.vue';
+import getMap from '../map/getMap.vue';
 
 export default {
-  name: "PlanCreate",
+  name: 'PlanCreate',
   props: {},
   components: {
     TopButton,
@@ -135,14 +97,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.test-wrap {
-  height: 3000px;
-}
-.carousel-wrap {
-  width: 300px;
-  margin: 0 auto;
-}
+<style>
 #title {
   width: 400px;
   border: 0;
@@ -180,21 +135,33 @@ export default {
 
 .row {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin: auto;
   justify-content: center;
 }
 
-.rightBox {
+.mapBox {
+  width: 80%;
+  margin: auto;
+}
+
+.rightBox,
+.leftBox {
   background: var(--color-white);
   margin: 0px 10px;
   box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   border: 1px solid #eee;
+  min-height: 500px;
 }
 
 .mapContent {
   width: 100%;
   margin: 30px auto;
+}
+
+.dataImg {
+  width: 80%;
 }
 
 h2 {
@@ -204,32 +171,30 @@ h2 {
 h3 {
   margin: 40px 0 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+
 a {
   color: #42b983;
   text-decoration: none;
 }
 
-#dailyPlans {
-  display: flex;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
+h1 {
+  width: fit-content;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 30px;
+  border-left: 10px solid var(--color-blue);
+  padding-left: 10px;
+  margin: 30px 0px;
+}
+
+.selectDate {
+  margin: auto;
 }
 
 .select-box {
   display: flex;
   width: 300px;
   flex-direction: column;
-  margin: auto;
 }
 
 .select-box .options-container {
@@ -258,7 +223,7 @@ a {
 }
 
 .selected::after {
-  content: "";
+  content: '';
   /* background: url("@/assets/img/arrow-down.svg"); */
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg>');
   background-repeat: no-repeat;
@@ -309,5 +274,153 @@ a {
 
 .select-box .option .radio {
   display: none;
+}
+
+/* 시작 */
+.fl-left {
+  float: left;
+}
+
+.fl-right {
+  float: right;
+}
+
+.row {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.card {
+  display: table-row;
+  width: 49%;
+  background-color: var(--color-white);
+  color: var(--color-background);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  position: relative;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
+}
+
+.card + .card {
+  margin-left: 2%;
+}
+
+.date {
+  display: table-cell;
+  width: 200px;
+  position: relative;
+  text-align: center;
+  border-right: 2px dashed var(--color-background);
+}
+
+.date:before,
+.date:after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-color: var(--color-background);
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.date:after {
+  top: auto;
+  bottom: -15px;
+}
+
+.date time {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.date time span {
+  display: block;
+}
+
+.date time span:first-child {
+  color: var(--color-black);
+  font-weight: 600;
+  font-size: 250%;
+}
+
+.date time span:last-child {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: -10px;
+}
+
+.card-cont {
+  display: table-cell;
+  width: 75%;
+  font-size: 85%;
+  padding: 10px 10px 30px 50px;
+  height: 200px;
+}
+
+.row:last-child .card:last-of-type .card-cont h3 {
+  text-decoration: line-through;
+}
+
+.card-cont > div {
+  display: table-row;
+}
+
+.card-cont .even-date i,
+.card-cont .even-info i,
+.card-cont .even-date time,
+.card-cont .even-info p {
+  display: table-cell;
+}
+
+.card-cont .even-date i,
+.card-cont .even-info i {
+  padding: 5% 5% 0 0;
+}
+
+.card-cont .even-info p {
+  padding: 30px 30px 0 10px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.card-cont .even-date time span {
+  display: block;
+}
+
+#deleteBtn {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: #d40b0b;
+  color: var(--color-white);
+}
+
+@media screen and (max-width: 860px) {
+  .card {
+    display: block;
+    float: none;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .card + .card {
+    margin-left: 0;
+  }
+  .card-cont .even-date,
+  .card-cont .even-info {
+    font-size: 75%;
+  }
 }
 </style>

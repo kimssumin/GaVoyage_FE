@@ -3,10 +3,10 @@
   --color-white: #ffffff;
   --color-blue: #0064ff;
   --color-darkgray: #4a4e55;
-  --color-black: #060606;
-  --color-semigray : rgb(197, 195, 195);
-  --color-lightgray : whitesmoke; 
-  --color-background : #f2f3f8;
+  --color-black: #0f0f0f;
+  --color-semigray: rgb(197, 195, 195);
+  --color-lightgray: whitesmoke;
+  --color-background: #f2f3f8;
   --font: 'Pretendard';
 }
 
@@ -15,11 +15,11 @@
   font-family: var(--font);
 }
 
-#app{
+#app {
   background-color: var(--color-background);
 }
 
-header{
+header {
   background-color: var(--color-white);
 }
 
