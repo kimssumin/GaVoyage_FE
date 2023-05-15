@@ -6,15 +6,19 @@ export async function onLogin() {
   const pw = $("#loginpw").value;
 
   let login = {
-    email: id,
-    userPassword: pw,
+    username: id,
+    password: pw,
   };
 
-  const searchUrl = "/users/login";
+  const searchUrl = "/login";
   const res = await api.post(searchUrl, login);
+  console.log(res);
+  let token = res.headers["authorization"].split(" ")[1];
+  console.log(token, "!!");
   const data = await res.data;
-
-  // console.log(data);
+  console.log(data);
+  data["token"] = token;
+  console.log(data);
 
   if (res.status === 200) {
     this.$cookies.set("accesstoken", data, "1d");

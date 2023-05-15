@@ -1,11 +1,12 @@
-import axios from 'axios';
-import { baseURL } from './url';
+import axios from "axios";
+import { baseURL } from "./url";
+import VueCookies from "vue-cookies";
 
 // axios 객체 생성
 const instance = axios.create({
   baseURL: baseURL, //"http://70.12.50.218:8080",
   headers: {
-    'Content-type': 'application/json',
+    "Content-type": "application/json",
   },
   withCredentials: true,
 });
@@ -15,9 +16,17 @@ instance.interceptors.request.use(
   (config) => {
     // HTTP Authorization 요청 헤더에 jwt-token을 넣음
     // 서버측 미들웨어에서 이를 확인하고 검증한 후 해당 API에 요청함.
-    // const token = store.getState().Auth.token;
+    console.log();
+    if (VueCookies.get("accesstoken") !== null) {
+      const token = VueCookies.get("accesstoken").token;
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    } else {
+      return config;
+    }
     // try {
-    //   if (token && jwtUtils.isAuth(token)) {
+    //   if (token) {
+    //     // && jwtUtils.isAuth(token)
     //     config.headers.Authorization = `Bearer ${token}`;
     //   }
 
@@ -25,7 +34,7 @@ instance.interceptors.request.use(
     // } catch (err) {
     //   console.error("[_axios.interceptors.request] config : " + err);
     // }
-    return config;
+    // return config;
   },
   (error) => {
     // 요청 에러 직전 호출
