@@ -4,7 +4,7 @@ import { $, createElement } from "../util/elementTool";
 
 export async function selectArea() {
   let areaUrl = "/regions/sido";
-  const res = await api(areaUrl);
+  const res = await api(areaUrl, 0);
   const data = await res.data;
   console.log(data);
   makeArea(data);
@@ -22,7 +22,7 @@ export async function selectSigungu() {
     let optionsContainer = selSigungu.querySelector(".options-container");
     optionsContainer.innerHTML = "";
 
-    const res = await api(sigunguUrl);
+    const res = await api(sigunguUrl, 0);
     const data = await res.data;
 
     data.forEach((sigungu) => {

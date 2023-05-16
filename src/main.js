@@ -4,6 +4,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import router from "./router/router";
 import VueCookies from "vue-cookies";
+import { planStore } from "./store/planStore.js";
 
 //쿠키를 사용한다.
 Vue.use(VueCookies);
@@ -14,5 +15,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
+  planStore,
   render: (h) => h(App),
 }).$mount("#app");

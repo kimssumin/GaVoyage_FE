@@ -1,20 +1,31 @@
 import { selectFor } from "../map/selectBox";
 import { $, createElement } from "../util/elementTool";
 
+import { planStore } from "@/store/planStore";
+
 export const planDate = () => {
   const dailyPlan = $("#dailyPlans");
   const startDate = $("#startDate").value;
+  const stdate = new Date(
+    startDate.split("-")[0],
+    startDate.split("-")[1] - 1,
+    startDate.split("-")[2]
+  );
   const endDate = $("#endDate").value;
-
+  const eddate = new Date(endDate.split("-")[0], endDate.split("-")[1] - 1, endDate.split("-")[2]);
+  console.log(startDate, endDate);
+  const dayDiff = Math.ceil((eddate.getTime() - stdate.getTime()) / (1000 * 60 * 60 * 24));
   if (!startDate.includes("-") || !endDate.includes("-")) {
     alert("날짜를 입력해주세요");
-  } else if (Number(startDate.split("-")[2]) > Number(endDate.split("-")[2])) {
+  } else if (dayDiff < 0) {
     alert("도착일자는 출발일자보다 빠를 수 없어요");
+  } else if (dayDiff > 14) {
+    alert("여행 계획은 2주까지만 작성가능 해요 😢");
   } else {
     //여행 일자 계산
     dailyPlan.innerHTML = "<h1>Plans</h1>";
 
-    const totalDay = Number(endDate.split("-")[2]) - Number(startDate.split("-")[2]) + 1;
+    const totalDay = dayDiff + 1;
     let optionsContainer = $(".options-container");
     optionsContainer.innerHTML = "";
 
@@ -23,12 +34,12 @@ export const planDate = () => {
         const newLine = createElement("div");
         newLine.className = "row";
         newLine.id = "plan" + i;
-        const newPlan = getPlanBox(i, Number(startDate.split("-")[2]));
+        const newPlan = getPlanBox(i, stdate); //Number(startDate.split("-")[2])
         newLine.appendChild(newPlan);
         dailyPlan.appendChild(newLine);
       } else {
         const newLine = dailyPlan.querySelector("#plan" + (i - 1));
-        const newPlan = getPlanBox(i, Number(startDate.split("-")[2]));
+        const newPlan = getPlanBox(i, stdate);
         newLine.appendChild(newPlan);
       }
 
@@ -57,7 +68,10 @@ const getPlanBox = (i, day) => {
   newDate.className = "date";
   const dateDiv = createElement("time");
   const dateSpan = createElement("span");
-  dateSpan.innerHTML = day + i;
+  let result = day;
+  result = new Date(result.getTime() + i * (1000 * 60 * 60 * 24));
+  console.log(result);
+  dateSpan.innerHTML = result.getDate();
   const dateSpan2 = createElement("span");
   dateSpan2.innerHTML = "Day " + (i + 1);
   dateDiv.appendChild(dateSpan);
@@ -71,9 +85,8 @@ const getPlanBox = (i, day) => {
   return newPlan;
 };
 
-const day = {};
+// const day = {};
 export function addPlan() {
-  console.log(day);
   // const createBtn = document.querySelector("#addPlanBtn");
   const nowDate = $("#selectedContent").value;
   const dataTitle = $("#data-title").innerHTML;
@@ -84,27 +97,21 @@ export function addPlan() {
     return;
   }
   console.log(dataTitle, dataId);
-  if (nowDate in day) {
-    let check = false;
-    day[nowDate].forEach((v) => {
-      if (v.id == dataId) {
-        check = true;
-      }
-    });
-
-    if (!check) {
-      day[nowDate].push({ title: dataTitle, id: dataId });
-    }
-  } else {
-    day[nowDate] = [{ title: dataTitle, id: dataId }];
-  }
+  let planObj = {
+    day: nowDate,
+    title: dataTitle,
+    id: dataId,
+  };
+  planStore.dispatch("addPlans", planObj);
   showDailyPlan(nowDate);
 }
 
 function deletePlan(content_id, now) {
-  day[now] = day[now].filter((ele) => ele.id != content_id);
-  alert("삭제되었습니다");
-  console.log("here", day[now]);
+  let deleteObj = {
+    day: now,
+    id: content_id,
+  };
+  planStore.dispatch("removePlans", deleteObj);
   showDailyPlan(now);
 }
 
@@ -113,6 +120,7 @@ function showDailyPlan(nowDate) {
   const eachPlan = planBox.querySelector(".card-cont");
   eachPlan.innerHTML = "";
 
+  const day = planStore.state.plans;
   day[nowDate].forEach((attr, idx) => {
     let div = createElement("div");
     div.className = "even-info";
@@ -131,16 +139,6 @@ function showDailyPlan(nowDate) {
     });
     eachPlan.appendChild(div);
   });
-}
-
-// const resultBtn = document.querySelector("#resultBtn");
-export function submitResult() {
-  const result = { title: "", startDate: "", endDate: "", plan: {} };
-  result.plan = day;
-  result.title = $("#title").value;
-  result.startDate = $("#startDate").value;
-  result.endDate = $("#endDate").value;
-  console.log(result);
 }
 
 export function selectDate() {

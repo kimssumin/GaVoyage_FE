@@ -10,34 +10,27 @@ const instance = axios.create({
   },
   withCredentials: true,
 });
-
 //1. 요청 인터셉터
 instance.interceptors.request.use(
   (config) => {
     // HTTP Authorization 요청 헤더에 jwt-token을 넣음
     // 서버측 미들웨어에서 이를 확인하고 검증한 후 해당 API에 요청함.
-    console.log();
+    // console.log(VueCookies.get("accesstoken"));
+    // const token = VueCookies.get("accesstoken").token;
+    // config.headers.Authorization = `${token}`;
+    // return config;
     if (VueCookies.get("accesstoken") !== null) {
       const token = VueCookies.get("accesstoken").token;
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
+      console.log(config);
       return config;
     } else {
       return config;
     }
-    // try {
-    //   if (token) {
-    //     // && jwtUtils.isAuth(token)
-    //     config.headers.Authorization = `Bearer ${token}`;
-    //   }
-
-    //   return config;
-    // } catch (err) {
-    //   console.error("[_axios.interceptors.request] config : " + err);
-    // }
-    // return config;
   },
   (error) => {
     // 요청 에러 직전 호출
+    console.log(error);
     return Promise.reject(error);
   }
 );

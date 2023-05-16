@@ -8,7 +8,12 @@
             <h2 class="text-center fw-bold">🚗나의 여행 계획🚗</h2>
             <p class="text-center fst-normal">나만의 여행길을 그려보세요!</p>
             <div class="d-flex justify-content-center mt-5">
-              <input id="title" placeholder=" 여행 계획에 이름을 붙여주세요" value=" 제목테스트" />
+              <input
+                id="title"
+                class="px-2"
+                placeholder=" 여행 계획에 이름을 붙여주세요"
+                value="제목테스트"
+              />
             </div>
             <div class="d-flex justify-content-center mt-3 align-items-center">
               <label class="me-2" style="font-weight: bold; font-size: 16px">출발일</label
@@ -74,11 +79,14 @@
   <button class="btn-get-started" type="button" @click="addPlan">등록</button>
 </div> -->
 <script>
-import { addPlan, planDate, selectDate, submitResult } from "@/assets/js/plan/planCreate.js";
+import { $ } from "@/assets/js/util/elementTool";
+import { addPlan, planDate, selectDate } from "@/assets/js/plan/planCreate.js";
 import TopButton from "@/components/button/TopButton.vue";
 import SelectBox from "../button/SelectBox.vue";
 import getAttractionInfo from "../map/getAttractionInfo.vue";
 import getMap from "../map/getMap.vue";
+import api from "@/assets/js/util/axios.js";
+import { planStore } from "@/store/planStore";
 
 export default {
   name: "PlanCreate",
@@ -89,11 +97,46 @@ export default {
     getAttractionInfo,
     getMap,
   },
+  data: function () {
+    return {
+      title: "",
+      startDate: "",
+      endDate: "",
+    };
+  },
+
   methods: {
     planDate,
     addPlan,
-    submitResult,
     selectDate,
+    async submitResult() {
+      const result = { title: "", startDate: "", endDate: "", dailyPlans: [] };
+      result.title = $("#title").value;
+
+      result.startDate = $("#startDate").value;
+      result.endDate = $("#endDate").value;
+      const plans = planStore.state.plans;
+
+      Object.keys(plans).forEach((d) => {
+        let arr = [];
+        plans[d].forEach((attr) => {
+          arr.push(parseInt(attr.id));
+        });
+        result.dailyPlans.push(arr);
+      });
+      console.log(result);
+      try {
+        let planUrl = "/plans";
+        const res = await api.post(planUrl, result);
+        const data = await res.data;
+        console.log(data);
+        alert("계획이 등록되었습니다 😊");
+        this.$router.push("/");
+      } catch (e) {
+        alert("계획 등록에 실패하였습니다.");
+        console.log(e);
+      }
+    },
   },
 };
 </script>
