@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
 import PlanView from "../views/PlanView.vue";
+import PlanList from "../components/plan/PlanList.vue";
 import PlanCreate from "../components/plan/PlanCreate.vue";
 
 Vue.use(VueRouter);
@@ -27,6 +28,11 @@ const routes = [
         path: "create",
         name: "plan-create",
         component: PlanCreate,
+      },
+      {
+        path: "list",
+        name: "plan-list",
+        component: PlanList,
       },
     ],
   },
