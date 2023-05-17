@@ -24,7 +24,8 @@
             type="button"
             class="btn-get-started planbtn"
             data-bs-toggle="modal"
-            data-bs-target="exampleModal"
+            data-bs-target="#exampleModal"
+            @click="detailBtn"
           >
             상세보기
           </button>
@@ -37,7 +38,7 @@
       </div>
       <div class="bar--code"></div>
     </div>
-    <PlanDetail :plan2="planEach"></PlanDetail>
+    <PlanDetail></PlanDetail>
   </div>
 </template>
 
@@ -166,7 +167,7 @@
   flex-direction: column;
 }
 .bottom1 .row-2::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   bottom: -120px;
@@ -183,7 +184,7 @@
   top: -5%;
 }
 .bottom1 .bar--code::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 6px;
   height: 100%;
@@ -194,7 +195,7 @@
     180px 0 #000, 165px 0 #000, 200px 0 #000, 210px 0 #000, 135px 0 #000, 120px 0 #000;
 }
 .bottom1 .bar--code::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 3px;
   height: 100%;
@@ -206,45 +207,57 @@
 }
 </style>
 <script>
-import PlanDetail from "./PlanDetail.vue";
+import api from '@/assets/js/util/axios.js';
+import PlanDetail from './PlanDetail.vue';
 
 export default {
-  name: "PlanEach",
+  name: 'PlanEach',
   props: {
     plan: {
       type: Object,
-      // default: () => {
-      //   return {
-      //     createdAt: "2023-05-15",
-      //     modifiedAt: "2023-05-15",
-      //     userName: "김싸피",
-      //     title: "김포 여행",
-      //     startDate: "2023-03-02",
-      //     endDate: "2023-03-05",
-      //     planIdx: "1",
-      //   };
-      // },
     },
   },
-  data() {
-    return {
-      planEach: {
-        createdAt: this.$props.plan.createdAt,
-        modifiedAt: this.$props.plan.modifiedAt,
-        userName: this.$props.plan.userName,
-        title: this.$props.plan.title,
-        startDate: this.$props.plan.startDate,
-        endDate: this.$props.plan.endDate,
-        planIdx: this.$props.plan.planIdx,
-      },
-    };
-  },
   created() {
-    console.log("this.childValue", this.plan);
+    console.log('this.childValue', this.plan);
   },
 
   components: {
     PlanDetail,
+  },
+
+  methods: {
+    async detailBtn() {
+      //detail data
+      let planDetailUrl = '/plans/' + this.plan.planIdx;
+      let plans = {};
+      let planDays = [];
+      try {
+        const res = await api.get(planDetailUrl);
+        const detail = await res.data;
+
+        if (Object.keys(detail).length != 0) {
+          plans = detail;
+          planDays = Object.keys(detail);
+          planDays.sort();
+          console.log('here!!', this.planDays);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      this.plan['plans'] = plans;
+      this.plan['planDays'] = planDays;
+
+      // if (plans[0][0]['first_image'].length !== 0) {
+      //   this.plan['imgsrc'] = plans[0][0]['first_image'];
+      // } else {
+      //   this.plan['imgsrc'] =
+      //     'https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg';
+      // }
+      // const planDetail = this.$store.state.planStore.planDetails;
+      this.$store.dispatch('planStore/nowPlanDetail', this.plan, { root: true });
+      console.log('Vuex 에 저장 성공!');
+      console.log(this.$store.state.planStore.planDetails);
+    },
   },
 };
 </script>

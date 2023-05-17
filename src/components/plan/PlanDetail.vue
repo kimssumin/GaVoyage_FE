@@ -9,9 +9,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            {{ planfromEach.userName }}님의 여행 😎
-          </h5>
+          <h5 class="modal-title" id="exampleModal">{{ planD.userName }}님의 여행 😎</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><i class="fa fa-close"></i></span>
           </button>
@@ -23,53 +21,52 @@
               alt="the cast of Schitt’s Creek"
             />
           </div>
-          <div>
-            <p>{{ planfromEach }}</p>
-            <h1>{{ planfromEach.title }}</h1>
-            <h3>출발일 : {{ planfromEach.startDate }}</h3>
-            <h3>도착일 : {{ planfromEach.endDate }}</h3>
+          <div class="planDetailTitle">
+            <h1>{{ planD.title }}</h1>
+            <h5>출발일 : {{ planD.startDate }}</h5>
+            <h5>도착일 : {{ planD.endDate }}</h5>
           </div>
-          <div class="timeline">
-            <ul>
-              <div v-for="(p, key, index) in planDays" :key="index">
-                <li>
-                  <span></span>
-                  <div v-for="(attr, key, index) in plans[p]" :key="index">
-                    <div class="title">{{ attr.title }}</div>
+          <!-- /*timeline*/ -->
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="cardPlan">
+                  <div class="card-body">
+                    <h6 class="card-title">Timeline</h6>
+                    <div id="content">
+                      <ul class="timeline">
+                        <li
+                          class="event"
+                          :data-date="p"
+                          v-for="(p, key, index) in planD.planDays"
+                          :key="index"
+                        >
+                          <div v-for="(attr, key, index) in planD['plans'][p]" :key="index">
+                            <h3 class="title">{{ attr.title }}</h3>
+                            <p>
+                              {{ attr.addr1 + ' ' + attr.addr2 }}
+                            </p>
+                          </div>
+                        </li>
+                        <!-- <li class="event" data-date="12:30 - 1:00pm">
+                          <h3>Registration</h3>
+                          <p>
+                            Get here on time, it's first come first serve. Be late, get turned away.
+                          </p>
+                        </li>
+                        <li class="event" data-date="2:30 - 4:00pm">
+                          <h3>Opening Ceremony</h3>
+                          <p>
+                            Get ready for an exciting event, this will kick off in amazing fashion
+                            with MOP &amp; Busta Rhymes as an opening show.
+                          </p>
+                        </li> -->
+                      </ul>
+                    </div>
                   </div>
-                  <span class="number"
-                    ><span>{{ p }}</span> <span>12:00</span></span
-                  >
-                </li>
+                </div>
               </div>
-              <!-- <li>
-                <span></span>
-                <div>
-                  <div class="title">Codify</div>
-                  <div class="info">Let&apos;s make coolest things in css</div>
-                  <div class="type">Presentation</div>
-                </div>
-                <span class="number"><span>10:00</span> <span>12:00</span></span>
-              </li>
-              <li>
-                <div>
-                  <span></span>
-                  <div class="title">Codify</div>
-                  <div class="info">Let&apos;s make coolest things in javascript</div>
-                  <div class="type">Presentation</div>
-                </div>
-                <span class="number"><span>13:00</span> <span>14:00</span></span>
-              </li>
-              <li>
-                <div>
-                  <span></span>
-                  <div class="title">Codify</div>
-                  <div class="info">Let&apos;s make coolest things in css</div>
-                  <div class="type">Review</div>
-                </div>
-                <span class="number"><span>15:00</span> <span>17:45</span></span>
-              </li> -->
-            </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -77,170 +74,33 @@
   </div>
 </template>
 <script>
-import api from "@/assets/js/util/axios.js";
 export default {
-  name: "PlanDetail",
-  props: {
-    plan2: {
-      type: Object,
-      // default: () => {
-      //   return {
-      //     createdAt: "2023-05-15",
-      //     modifiedAt: "2023-05-15",
-      //     userName: "김싸피",
-      //     title: "김포 여행",
-      //     startDate: "2023-03-02",
-      //     endDate: "2023-03-05",
-      //     planIdx: "1",
-      //   };
-      // },
+  name: 'PlanDetail',
+
+  computed: {
+    planD() {
+      return this.$store.state.planStore.planDetails;
     },
-  },
-  data() {
-    return {
-      plans: {},
-      planDays: [],
-      planfromEach: {
-        createdAt: this.$props.plan2.createdAt,
-        modifiedAt: this.$props.plan2.modifiedAt,
-        userName: this.$props.plan2.userName,
-        title: this.$props.plan2.title,
-        startDate: this.$props.plan2.startDate,
-        endDate: this.$props.plan2.endDate,
-        planIdx: this.$props.plan2.planIdx,
-      },
-      // createdAt: this.createdAt,
-      // modifiedAt: this.modifiedAt,
-      // userName: this.userName,
-      // title: this.title,
-      // startDate: this.startDate,
-      // endDate: this.endDate,
-      // planIdx: this.planIdx,
-    };
-  },
-  // computed: {
-  //   id() {
-  //     return this.plan.planIdx;
-  //   },
-  // },
-  async created() {
-    console.log("this.childValue2", this.$props.plan2);
-    let planDetailUrl = "/plans/" + this.$props.plan2.planIdx;
-    try {
-      const res = await api.get(planDetailUrl);
-      const detail = await res.data;
-      this.planfromEach = this.$props.plan2;
-
-      if (Object.keys(detail).length == 0) {
-        this.plans = {};
-        this.planDays = [];
-      } else {
-        /*
-        Object.keys(plan).forEach((p) => {
-          // p.userName = this.$cookies.get("accesstoken").nickname;
-          // console.log(plan.p);
-          plan[p].forEach(attr => {
-
-          })
-        }); */
-
-        this.plans = detail;
-        this.planDays = Object.keys(detail);
-        console.log("here!!", this.planDays);
-      }
-    } catch (e) {
-      console.log(e);
-    }
   },
 };
 </script>
 
 <style scoped>
+.planDetailTitle {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  margin: auto;
+}
+.planDetailTitle h5 {
+  font-size: 1rem;
+  text-align: left;
+  font-weight: bold;
+}
+
 .modal-body {
   margin: auto;
   width: 100%;
-}
-
-/*timeline*/
-.timeline ul {
-  margin: 0;
-  margin-top: 100px;
-  list-style: none;
-  position: relative;
-  padding: 1px 250px;
-  color: var(--color-black);
-  font-size: 13px;
-}
-.timeline ul:before {
-  content: "";
-  width: 1px;
-  height: 100%;
-  position: absolute;
-  border-left: 2px dashed #fff;
-}
-.timeline ul li {
-  position: relative;
-  margin-left: 30px;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 14px;
-  border-radius: 6px;
-  width: 250px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.08);
-}
-.timeline ul li:not(:first-child) {
-  margin-top: 60px;
-}
-.timeline ul li > span {
-  width: 2px;
-  height: 100%;
-  background: #fff;
-  left: -30px;
-  top: 0;
-  position: absolute;
-}
-.timeline ul li > span:before,
-.timeline ul li > span:after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid #fff;
-  position: absolute;
-  background: var(--color-blue);
-  left: 5px;
-  top: 10px;
-}
-.timeline ul li span:after {
-  top: 100%;
-}
-.timeline ul li > div {
-  margin-left: 10px;
-}
-.timeline div .title,
-.timeline div .type {
-  font-weight: 600;
-  font-size: 14px;
-}
-.timeline div .info {
-  font-weight: 300;
-}
-.timeline div > div {
-  margin-top: 5px;
-}
-.timeline span.number {
-  height: 100%;
-}
-.timeline span.number span {
-  position: absolute;
-  font-size: 14px;
-  left: -35px;
-  font-weight: bold;
-}
-.timeline span.number span:first-child {
-  top: 0;
-}
-.timeline span.number span:last-child {
-  top: 100%;
 }
 
 /*book image*/
@@ -266,7 +126,7 @@ export default {
 }
 .book:before,
 .book:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
 }
@@ -313,5 +173,129 @@ export default {
     linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 20%, transparent 100%);
   background-size: 100% 100%, 2% 20%, 1% 20%, 2% 20%, 1% 20%;
   background-position: 0 0, 2.2% 100%, 3% 100%, 2.2% 0, 3% 0;
+}
+
+/*timeline*/
+
+.card-title {
+  margin-bottom: 30px;
+  font-size: 1.55rem;
+  width: 80%;
+  margin: 30px 7%;
+  text-align: left;
+}
+.timeline {
+  border-left: 3px solid var(--color-blue);
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  background: var(--color-background);
+  margin: 0 0 0 25%;
+  letter-spacing: 0.2px;
+  position: relative;
+  line-height: 1.4em;
+  font-size: 1.03em;
+  padding: 50px;
+  list-style: none;
+  text-align: left;
+  max-width: 70%;
+}
+
+@media (max-width: 767px) {
+  .timeline {
+    max-width: 98%;
+    padding: 25px;
+  }
+}
+
+.timeline h1 {
+  font-weight: 300;
+  font-size: 1.4em;
+}
+
+.timeline h2,
+.timeline h3 {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.timeline .event {
+  border-bottom: 1px dashed var(--color-semigray);
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .timeline .event {
+    padding-top: 30px;
+  }
+}
+
+.timeline .event:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
+}
+
+.timeline .event:before,
+.timeline .event:after {
+  position: absolute;
+  display: block;
+  top: 0;
+}
+
+.timeline .event:before {
+  left: -207px;
+  content: attr(data-date);
+  text-align: right;
+  font-weight: 800;
+  font-size: 0.9em;
+  min-width: 120px;
+}
+
+@media (max-width: 767px) {
+  .timeline .event:before {
+    left: 0px;
+    text-align: left;
+  }
+}
+
+.timeline .event:after {
+  -webkit-box-shadow: 0 0 0 3px var(--color-blue);
+  box-shadow: 0 0 0 3px var(--color-blue);
+  left: -55.8px;
+  background: #fff;
+  border-radius: 50%;
+  height: 9px;
+  width: 9px;
+  content: '';
+  top: 5px;
+}
+
+@media (max-width: 767px) {
+  .timeline .event:after {
+    left: -31.8px;
+  }
+}
+
+.rtl .timeline {
+  border-left: 0;
+  text-align: right;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border-right: 3px solid var(--color-blue);
+}
+
+.rtl .timeline .event::before {
+  left: 0;
+  right: -170px;
+}
+
+.rtl .timeline .event::after {
+  left: 0;
+  right: -55.8px;
 }
 </style>
