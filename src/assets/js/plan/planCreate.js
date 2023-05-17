@@ -1,7 +1,7 @@
 import { selectFor } from "../map/selectBox";
 import { $, createElement } from "../util/elementTool";
 
-import { planStore } from "@/store/planStore";
+import store from "@/store/index.js";
 
 export const planDate = () => {
   const dailyPlan = $("#dailyPlans");
@@ -102,7 +102,7 @@ export function addPlan() {
     title: dataTitle,
     id: dataId,
   };
-  planStore.dispatch("addPlans", planObj);
+  store.dispatch("planStore/addPlans", planObj, { root: true });
   showDailyPlan(nowDate);
 }
 
@@ -111,7 +111,7 @@ function deletePlan(content_id, now) {
     day: now,
     id: content_id,
   };
-  planStore.dispatch("removePlans", deleteObj);
+  store.dispatch("planStore/removePlans", deleteObj, { root: true });
   showDailyPlan(now);
 }
 
@@ -120,7 +120,7 @@ function showDailyPlan(nowDate) {
   const eachPlan = planBox.querySelector(".card-cont");
   eachPlan.innerHTML = "";
 
-  const day = planStore.state.plans;
+  const day = store.state.planStore.plans;
   day[nowDate].forEach((attr, idx) => {
     let div = createElement("div");
     div.className = "even-info";

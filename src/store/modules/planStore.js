@@ -1,9 +1,10 @@
-import Vue from "vue";
-import Vuex from "vuex";
+// import Vue from "vue";
+// import Vuex from "vuex";
 
-Vue.use(Vuex);
+// Vue.use(Vuex);
 
-export const planStore = new Vuex.Store({
+export const planStore = {
+  namespaced: true,
   state: {
     plans: {},
   },
@@ -43,4 +44,4 @@ export const planStore = new Vuex.Store({
       context.commit("removePlans", payload);
     },
   },
-});
+};

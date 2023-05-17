@@ -86,8 +86,6 @@ import SelectBox from "../button/SelectBox.vue";
 import getAttractionInfo from "../map/getAttractionInfo.vue";
 import getMap from "../map/getMap.vue";
 import api from "@/assets/js/util/axios.js";
-import { planStore } from "@/store/planStore";
-
 export default {
   name: "PlanCreate",
   props: {},
@@ -104,7 +102,6 @@ export default {
       endDate: "",
     };
   },
-
   methods: {
     planDate,
     addPlan,
@@ -115,8 +112,8 @@ export default {
 
       result.startDate = $("#startDate").value;
       result.endDate = $("#endDate").value;
-      const plans = planStore.state.plans;
-
+      // const plans = planStore.state.plans;
+      const plans = this.$store.state.planStore.plans;
       Object.keys(plans).forEach((d) => {
         let arr = [];
         plans[d].forEach((attr) => {
@@ -131,7 +128,7 @@ export default {
         const data = await res.data;
         console.log(data);
         alert("계획이 등록되었습니다 😊");
-        this.$router.push("/");
+        this.$router.push("/plan/list");
       } catch (e) {
         alert("계획 등록에 실패하였습니다.");
         console.log(e);

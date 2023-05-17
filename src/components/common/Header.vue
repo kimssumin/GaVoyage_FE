@@ -6,11 +6,8 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center">
       <div class="logo me-auto">
-        <router-link to="/"
-          ><h2 id="logoTitle">
-            <i class="fa fa-car me-3" aria-hidden="true"></i>Ga Voyage
-          </h2></router-link
-        >
+        <router-link to="/"><h2 id="logoTitle">Ga Voyage</h2></router-link>
+        <!-- <i class="fa fa-car me-3" aria-hidden="true"></i> -->
       </div>
       <nav id="navbar" class="navbar d-flex">
         <div id="navbarul" class="align-self-center">
@@ -19,7 +16,11 @@
               ><a class="nav-link scrollto active">여행 계획 짜기</a></router-link
             >
           </div>
-          <div><a class="nav-link scrollto" href="./tour-plan">나의 여행기</a></div>
+          <div>
+            <router-link to="/plan/list"
+              ><a class="nav-link scrollto active">나의 여행기</a></router-link
+            >
+          </div>
           <div><a class="nav-link scrollto" href="./hot-place">여행기 게시판</a></div>
 
           <div id="loginnav">
@@ -83,6 +84,9 @@ export default {
 </script>
 
 <style scoped>
+/* @import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Shrikhand&display=swap");
 header {
   margin-top: 24px;
   padding-bottom: 10px;

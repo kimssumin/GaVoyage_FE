@@ -3,7 +3,7 @@
     <div class="top1">
       <div class="big1">
         <p class="from1">GaVoyage</p>
-        <p class="to1"><i class="fas fa-arrow-right"></i> 서울여행!</p>
+        <p class="to1"><i class="fas fa-arrow-right"></i>{{ plan.title }}</p>
       </div>
       <div class="top--side">
         <i class="fas fa-plane"></i>
@@ -12,18 +12,19 @@
     <div class="bottom1">
       <div class="column1">
         <div class="rows row-1">
-          <p class="row--left"><span>출발일</span>2023-05-01</p>
-          <p class="row--right"><span>도착일</span>2023-05-03</p>
+          <p class="row--left"><span>출발일</span>{{ plan.startDate }}</p>
+          <p class="row--right"><span>도착일</span>{{ plan.endDate }}</p>
         </div>
         <div class="rows row-2">
-          <p class="row--left"><span>Created At</span>2023-05-15</p>
-          <p class="row--right"><span>ModifiedAt</span>2023-05-15</p>
+          <p class="row--left"><span>Created At</span>{{ plan.createdAt }}</p>
+          <p class="row--right"><span>ModifiedAt</span>{{ plan.modifiedAt }}</p>
         </div>
         <div class="rows row-4">
           <button type="button" class="btn-get-started">리뷰쓰기</button>
         </div>
         <div class="rows row-3">
-          <p class="row--left"><span>Passenger</span>김싸피</p>
+          <p class="row--left"><span>Passenger</span>{{ plan.userName }}</p>
+          <p class="planIdx" style="display: none">{{ plan.planIdx }}</p>
         </div>
       </div>
       <div class="bar--code"></div>
@@ -38,6 +39,7 @@
   box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
   border-radius: 25px;
   z-index: 3;
+  margin-bottom: 40px;
 }
 .airline .top1 {
   height: 30%;
@@ -181,3 +183,38 @@
     97px 0 #000, 150px 0 #000, 165px 0 #000, 180px 0 #000, 135px 0 #000, 120px 0 #000;
 }
 </style>
+<script>
+export default {
+  name: "PlanEach",
+  props: {
+    plan: {
+      type: Object,
+      default: () => {
+        return {
+          createdAt: "2023-05-15",
+          modifiedAt: "2023-05-15",
+          userName: "김싸피",
+          title: "김포 여행",
+          startDate: "2023-03-02",
+          endDate: "2023-03-05",
+          planIdx: "1",
+        };
+      },
+    },
+  },
+  data() {
+    return {
+      createdAt: this.createdAt,
+      modifiedAt: this.modifiedAt,
+      userName: this.userName,
+      title: this.title,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      planIdx: this.planIdx,
+    };
+  },
+  created() {
+    console.log("this.childValue", this.plan);
+  },
+};
+</script>
