@@ -48,19 +48,6 @@
                             </p>
                           </div>
                         </li>
-                        <!-- <li class="event" data-date="12:30 - 1:00pm">
-                          <h3>Registration</h3>
-                          <p>
-                            Get here on time, it's first come first serve. Be late, get turned away.
-                          </p>
-                        </li>
-                        <li class="event" data-date="2:30 - 4:00pm">
-                          <h3>Opening Ceremony</h3>
-                          <p>
-                            Get ready for an exciting event, this will kick off in amazing fashion
-                            with MOP &amp; Busta Rhymes as an opening show.
-                          </p>
-                        </li> -->
                       </ul>
                     </div>
                   </div>

@@ -63,6 +63,7 @@
   margin-bottom: 40px;
 }
 .airline .top1 {
+  padding: 0 10px;
   height: 30%;
   background: var(--color-blue);
   border-top-right-radius: 25px;
@@ -96,7 +97,7 @@
 .top1 .big1 .from1 {
   text-align: left;
   color: var(--color-blue);
-  font-size: 45px;
+  font-size: 40px;
   text-shadow: -1px 0 var(--color-white), 0 1px var(--color-white), 1px 0 var(--color-white),
     0 -1px var(--color-white);
 }
