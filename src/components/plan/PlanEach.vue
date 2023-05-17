@@ -20,7 +20,15 @@
           <p class="row--right"><span>ModifiedAt</span>{{ plan.modifiedAt }}</p>
         </div>
         <div class="rows row-4">
-          <button type="button" class="btn-get-started">리뷰쓰기</button>
+          <button
+            type="button"
+            class="btn-get-started planbtn"
+            data-bs-toggle="modal"
+            data-bs-target="exampleModal"
+          >
+            상세보기
+          </button>
+          <button type="button" class="btn-get-started planbtn">리뷰쓰기</button>
         </div>
         <div class="rows row-3">
           <p class="row--left"><span>Passenger</span>{{ plan.userName }}</p>
@@ -29,9 +37,21 @@
       </div>
       <div class="bar--code"></div>
     </div>
+    <PlanDetail :plan2="planEach"></PlanDetail>
   </div>
 </template>
-<style scoped>
+
+<style>
+.fa-close {
+  margin-top: 1px;
+  color: var(--color-white);
+}
+
+.close {
+  border: none;
+  background: var(--color-blue);
+  border-radius: 8px;
+}
 .airline {
   display: block;
   height: 575px;
@@ -136,12 +156,14 @@
   text-align: center;
 }
 .bottom1 .row-2 {
-  margin: 0 0 30px 0;
+  /* margin: 0 0 0px 0; */
   position: relative;
 }
 
 .bottom1 .row-4 {
-  margin: 0px 0px 45px 40px;
+  margin: 0px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
 }
 .bottom1 .row-2::after {
   content: "";
@@ -156,7 +178,7 @@
 .bottom1 .bar--code {
   height: 50px;
   width: 80%;
-  margin: 0 auto;
+  margin: -10px auto 0;
   position: relative;
   top: -5%;
 }
@@ -184,37 +206,45 @@
 }
 </style>
 <script>
+import PlanDetail from "./PlanDetail.vue";
+
 export default {
   name: "PlanEach",
   props: {
     plan: {
       type: Object,
-      default: () => {
-        return {
-          createdAt: "2023-05-15",
-          modifiedAt: "2023-05-15",
-          userName: "김싸피",
-          title: "김포 여행",
-          startDate: "2023-03-02",
-          endDate: "2023-03-05",
-          planIdx: "1",
-        };
-      },
+      // default: () => {
+      //   return {
+      //     createdAt: "2023-05-15",
+      //     modifiedAt: "2023-05-15",
+      //     userName: "김싸피",
+      //     title: "김포 여행",
+      //     startDate: "2023-03-02",
+      //     endDate: "2023-03-05",
+      //     planIdx: "1",
+      //   };
+      // },
     },
   },
   data() {
     return {
-      createdAt: this.createdAt,
-      modifiedAt: this.modifiedAt,
-      userName: this.userName,
-      title: this.title,
-      startDate: this.startDate,
-      endDate: this.endDate,
-      planIdx: this.planIdx,
+      planEach: {
+        createdAt: this.$props.plan.createdAt,
+        modifiedAt: this.$props.plan.modifiedAt,
+        userName: this.$props.plan.userName,
+        title: this.$props.plan.title,
+        startDate: this.$props.plan.startDate,
+        endDate: this.$props.plan.endDate,
+        planIdx: this.$props.plan.planIdx,
+      },
     };
   },
   created() {
     console.log("this.childValue", this.plan);
+  },
+
+  components: {
+    PlanDetail,
   },
 };
 </script>

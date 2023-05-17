@@ -5,32 +5,8 @@
     </div>
     <div class="container1">
       <div v-for="plan in plans" :key="plan.planIdx" id="testBtn">
-        <PlanEach :plan="plan"></PlanEach>
-      </div>
-
-      <div
-        class="modal fade"
-        id="testModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">모달테스트</h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">X</span>
-              </button>
-            </div>
-            <div class="modal-body">내용 입력 !!</div>
-            <div class="modal-footer">
-              <a class="btn" id="modalY" href="#">예</a>
-              <button class="btn" type="button" data-dismiss="modal">아니요</button>
-            </div>
-          </div>
-        </div>
+        <PlanEach :plan="plan" id="testBtn"></PlanEach>
+        <!-- <PlanDetail :plan2="plan"></PlanDetail> -->
       </div>
     </div>
   </div>
@@ -54,48 +30,22 @@
 }
 </style>
 <script>
+import { $ } from "@/assets/js/util/elementTool";
 import api from "@/assets/js/util/axios.js";
 import PlanEach from "./PlanEach.vue";
+import PlanDetail from "./PlanDetail.vue";
+
 export default {
   name: "PlanList",
   data() {
     return {
-      plans: [
-        {
-          status: "Y",
-          createdAt: "2023-05-15",
-          modifiedAt: "2023-05-15",
-          planIdx: 3,
-          userIdx: 1,
-          title: "김포 여행",
-          startDate: "2023-03-02",
-          endDate: "2023-03-05",
-        },
-        {
-          status: "Y",
-          createdAt: "2023-05-15",
-          modifiedAt: "2023-05-15",
-          planIdx: 4,
-          userIdx: 1,
-          title: "김포 여행",
-          startDate: "2023-03-02",
-          endDate: "2023-03-05",
-        },
-        {
-          status: "Y",
-          createdAt: "2023-05-15",
-          modifiedAt: "2023-05-15",
-          planIdx: 9,
-          userIdx: 1,
-          title: " 제목테스트",
-          startDate: "2023-05-03",
-          endDate: "2023-05-04",
-        },
-      ],
+      plans: [],
+      isModalAct: false,
     };
   },
   components: {
     PlanEach,
+    PlanDetail,
   },
 
   async created() {
@@ -114,6 +64,14 @@ export default {
     } catch (e) {
       console.log(e);
     }
+  },
+  methods: {
+    openModal(id) {
+      this.isModalAct = true;
+    },
+    closeModal() {
+      this.isModalAct = false;
+    },
   },
 };
 </script>
