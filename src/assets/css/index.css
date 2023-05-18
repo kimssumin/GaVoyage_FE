@@ -23,6 +23,19 @@ header {
   background-color: var(--color-white);
 }
 
+.btn-search{
+  border: none;
+  background: var(--color-white);
+    padding: 5px 15px;
+  border-radius: 3px;
+  
+}
+
+.btn-search a, .btn-search i{
+  color: var(--color-blue);
+  text-decoration: none;
+  font-weight: bold;
+}
 .agile__dots {
   bottom: 10px;
   flex-direction: column;
