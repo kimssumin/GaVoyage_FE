@@ -39,7 +39,7 @@
         <div class="container align-self-center">
           <h2 class="InDown">인기있는 여행지를 만나보세요</h2>
           <p class="InUp">생각지도 못한 곳을 발견할 수도 있어요.</p>
-          <a href="./region-search" class="btn-get-started">금주의 인기 여행기 보기</a>
+          <a href="#/review/list" class="btn-get-started">금주의 인기 여행기 보기</a>
         </div>
       </div>
 

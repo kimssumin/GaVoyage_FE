@@ -16,14 +16,24 @@
   font-family: var(--font);
 }
 
-#app {
-  background-color: var(--color-background);
-}
-
 header {
   background-color: var(--color-white);
 }
 
+#app {
+  background-color: var(--color-background);
+}
+
+.btn-get-started a {
+  text-decoration: none;
+  color: white;
+}
+
+
+.hello{
+  min-height : 800px;
+  padding-bottom: 100px;
+}
 .btn-search{
   border: none;
   background: var(--color-white);

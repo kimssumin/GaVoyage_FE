@@ -1,5 +1,5 @@
 <template>
-  <div class="contain">
+  <div class="hello">
     <router-view></router-view>
     <nav>
       <router-link to="/plan/create"

@@ -15,7 +15,9 @@
     <section id="aboutReview" class="about">
       <div class="section-title d-flex align-items-center ml-5">
         <h2 class="align-self-center">여기 어때 ?</h2>
-        <button class="btn-get-started">더 살펴보기</button>
+        <button class="btn-get-started">
+          <router-link to="/review/list">더 살펴보기</router-link>
+        </button>
       </div>
 
       <p class="section-title d-flex">최근 한 달간 사랑받은 여행후기들을 만나보세요</p>
@@ -53,15 +55,15 @@
 </template>
 
 <script>
-import TopButton from '@/components/button/TopButton.vue';
-import ReviewBoard from '../components/board/ReviewBoard.vue';
-import SelectBox from '../components/button/SelectBox.vue';
-import Slider from '../components/common/Slider.vue';
-import getAttractionInfo from '../components/map/getAttractionInfo.vue';
-import getMap from '../components/map/getMap.vue';
+import TopButton from "@/components/button/TopButton.vue";
+import ReviewBoard from "../components/board/ReviewBoard.vue";
+import SelectBox from "../components/button/SelectBox.vue";
+import Slider from "../components/common/Slider.vue";
+import getAttractionInfo from "../components/map/getAttractionInfo.vue";
+import getMap from "../components/map/getMap.vue";
 
 export default {
-  name: 'InitMain',
+  name: "InitMain",
   props: {
     msg: String,
   },
@@ -78,6 +80,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.btn-get-started a {
+  text-decoration: none;
+  color: white;
+}
 h2 {
   margin: 0;
   font-weight: bold;

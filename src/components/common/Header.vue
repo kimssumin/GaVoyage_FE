@@ -21,7 +21,11 @@
               ><a class="nav-link scrollto active">나의 여행기</a></router-link
             >
           </div>
-          <div><a class="nav-link scrollto" href="./hot-place">여행기 게시판</a></div>
+          <div>
+            <router-link to="/review/list"
+              ><a class="nav-link scrollto active">여행기 게시판</a></router-link
+            >
+          </div>
 
           <div id="loginnav">
             <a class="nav-link scrollto" data-bs-toggle="modal" data-bs-target="#loginModal"

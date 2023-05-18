@@ -2,8 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Main from "../views/Main.vue";
 import PlanView from "../views/PlanView.vue";
+import ReviewView from "../views/ReviewView.vue";
 import PlanList from "../components/plan/PlanList.vue";
 import PlanCreate from "../components/plan/PlanCreate.vue";
+import ReviewCreate from "../components/board/ReviewCreate.vue";
+import ReviewList from "../components/board/ReviewList.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +36,23 @@ const routes = [
         path: "list",
         name: "plan-list",
         component: PlanList,
+      },
+    ],
+  },
+  {
+    path: "/review",
+    name: "review",
+    component: ReviewView,
+    children: [
+      {
+        path: "create",
+        name: "review-create",
+        component: ReviewCreate,
+      },
+      {
+        path: "list",
+        name: "review-list",
+        component: ReviewList,
       },
     ],
   },

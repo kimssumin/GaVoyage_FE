@@ -29,7 +29,9 @@
           >
             상세보기
           </button>
-          <button type="button" class="btn-get-started planbtn">리뷰쓰기</button>
+          <button type="button" class="btn-get-started planbtn">
+            <router-link to="/review/create">리뷰쓰기</router-link>
+          </button>
         </div>
         <div class="rows row-3">
           <p class="row--left"><span>Passenger</span>{{ plan["plan"].userName }}</p>
@@ -57,7 +59,7 @@
   display: block;
   height: 575px;
   width: 270px;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 25px;
   z-index: 3;
   margin-bottom: 40px;
