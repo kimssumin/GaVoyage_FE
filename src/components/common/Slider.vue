@@ -24,7 +24,7 @@
             여행을 떠나고 싶으신가요? <br />
             당신에게 맞는 여행지를 발견해보세요.
           </p>
-          <a href="./tour-plan" class="btn-get-started">여행지 구경 가기</a>
+          <a href="#searchAbout" class="btn-get-started">여행지 구경 가기</a>
         </div>
       </div>
 
@@ -54,7 +54,7 @@
         <div class="container align-self-center">
           <h2 class="InDown">여행 떠날 준비, 되셨나요 ?</h2>
           <p class="InUp">당신의 여행에 시작을 함께하고싶어요</p>
-          <a href="./hot-place" class="btn-get-started">여행 계획 세우기</a>
+          <a href="#/plan/create" class="btn-get-started">여행 계획 세우기</a>
         </div>
       </div>
     </agile>

@@ -21,7 +21,7 @@ instance.interceptors.request.use(
     // return config;
     if (VueCookies.get("accesstoken") !== null) {
       const token = VueCookies.get("accesstoken").token;
-      config.headers.Authorization = `${token}`;
+      config.headers.Authorization = `Bearer ${token}`; //`${token}`;
       console.log(config);
       return config;
     } else {

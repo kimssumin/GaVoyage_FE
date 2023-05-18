@@ -9,7 +9,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModal">{{ planD.userName }}님의 여행 😎</h5>
+          <h5 class="modal-title" id="exampleModal">{{ userName }}님의 여행 😎</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><i class="fa fa-close"></i></span>
           </button>
@@ -22,9 +22,14 @@
             />
           </div>
           <div class="planDetailTitle">
-            <h1>{{ planD.title }}</h1>
-            <h5>출발일 : {{ planD.startDate }}</h5>
-            <h5>도착일 : {{ planD.endDate }}</h5>
+            <h1>{{ planD["plan"].title }}</h1>
+            <div class="detailBtns">
+              <button class="btn-get-started">리뷰쓰기</button>
+              <!-- <button class="deleteBtn">수정</button> -->
+              <button class="deleteBtn" @click="deletePlan">삭제</button>
+            </div>
+            <h5>출발일 : {{ planD["plan"].startDate }}</h5>
+            <h5>도착일 : {{ planD["plan"].endDate }}</h5>
           </div>
           <!-- /*timeline*/ -->
           <div class="container">
@@ -44,7 +49,7 @@
                           <div v-for="(attr, key, index) in planD['plans'][p]" :key="index">
                             <h3 class="title">{{ attr.title }}</h3>
                             <p>
-                              {{ attr.addr1 + ' ' + attr.addr2 }}
+                              {{ attr.addr1 + " " + attr.addr2 }}
                             </p>
                           </div>
                         </li>
@@ -61,18 +66,53 @@
   </div>
 </template>
 <script>
+import api from "@/assets/js/util/axios.js";
 export default {
-  name: 'PlanDetail',
-
+  name: "PlanDetail",
+  props: {
+    userName: {
+      type: String,
+    },
+  },
   computed: {
     planD() {
       return this.$store.state.planStore.planDetails;
+    },
+  },
+
+  methods: {
+    async deletePlan() {
+      let planDetailUrl = "/plans/" + this.planD["plan"].planIdx;
+      try {
+        const res = await api.delete(planDetailUrl);
+        const detail = await res.data;
+
+        this.$router.go(0);
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+.detailBtns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  height: 0px;
+  top: -75px;
+}
+.deleteBtn {
+  border: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
 .planDetailTitle {
   display: flex;
   width: 80%;
@@ -113,7 +153,7 @@ export default {
 }
 .book:before,
 .book:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
 }
@@ -256,7 +296,7 @@ export default {
   border-radius: 50%;
   height: 9px;
   width: 9px;
-  content: '';
+  content: "";
   top: 5px;
 }
 

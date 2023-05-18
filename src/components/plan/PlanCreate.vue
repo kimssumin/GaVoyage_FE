@@ -127,7 +127,9 @@ export default {
         const res = await api.post(planUrl, result);
         const data = await res.data;
         console.log(data);
+        this.$store.dispatch("planStore/initPlans", {}, { root: true });
         alert("계획이 등록되었습니다 😊");
+
         this.$router.push("/plan/list");
       } catch (e) {
         alert("계획 등록에 실패하였습니다.");

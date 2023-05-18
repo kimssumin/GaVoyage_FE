@@ -3,7 +3,7 @@
     <div class="top1">
       <div class="big1">
         <p class="from1">GaVoyage</p>
-        <p class="to1"><i class="fas fa-arrow-right"></i>{{ plan.title }}</p>
+        <p class="to1"><i class="fas fa-arrow-right"></i>{{ plan["plan"].title }}</p>
       </div>
       <div class="top--side">
         <i class="fas fa-plane"></i>
@@ -12,12 +12,12 @@
     <div class="bottom1">
       <div class="column1">
         <div class="rows row-1">
-          <p class="row--left"><span>출발일</span>{{ plan.startDate }}</p>
-          <p class="row--right"><span>도착일</span>{{ plan.endDate }}</p>
+          <p class="row--left"><span>출발일</span>{{ plan["plan"].startDate }}</p>
+          <p class="row--right"><span>도착일</span>{{ plan["plan"].endDate }}</p>
         </div>
         <div class="rows row-2">
-          <p class="row--left"><span>Created At</span>{{ plan.createdAt }}</p>
-          <p class="row--right"><span>ModifiedAt</span>{{ plan.modifiedAt }}</p>
+          <p class="row--left"><span>Created At</span>{{ plan["plan"].createdAt }}</p>
+          <p class="row--right"><span>ModifiedAt</span>{{ plan["plan"].modifiedAt }}</p>
         </div>
         <div class="rows row-4">
           <button
@@ -32,13 +32,13 @@
           <button type="button" class="btn-get-started planbtn">리뷰쓰기</button>
         </div>
         <div class="rows row-3">
-          <p class="row--left"><span>Passenger</span>{{ plan.userName }}</p>
-          <p class="planIdx" style="display: none">{{ plan.planIdx }}</p>
+          <p class="row--left"><span>Passenger</span>{{ plan["plan"].userName }}</p>
+          <p class="planIdx" style="display: none">{{ plan["plan"].planIdx }}</p>
         </div>
       </div>
       <div class="bar--code"></div>
     </div>
-    <PlanDetail></PlanDetail>
+    <PlanDetail :userName="plan['plan'].userName"></PlanDetail>
   </div>
 </template>
 
@@ -168,12 +168,12 @@
   flex-direction: column;
 }
 .bottom1 .row-2::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   bottom: -120px;
   left: 0;
-  background: #000;
+  background: var(--color-black);
   height: 1px;
 }
 
@@ -185,41 +185,45 @@
   top: -5%;
 }
 .bottom1 .bar--code::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
   height: 100%;
-  background: #000;
+  background: var(--color-black);
   top: 0;
   left: 0;
-  box-shadow: 10px 0 #000, 30px 0 #000, 40px 0 #000, 67px 0 #000, 90px 0 #000, 100px 0 #000,
-    180px 0 #000, 165px 0 #000, 200px 0 #000, 210px 0 #000, 135px 0 #000, 120px 0 #000;
+  box-shadow: 10px 0 var(--color-black), 30px 0 var(--color-black), 40px 0 var(--color-black),
+    67px 0 var(--color-black), 90px 0 var(--color-black), 100px 0 var(--color-black),
+    180px 0 var(--color-black), 165px 0 var(--color-black), 200px 0 var(--color-black),
+    210px 0 var(--color-black), 135px 0 var(--color-black), 120px 0 var(--color-black);
 }
 .bottom1 .bar--code::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 3px;
   height: 100%;
-  background: #000;
+  background: var(--color-black);
   top: 0;
   left: 11px;
-  box-shadow: 12px 0 #000, -4px 0 #000, 45px 0 #000, 65px 0 #000, 72px 0 #000, 78px 0 #000,
-    97px 0 #000, 150px 0 #000, 165px 0 #000, 180px 0 #000, 135px 0 #000, 120px 0 #000;
+  box-shadow: 12px 0 var(--color-black), -4px 0 var(--color-black), 45px 0 var(--color-black),
+    65px 0 var(--color-black), 72px 0 var(--color-black), 78px 0 var(--color-black),
+    97px 0 var(--color-black), 150px 0 var(--color-black), 165px 0 var(--color-black),
+    180px 0 var(--color-black), 135px 0 var(--color-black), 120px 0 var(--color-black);
 }
 </style>
 <script>
-import api from '@/assets/js/util/axios.js';
-import PlanDetail from './PlanDetail.vue';
+import api from "@/assets/js/util/axios.js";
+import PlanDetail from "./PlanDetail.vue";
 
 export default {
-  name: 'PlanEach',
+  name: "PlanEach",
   props: {
     plan: {
       type: Object,
     },
   },
   created() {
-    console.log('this.childValue', this.plan);
+    console.log("this.childValue", this.plan);
   },
 
   components: {
@@ -229,24 +233,26 @@ export default {
   methods: {
     async detailBtn() {
       //detail data
-      let planDetailUrl = '/plans/' + this.plan.planIdx;
+      let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
       let plans = {};
       let planDays = [];
       try {
         const res = await api.get(planDetailUrl);
         const detail = await res.data;
 
+        console.log(">> detail : ", detail);
         if (Object.keys(detail).length != 0) {
           plans = detail;
-          planDays = Object.keys(detail);
+          planDays = Object.keys(plans);
           planDays.sort();
-          console.log('here!!', this.planDays);
+          console.log("here!!", planDays);
+          console.log("checkName!!", this.plan["plan"]["userName"]);
         }
       } catch (e) {
         console.log(e);
       }
-      this.plan['plans'] = plans;
-      this.plan['planDays'] = planDays;
+      this.plan["plans"] = plans;
+      this.plan["planDays"] = planDays;
 
       // if (plans[0][0]['first_image'].length !== 0) {
       //   this.plan['imgsrc'] = plans[0][0]['first_image'];
@@ -255,8 +261,8 @@ export default {
       //     'https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg';
       // }
       // const planDetail = this.$store.state.planStore.planDetails;
-      this.$store.dispatch('planStore/nowPlanDetail', this.plan, { root: true });
-      console.log('Vuex 에 저장 성공!');
+      this.$store.dispatch("planStore/nowPlanDetail", this.plan, { root: true });
+      console.log("Vuex 에 저장 성공!");
       console.log(this.$store.state.planStore.planDetails);
     },
   },

@@ -7,7 +7,17 @@ export const planStore = {
   namespaced: true,
   state: {
     plans: {},
-    planDetails: {},
+    planDetails: {
+      plan: {
+        createdAt: "",
+        endDate: "",
+        modifiedAt: "",
+        planIdx: "",
+        startDate: "",
+        title: "",
+        userName: "",
+      },
+    },
   },
 
   mutations: {
@@ -35,6 +45,10 @@ export const planStore = {
       state.plans[nowDate] = state.plans[nowDate].filter((ele) => ele.id != deleteId);
     },
 
+    initPlans: (state, payload) => {
+      state.plans = {};
+    },
+
     nowPlanDetail: (state, payload) => {
       state.planDetails = payload;
     },
@@ -42,15 +56,19 @@ export const planStore = {
 
   actions: {
     addPlans: (context, payload) => {
-      context.commit('addPlans', payload);
+      context.commit("addPlans", payload);
     },
 
     removePlans: (context, payload) => {
-      context.commit('removePlans', payload);
+      context.commit("removePlans", payload);
+    },
+
+    initPlans: (context, payload) => {
+      context.commit("initPlans", payload);
     },
 
     nowPlanDetail: (context, payload) => {
-      context.commit('nowPlanDetail', payload);
+      context.commit("nowPlanDetail", payload);
     },
   },
 };
