@@ -196,7 +196,7 @@ export default {
   margin: 0px 10px;
   box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   border: 1px solid #eee;
-  min-height: 500px;
+  min-height: 562px;
 }
 
 .mapContent {

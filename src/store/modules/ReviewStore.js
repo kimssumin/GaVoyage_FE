@@ -4,6 +4,7 @@ export const reviewStore = {
     nowReviewIdx: {},
     ReviewDetail: {},
     Reviews: {},
+    planForReview: {},
   },
 
   mutations: {
@@ -12,6 +13,9 @@ export const reviewStore = {
     removeReview: (state, payload) => {},
     nowReviewDetail: (state, payload) => {
       state.ReviewDetail = payload;
+    },
+    nowPlanForReview: (state, payload) => {
+      state.planForReview = payload;
     },
   },
 
@@ -26,6 +30,10 @@ export const reviewStore = {
 
     nowReviewDetail: (context, payload) => {
       context.commit("nowReviewDetail", payload);
+    },
+
+    nowPlanForReview: (context, payload) => {
+      context.commit("nowPlanForReview", payload);
     },
   },
 };

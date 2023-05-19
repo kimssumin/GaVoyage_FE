@@ -29,9 +29,16 @@
           >
             상세보기
           </button>
-          <button type="button" class="btn-get-started planbtn">
-            <router-link to="/review/create">리뷰쓰기</router-link>
-          </button>
+          <router-link to="/review/create">
+            <button
+              type="button"
+              class="btn-get-started planbtn"
+              id="reviewCreate"
+              @click="reviewBtn"
+            >
+              {{ reviewOrnot }}
+            </button>
+          </router-link>
         </div>
         <div class="rows row-3">
           <p class="row--left"><span>Passenger</span>{{ plan["plan"].userName }}</p>
@@ -43,6 +50,102 @@
     <PlanDetail :userName="plan['plan'].userName"></PlanDetail>
   </div>
 </template>
+<script>
+import api from "@/assets/js/util/axios.js";
+import PlanDetail from "./PlanDetail.vue";
+export default {
+  name: "PlanEach",
+  props: {
+    plan: {
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      reviewOrnot: "리뷰쓰기",
+    };
+  },
+
+  mounted() {
+    console.log("this.childValue", this.plan);
+    if (this.plan.hasReview == 1) {
+      this.reviewOrnot = "리뷰보기";
+    }
+  },
+
+  components: {
+    PlanDetail,
+  },
+
+  methods: {
+    async detailBtn() {
+      //detail data
+      let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
+      let plans = {};
+      let planDays = [];
+      try {
+        const res = await api.get(planDetailUrl);
+        const detail = await res.data;
+
+        console.log(">> detail : ", detail);
+        if (Object.keys(detail).length != 0) {
+          plans = detail;
+          planDays = Object.keys(plans);
+          planDays.sort();
+          console.log("here!!", planDays);
+          console.log("checkName!!", this.plan["plan"]["userName"]);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      this.plan["plans"] = plans;
+      this.plan["planDays"] = planDays;
+
+      // if (plans[0][0]['first_image'].length !== 0) {
+      //   this.plan['imgsrc'] = plans[0][0]['first_image'];
+      // } else {
+      //   this.plan['imgsrc'] =
+      //     'https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg';
+      // }
+      // const planDetail = this.$store.state.planStore.planDetails;
+      this.$store.dispatch("planStore/nowPlanDetail", this.plan, { root: true });
+      console.log("Vuex 에 저장 성공! - 상세보기");
+      console.log(this.$store.state.planStore.planDetails);
+    },
+
+    async reviewBtn() {
+      if (this.plan.hasReview == 0) {
+        // 리뷰가 없다 -> 리뷰쓰자!
+        let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
+        let plans = {};
+        let planDays = [];
+        try {
+          const res = await api.get(planDetailUrl);
+          const detail = await res.data;
+
+          console.log(">> detail : ", detail);
+          if (Object.keys(detail).length != 0) {
+            plans = detail;
+            planDays = Object.keys(plans);
+            planDays.sort();
+            console.log("here!!", planDays);
+            console.log("checkName!!", this.plan["plan"]["userName"]);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+        this.plan["detailPlan"] = plans;
+        this.plan["planDays"] = planDays;
+        this.$store.dispatch("reviewStore/nowPlanForReview", this.plan, { root: true });
+        console.log("Vuex 에 저장 성공! - 리뷰");
+        console.log(this.$store.state.reviewStore.planForReview);
+      } else {
+        //리뷰 있다! -> 리뷰 보여주자
+      }
+    },
+  },
+};
+</script>
 
 <style>
 .fa-close {
@@ -212,61 +315,8 @@
     97px 0 var(--color-black), 150px 0 var(--color-black), 165px 0 var(--color-black),
     180px 0 var(--color-black), 135px 0 var(--color-black), 120px 0 var(--color-black);
 }
+button.btn-get-started.planbtn {
+  width: 80%;
+  margin: 8px auto 10px;
+}
 </style>
-<script>
-import api from "@/assets/js/util/axios.js";
-import PlanDetail from "./PlanDetail.vue";
-
-export default {
-  name: "PlanEach",
-  props: {
-    plan: {
-      type: Object,
-    },
-  },
-  created() {
-    console.log("this.childValue", this.plan);
-  },
-
-  components: {
-    PlanDetail,
-  },
-
-  methods: {
-    async detailBtn() {
-      //detail data
-      let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
-      let plans = {};
-      let planDays = [];
-      try {
-        const res = await api.get(planDetailUrl);
-        const detail = await res.data;
-
-        console.log(">> detail : ", detail);
-        if (Object.keys(detail).length != 0) {
-          plans = detail;
-          planDays = Object.keys(plans);
-          planDays.sort();
-          console.log("here!!", planDays);
-          console.log("checkName!!", this.plan["plan"]["userName"]);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-      this.plan["plans"] = plans;
-      this.plan["planDays"] = planDays;
-
-      // if (plans[0][0]['first_image'].length !== 0) {
-      //   this.plan['imgsrc'] = plans[0][0]['first_image'];
-      // } else {
-      //   this.plan['imgsrc'] =
-      //     'https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg';
-      // }
-      // const planDetail = this.$store.state.planStore.planDetails;
-      this.$store.dispatch("planStore/nowPlanDetail", this.plan, { root: true });
-      console.log("Vuex 에 저장 성공!");
-      console.log(this.$store.state.planStore.planDetails);
-    },
-  },
-};
-</script>

@@ -11,6 +11,7 @@ const store = new Vuex.Store({
   modules: {
     // 키: 값 형태로 저장됩니다.
     planStore: planStore,
+    reviewStore: reviewStore,
   },
 });
 
