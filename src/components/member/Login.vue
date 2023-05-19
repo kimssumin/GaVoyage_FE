@@ -88,14 +88,18 @@
 </template>
 
 <script>
-import { onLogin } from "@/assets/js/member/login.js";
+import { onLogin } from '@/assets/js/member/login.js';
 export default {
   methods: {
     onLogin: onLogin,
     kakaoLogin() {
-      const kakaoAuthUrl = "/oauth2/authorization/kakao";
+      const kakaoAuthUrl = '/oauth2/authorization/kakao';
+      // const res = await api.get(kakaoAuthUrl);
+      // const description = await res.data;
+      // console.log(description);
       window.location.href = kakaoAuthUrl;
-      console.log(window.location.href);
+      this.$cookies.set('redirect', '1', '1d');
+      //console.log(window.location.href);
     },
   },
 };

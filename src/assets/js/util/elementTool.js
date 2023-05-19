@@ -1,15 +1,7 @@
 export const $ = (selector) => document.querySelector(selector);
 export const $$ = (selector) => document.querySelectorAll(selector);
 
-export const visibleElement = (target, isVisible) => {
-  const elements = setElements(target);
-
-  elements.forEach((element) => {
-    element.style.display = isVisible ? "block" : "none";
-  });
-};
-
-export const createElement = (tagName, tagText = "") => {
+export const createElement = (tagName, tagText = '') => {
   const $create = document.createElement(tagName);
   $create.innerText = tagText;
 
@@ -21,4 +13,11 @@ export const combineElement = (elements) => {
   elements.forEach((element) => $fragment.append(element));
 
   return $fragment;
+};
+
+export const getParameterByName = (name) => {
+  name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+    results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
