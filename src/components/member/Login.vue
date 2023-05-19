@@ -40,6 +40,19 @@
               name="member_password"
             />
           </div>
+          <div class="socialLogin">
+            <!-- <a href=""
+              ><div id="kakao-box">
+                <img id="icon-img" src="@/assets/img/kakao_logo.png" />카카오톡으로 로그인
+              </div></a
+            > -->
+            <div id="kakao-box" @click="kakaoLogin">
+              <img id="icon-img" src="@/assets/img/kakao_logo.png" />카카오톡으로 로그인
+            </div>
+            <div id="naver-box">
+              <img id="icon-img" src="@/assets/img/naver_logo.png" />네이버로 로그인
+            </div>
+          </div>
         </div>
 
         <div class="modal-footer">
@@ -79,12 +92,69 @@ import { onLogin } from "@/assets/js/member/login.js";
 export default {
   methods: {
     onLogin: onLogin,
+    kakaoLogin() {
+      const kakaoAuthUrl = "/oauth2/authorization/kakao";
+      window.location.href = kakaoAuthUrl;
+      console.log(window.location.href);
+    },
   },
 };
 </script>
 
 <style scoped>
+.form-label {
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+.socialLogin {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.socialLogin a {
+  width: 80%;
+}
+
 .loginbody {
   text-align: left;
+}
+
+#kakao-box {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000cb;
+  background-color: #fee500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#naver-box {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: #03c75a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#icon-img {
+  margin-right: 2%;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  width: 40px;
 }
 </style>
