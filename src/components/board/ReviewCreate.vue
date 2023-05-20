@@ -6,9 +6,9 @@
     <div class="row reviewRow">
       <div class="reviewContainer col-md-6">
         <div class="reviewTitle">
-          <h3>[Plan Name] {{ getPlan["plan"].title }}</h3>
-          <h5>출발일 : {{ getPlan["plan"].startDate }}</h5>
-          <h5>도착일 : {{ getPlan["plan"].endDate }}</h5>
+          <h3>[Plan Name] {{ getPlan['plan'].title }}</h3>
+          <h5>출발일 : {{ getPlan['plan'].startDate }}</h5>
+          <h5>도착일 : {{ getPlan['plan'].endDate }}</h5>
 
           <h4>여행은 어떠셨나요 ?</h4>
           <p>당신의 여행 후기를 기다리고있었어요</p>
@@ -193,11 +193,11 @@ span.multiselect__tag {
   text-align: left;
 }
 .todo ul ::marker {
-  content: ">";
+  content: '>';
   color: #48b;
 }
 .todo ul ul ::marker {
-  content: ">>";
+  content: '>>';
 }
 
 .todo ul li {
@@ -240,12 +240,12 @@ span.multiselect__tag {
 }
 </style>
 <script>
-import api from "@/assets/js/util/axios.js";
-import Multiselect from "vue-multiselect";
-import { $ } from "@/assets/js/util/elementTool";
+import api from '@/assets/js/util/axios.js';
+import { $ } from '@/assets/js/util/elementTool';
+import Multiselect from 'vue-multiselect';
 
 export default {
-  name: "ReviewCreate",
+  name: 'ReviewCreate',
   computed: {
     getPlan() {
       return this.$store.state.reviewStore.planForReview;
@@ -262,17 +262,17 @@ export default {
   },
   components: { Multiselect },
 
-  beforeUpdate() {
+  mounted() {
     this.goodOptions = [];
     this.badOptions = [];
     let planDays = this.$store.state.reviewStore.planForReview.planDays;
     // console.log("review create - planDays : ", planDays);
     planDays.forEach((day) => {
       let dayCategory = {};
-      dayCategory["day"] = day;
+      dayCategory['day'] = day;
       let detailPlan = this.$store.state.reviewStore.planForReview.detailPlan[day];
-      // console.log("review create : ", detailPlan);
-      dayCategory["libs"] = detailPlan;
+      console.log('review create : ', detailPlan);
+      dayCategory['libs'] = detailPlan;
       this.goodOptions.push(dayCategory);
       this.badOptions.push(dayCategory);
     });
@@ -289,33 +289,45 @@ export default {
       this.badValue.push(tag);
     },
 
-    submitReview() {
-      console.log("hi");
+    async submitReview() {
+      //console.log("hi");
       const postReview = {};
-      postReview["title"] = $("#title").value;
-      postReview["planIdx"] = this.getPlan.plan.planIdx;
-      postReview["recommendAttractions"] = [];
-      postReview["unRecommendAttractions"] = [];
+      postReview['title'] = $('#title').value;
+      postReview['planIdx'] = this.getPlan.plan.planIdx;
+      postReview['recommendAttractions'] = [];
+      postReview['unRecommendAttractions'] = [];
 
       this.goodValue.forEach((attr) => {
-        postReview["recommendAttractions"].push(attr.content_id);
+        postReview['recommendAttractions'].push(attr.content_id);
       });
       this.badValue.forEach((attr) => {
-        postReview["unRecommendAttractions"].push(attr.content_id);
+        postReview['unRecommendAttractions'].push(attr.content_id);
       });
-      postReview["contents"] = $("#reviewContents").value;
+      postReview['contents'] = $('#reviewContents').value;
 
       let check = true;
-      postReview["recommendAttractions"].forEach((id) => {
-        if (postReview["unRecommendAttractions"].includes(id)) {
+      postReview['recommendAttractions'].forEach((id) => {
+        if (postReview['unRecommendAttractions'].includes(id)) {
           check = false;
-          alert("하나의 여행지가 추천하는 여행지와 비추천하는 여행지 모두에 들어갈 수 없어요 😥");
+          alert('하나의 여행지가 추천하는 여행지와 비추천하는 여행지 모두에 들어갈 수 없어요 😥');
         }
       });
 
       if (check) {
         //서버 전송
-        console.log("submit!!!! ", postReview);
+        try {
+          let reviewUrl = '/reviews';
+          const res = await api.post(reviewUrl, postReview);
+          const data = await res.data;
+          console.log(data);
+          alert('리뷰가 등록되었습니다 😊');
+
+          this.$router.push('/review/list');
+        } catch (e) {
+          alert('리뷰 등록에 실패하였습니다.');
+          console.log(e);
+        }
+        //console.log("submit!!!! ", postReview);
       }
     },
   },
