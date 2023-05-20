@@ -1,19 +1,26 @@
 <template>
   <div class="container">
     <div class="reviewDetailMain">
+      <div class="row mt-5">
+        <div class="col-md-8 leftBox"><getMap></getMap></div>
+        <div class="col-md-3 rightBox">
+          <getAttractionInfo></getAttractionInfo>
+        </div>
+      </div>
       <section class="todo2 mt-5">
         <h1>{{ review['title'] }}</h1>
+        <p>작성 날짜 :</p>
         <ul>
           <li theLittleDetails="추천하는 여행지 목록입니다">추천합니다 😁</li>
           <ul>
             <span v-for="good in goodOptions" :key="good.title">
-              <li :theLittleDetails="good.addr1">{{ good.title }}</li>
+              <li :theLittleDetails="good.addr1" @click="makeMap(good)">{{ good.title }}</li>
             </span>
           </ul>
           <li theLittleDetails="비추천하는 여행지 목록입니다">비추천합니다 😥</li>
           <ul>
             <span v-for="bad in badOptions" :key="bad.title">
-              <li :theLittleDetails="bad.addr1">{{ bad.title }}</li>
+              <li :theLittleDetails="bad.addr1" @click="makeMap(bad)">{{ bad.title }}</li>
             </span>
           </ul>
           <li theLittleDetails="여행 전반에 대한 총평입니다">총 평</li>
@@ -24,15 +31,23 @@
           </ul>
         </ul>
       </section>
-      <router-link to="/review/list"
-        ><button class="btn-get-started">다른 여행기도 궁금하신가요 ?</button></router-link
-      >
     </div>
+    <router-link to="/review/list"
+      ><button class="btn-get-started">다른 여행기도 궁금하신가요 ?</button></router-link
+    >
   </div>
 </template>
 <script>
+import { makeMap } from '@/assets/js/review/showReview';
+import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
+import getMap from '@/components/map/getMap.vue';
+
 export default {
   name: 'ReviewDetail',
+  components: {
+    getMap,
+    getAttractionInfo,
+  },
   computed: {
     review() {
       return this.$store.state.reviewStore.ReviewDetail;
@@ -49,17 +64,18 @@ export default {
     this.badOptions = this.$store.state.reviewStore.ReviewDetail.unrecommendsAttractionInfo;
     // console.log("review create - planDays : ", planDays);
   },
+  methods: {
+    makeMap: makeMap,
+  },
 };
 </script>
 <style>
-.reviewDetailMain {
+/* .reviewDetailMain {
   margin: 200px auto;
-}
+} */
 .todo2 {
-  width: 100%;
+  width: 95%;
   margin: auto;
-  /* min-height: 850px; */
-  max-width: 420px;
   background-color: var(--color-white);
   padding: 2em;
   box-shadow: 1px 2px 4px #0003;
