@@ -38,6 +38,7 @@
               id="loginpw"
               placeholder="비밀번호..."
               name="member_password"
+              @keyup.enter="onLogin"
             />
           </div>
           <div class="socialLogin">
@@ -94,12 +95,8 @@ export default {
     onLogin: onLogin,
     kakaoLogin() {
       const kakaoAuthUrl = '/oauth2/authorization/kakao';
-      // const res = await api.get(kakaoAuthUrl);
-      // const description = await res.data;
-      // console.log(description);
       window.location.href = kakaoAuthUrl;
       this.$cookies.set('redirect', '1', '1d');
-      //console.log(window.location.href);
     },
   },
 };
