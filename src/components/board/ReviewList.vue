@@ -4,12 +4,13 @@
       <h1>요즘 인기있는 여행지와 여행기를 만나보아요</h1>
     </div>
     <div class="reviewContainer">
-      <ReviewBoard></ReviewBoard>
-      <ReviewBoard></ReviewBoard>
-      <ReviewBoard></ReviewBoard>
-      <ReviewBoard></ReviewBoard>
-      <ReviewBoard></ReviewBoard>
-      <ReviewBoard></ReviewBoard>
+      <span v-for="review in reviews" :key="review['reviewIdx']">
+        <ReviewBoard
+          :review="review"
+          @click.native="reviewDetail(review.reviewIdx, $event)"
+        ></ReviewBoard>
+        <!-- <PlanDetail :plan2="plan"></PlanDetail> -->
+      </span>
     </div>
   </div>
 </template>
@@ -25,38 +26,55 @@
   width: 80%;
   margin: auto;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>
 <script>
-import api from "@/assets/js/util/axios.js";
-import ReviewBoard from "./ReviewBoard.vue";
+import api from '@/assets/js/util/axios.js';
+import ReviewBoard from './ReviewBoard.vue';
 
 export default {
-  name: "ReviewList",
+  name: 'ReviewList',
   data() {
-    return {};
+    return {
+      reviews: [],
+    };
   },
   components: {
     ReviewBoard,
   },
 
   async created() {
-    let planUrl = "/plans";
+    let reviewUrl = '/reviews';
     try {
-      const res = await api.get(planUrl);
-      const plan = await res.data;
-      console.log(plan);
-      plan.forEach((p) => {
-        if (p["plan"].title.length > 7) {
-          p["plan"].title = p["plan"].title.substr(0, 8) + "..";
-        }
-        p["plan"].userName = this.$cookies.get("accesstoken").nickname;
-      });
-      this.plans = plan;
+      const res = await api.get(reviewUrl);
+      const review = await res.data;
+      console.log(review);
+      this.reviews = review;
     } catch (e) {
       console.log(e);
     }
   },
-  methods: {},
+  methods: {
+    reviewDetail: async function (idx, event) {
+      console.log('click', event);
+      let reviewDetailUrl = '/reviews/' + idx;
+      let reviewDet = {};
+      try {
+        const res = await api.get(reviewDetailUrl);
+        const detail = await res.data;
+
+        console.log('>> detail : ', detail);
+        reviewDet = detail;
+      } catch (e) {
+        console.log(e);
+      }
+
+      this.$store.dispatch('reviewStore/nowReviewDetail', reviewDet, { root: true });
+      console.log('Vuex 에 저장 성공! - 리뷰조회');
+      console.log(this.$store.state.reviewStore.ReviewDetail);
+      this.$router.push('/review/detail');
+    },
+  },
 };
 </script>

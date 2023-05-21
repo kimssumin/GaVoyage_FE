@@ -322,26 +322,27 @@ export default {
           const data = await res.data;
           console.log(data);
           alert('리뷰가 등록되었습니다 😊');
-          let reviewDetailUrl = '/reviews/' + postReview.planIdx;
-          let reviews = {};
-          try {
-            const res = await api.get(reviewDetailUrl);
-            const detail = await res.data;
-            reviews = detail;
-          } catch (e) {
-            console.log(e);
-          }
-
-          this.$store.dispatch('reviewStore/nowReviewDetail', reviews, { root: true });
-          console.log(reviews);
-          console.log('Vuex 에 저장 성공! - 리뷰저장');
-          console.log(this.$store.state.reviewStore.ReviewDetail);
-          this.$router.push('/review/detail');
         } catch (e) {
           alert('리뷰 등록에 실패하였습니다.');
           console.log(e);
         }
         //console.log("submit!!!! ", postReview);
+        let reviewDetailUrl = '/reviews/find-by-plan?planIdx=' + postReview.planIdx;
+        console.log(reviewDetailUrl);
+        let reviews = {};
+        try {
+          const res = await api.get(reviewDetailUrl);
+          const detail = await res.data;
+          reviews = detail;
+        } catch (e) {
+          console.log(e);
+        }
+
+        this.$store.dispatch('reviewStore/nowReviewDetail', reviews, { root: true });
+        console.log(reviews);
+        console.log('Vuex 에 저장 성공! - 리뷰저장');
+        console.log(this.$store.state.reviewStore.ReviewDetail);
+        this.$router.push('/review/detail');
       }
     },
   },

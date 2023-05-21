@@ -3,42 +3,42 @@
     <img class="img" src="@/assets/img/blue-sky-g64217e8e3_1920.jpg" alt="" />
     <!--"../assets/img/korea-geab21995b_1920.jpg"-->
     <div class="heading">
-      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Seoul</h6>
-      <h4>Title</h4>
+      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ review.reviewIdx }}</h6>
+      <h4>{{ review.title }}</h4>
       <div id="likeAndBookmark">
         <Like></Like>
-        <BookMark></BookMark>
       </div>
     </div>
 
     <div class="data">
-      <span class="writeDate">2023-05-06</span>
-      <span class="user-id">김싸피 님의 여행</span>
+      <span class="writeDate">{{ review.createdAt }}</span>
+      <span class="user-id">{{ review.writerName }} 님의 여행</span>
     </div>
-    <p class="texts">여기엔 뭘 넣으면 좋지 넣을까뺼까, 간단 본문내용..</p>
+    <p class="texts">{{ review.contents.slice(0, 30) }}</p>
   </div>
 </template>
 <script>
-import BookMark from "../button/BookMark.vue";
-import Like from "../button/Like.vue";
+import Like from '../button/Like.vue';
 
 export default {
-  name: "ReviewBoard",
+  name: 'ReviewBoard',
   props: {
-    msg: String,
+    review: {
+      type: Object,
+    },
   },
   components: {
     Like,
-    BookMark,
   },
 };
 </script>
 <style>
 #box {
   width: 270px;
+  height: 400px;
   border-radius: 8px;
   overflow: hidden;
-  margin: 20px auto 10px 0px;
+  margin: 20px 15px 80px;
   transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
   background: var(--color-white);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);

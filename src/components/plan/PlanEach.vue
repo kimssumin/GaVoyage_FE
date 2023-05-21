@@ -141,7 +141,7 @@ export default {
         this.$router.push('/review/create');
       } else {
         //리뷰 있다! -> 리뷰 보여주자
-        let reviewDetailUrl = '/reviews/' + this.plan['plan'].planIdx;
+        let reviewDetailUrl = '/reviews/find-by-plan?planIdx=' + this.plan['plan'].planIdx;
         let reviews = {};
         try {
           const res = await api.get(reviewDetailUrl);
