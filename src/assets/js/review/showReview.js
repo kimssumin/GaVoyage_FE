@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
-import api from '../util/axios.js';
-import { $ } from '../util/elementTool.js';
+import api from "../util/axios.js";
+import { $ } from "../util/elementTool.js";
 export function makeMap(data) {
   let startX = data.latitude;
   let startY = data.longitude;
   console.log(startX, startY);
-  let mapContainer = $('#map'), // 지도를 표시할 div
+  let mapContainer = $("#map"), // 지도를 표시할 div
     mapOption = {
       center: new kakao.maps.LatLng(Number(startX), Number(startY)), // 지도의 중심좌표.
       level: 4, // 지도의 확대 레벨
@@ -26,27 +26,27 @@ export function makeMap(data) {
       '<div style="width:350px; height: 170px">' +
       '<div style="height:20%;" class="row mt-1 ms-2 fw-bold">' +
       data.title +
-      '</div>' +
+      "</div>" +
       '<div style="height:80%;" class="row m-1 d-flex">' +
       '<div style="width:40%;">' +
       '<img style="width:100%; height:100px;" src=' +
       data.first_image +
-      ' />' +
-      '</div>' +
+      " />" +
+      "</div>" +
       '<div style="width:60%;">' +
       '<p style="font-size: 10pt; margin: 1px" class="fw-bold">주소</p>' +
       '<p style="font-size: 10pt; margin: 1px">' +
       data.addr1 +
-      '\n' +
+      "\n" +
       data.addr2 +
-      '</p>' +
-      '</div>' +
-      '</div>' +
-      '</div>', // 인포윈도우에 표시할 내용
+      "</p>" +
+      "</div>" +
+      "</div>" +
+      "</div>", // 인포윈도우에 표시할 내용
   });
-  kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(mapi, marker, infowindow));
-  kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-  kakao.maps.event.addListener(marker, 'click', showDescription(data));
+  kakao.maps.event.addListener(marker, "mouseover", makeOverListener(mapi, marker, infowindow));
+  kakao.maps.event.addListener(marker, "mouseout", makeOutListener(infowindow));
+  kakao.maps.event.addListener(marker, "click", showDescription(data));
 }
 
 function showDescription(data) {
@@ -54,13 +54,13 @@ function showDescription(data) {
 }
 
 async function detailAttr(data) {
-  let detailUrl = '/regions/description?contentId=' + data.content_id;
+  let detailUrl = "/regions/description?contentId=" + data.content_id;
   try {
     const res = await api.get(detailUrl);
     const description = await res.data;
-    let mlist = $('#my-list');
+    let mlist = $("#my-list");
     mlist.replaceChildren();
-    let li = document.createElement('li');
+    let li = document.createElement("li");
     let content = `<div class="m1">
 			    					<hr>
 				    				<h5 id = "data-title" style="font-weight: bold;">${data.title}</h5>
@@ -79,11 +79,23 @@ async function detailAttr(data) {
                     <button class = "btn-search"><a href= "https://search.naver.com/search.naver?where=nexearchie=utf8&query=${
                       data.title
                     }" target="_blank">더 알아보기 &nbsp; <i class="far fa-search-location"></i></a></button>
+                    <div><button class = "btn-get-started" id = "scrapBtn">스크랩하기</button></div>
 			    				</div>`;
 
     li.innerHTML = content;
     mlist.appendChild(li);
-    $('.dataImg').style.width = '40%';
+
+    if (data.isScrab == 0) {
+      //스크랩 안한 상태
+      $("#scrapBtn").innerHTML = "스크랩 하기";
+    } else {
+      $("#scrapBtn").innerHTML = "스크랩 취소";
+    }
+
+    $("#scrapBtn").addEventListner("click", () => {
+      doScrap(data.content_id);
+    });
+    $(".dataImg").style.width = "40%";
   } catch (e) {
     console.log(e);
   }
@@ -101,4 +113,20 @@ function makeOutListener(infowindow) {
   return function () {
     infowindow.close();
   };
+}
+
+async function doScrap(content_id) {
+  let scrapUrl = "/scraps/" + content_id;
+  try {
+    const res = await api.post(scrapUrl);
+    const data = await res.data;
+
+    if (data == "Y") {
+      $("#scrapBtn").innerHTML = "스크랩 취소";
+    } else {
+      $("#scrapBtn").innerHTML = "스크랩 하기";
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }

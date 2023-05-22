@@ -9,7 +9,10 @@
       </div>
       <section class="todo2 mt-5">
         <h1>{{ review["title"] }}</h1>
-        <p>작성 날짜 :</p>
+        <p class="todo2-info">
+          작성 날짜 : {{ review["createdAt"] }}<br />
+          작성자 : @{{ review["writerName"] }}
+        </p>
         <ul>
           <li theLittleDetails="추천하는 여행지 목록입니다">추천합니다 😁</li>
           <ul>
@@ -32,12 +35,18 @@
         </ul>
       </section>
     </div>
-    <router-link to="/review/list"
-      ><button class="btn-get-started">다른 여행기도 궁금하신가요 ?</button></router-link
-    >
+    <div class="reviewBtns">
+      <router-link to="/review/list"
+        ><button class="btn-get-started">다른 여행기도 궁금하신가요 ?</button></router-link
+      >
+      <button class="deleteReview" style="display: none" id="deleteBtn" @click="deleteReview">
+        삭제
+      </button>
+    </div>
   </div>
 </template>
 <script>
+import api from "@/assets/js/util/axios.js";
 import { makeMap } from "@/assets/js/review/showReview";
 import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
 import getMap from "@/components/map/getMap.vue";
@@ -63,11 +72,22 @@ export default {
     this.goodOptions = this.$store.state.reviewStore.ReviewDetail.recommendsAttractionInfo;
     this.badOptions = this.$store.state.reviewStore.ReviewDetail.unrecommendsAttractionInfo;
     document.querySelector(".reviewContentTxt").innerHTML = this.review["contents"];
-
-    // console.log("review create - planDays : ", planDays);
+    if (this.review["writerName"] == this.$cookies.get("accesstoken").nickname) {
+      document.querySelector(".deleteReview").style.display = "block";
+    }
   },
   methods: {
     makeMap: makeMap,
+    async deleteReview() {
+      let deleteUrl = "/reviews/" + this.review["reviewIdx"];
+      try {
+        const res = await api.delete(deleteUrl);
+        // const detail = await res.data;
+        this.$router.push("/review/list");
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
@@ -138,5 +158,17 @@ export default {
 .todo2 li:hover::after {
   opacity: 1;
   transition-delay: 0.2s;
+}
+
+.todo2-info {
+  text-align: left;
+  margin: 30px 30px 15px;
+}
+
+.reviewBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
 </style>

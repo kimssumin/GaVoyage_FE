@@ -446,8 +446,8 @@ h1 {
 
 #deleteBtn {
   border: none;
-  padding: 5px 10px;
-  border-radius: 8px;
+  padding: 7px 10px;
+  border-radius: 5px;
   background-color: #d40b0b;
   color: var(--color-white);
 }
