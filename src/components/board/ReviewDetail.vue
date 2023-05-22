@@ -8,7 +8,7 @@
         </div>
       </div>
       <section class="todo2 mt-5">
-        <h1>{{ review['title'] }}</h1>
+        <h1>{{ review["title"] }}</h1>
         <p>작성 날짜 :</p>
         <ul>
           <li theLittleDetails="추천하는 여행지 목록입니다">추천합니다 😁</li>
@@ -25,8 +25,8 @@
           </ul>
           <li theLittleDetails="여행 전반에 대한 총평입니다">총 평</li>
           <ul>
-            <li>
-              {{ review['contents'] }}
+            <li class="reviewContentTxt">
+              <!-- {{ stringToHTML(review['contents']) }} -->
             </li>
           </ul>
         </ul>
@@ -38,12 +38,12 @@
   </div>
 </template>
 <script>
-import { makeMap } from '@/assets/js/review/showReview';
-import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
-import getMap from '@/components/map/getMap.vue';
+import { makeMap } from "@/assets/js/review/showReview";
+import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
+import getMap from "@/components/map/getMap.vue";
 
 export default {
-  name: 'ReviewDetail',
+  name: "ReviewDetail",
   components: {
     getMap,
     getAttractionInfo,
@@ -62,6 +62,8 @@ export default {
   mounted() {
     this.goodOptions = this.$store.state.reviewStore.ReviewDetail.recommendsAttractionInfo;
     this.badOptions = this.$store.state.reviewStore.ReviewDetail.unrecommendsAttractionInfo;
+    document.querySelector(".reviewContentTxt").innerHTML = this.review["contents"];
+
     // console.log("review create - planDays : ", planDays);
   },
   methods: {
@@ -92,11 +94,11 @@ export default {
   text-align: left;
 }
 .todo2 ul ::marker {
-  content: '>';
+  content: ">";
   color: #48b;
 }
 .todo2 ul ul ::marker {
-  content: '>>';
+  content: ">>";
 }
 
 .todo2 ul li {

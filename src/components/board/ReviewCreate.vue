@@ -3,12 +3,12 @@
     <div class="reviewCreateTitle">
       <h1>리뷰 작성</h1>
     </div>
-    <div class="row reviewRow">
+    <div class="row reviewRow2">
       <div class="reviewContainer col-md-6">
         <div class="reviewTitle">
-          <h3>[Plan Name] {{ getPlan['plan'].title }}</h3>
-          <h5>출발일 : {{ getPlan['plan'].startDate }}</h5>
-          <h5>도착일 : {{ getPlan['plan'].endDate }}</h5>
+          <h3>[Plan Name] {{ getPlan["plan"].title }}</h3>
+          <h5>출발일 : {{ getPlan["plan"].startDate }}</h5>
+          <h5>도착일 : {{ getPlan["plan"].endDate }}</h5>
 
           <h4>여행은 어떠셨나요 ?</h4>
           <p>당신의 여행 후기를 기다리고있었어요</p>
@@ -60,12 +60,31 @@
 
           <div class="planEvaluation">
             <h4>마지막으로, 여행에 총평을 작성해주세요</h4>
-            <textarea id="reviewContents"> </textarea>
+            <textarea id="reviewContents"></textarea>
+          </div>
+
+          <div class="planEvaluation">
+            <h4>잠깐! 첨부하실 사진이 있나요 ?</h4>
+            <vue2Dropzone
+              id="drop-file"
+              :options="dropOption"
+              :useCustomSlot="true"
+              @vdropzone-file-added="addFile"
+              @vdropzone-removed-file="removeFile"
+              @vdropzone-complete="afterComplete"
+            >
+              <!--  @vdropzone-file-added="addFile"
+              @vdropzone-removed-file="removeFile" -->
+              <div class="dropzone-custom-content">
+                <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+                <div class="subtitle">...or click to select a file from your computer</div>
+              </div>
+            </vue2Dropzone>
           </div>
         </div>
       </div>
 
-      <div class="col-md-4 rightside">
+      <div class="col-md-4 rightside2">
         <section class="todo mt-5">
           <h1>Plan Review</h1>
           <ul>
@@ -92,9 +111,46 @@
     </div>
   </div>
 </template>
-<style scoped>
-.reviewRow {
-  overflow: visible;
+<style>
+#drop-file {
+  margin: 20px auto;
+}
+.dropzone-custom-content {
+  text-align: center;
+}
+
+.dropzone-custom-title {
+  margin-top: 0;
+  color: var(--color-blue);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.dz-message {
+  background: var(--color-white);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  color: #314b5f;
+  font-size: 12px;
+}
+
+a:dz-remove {
+  color: var(--color-blue);
+}
+
+.dz-preview {
+  margin-bottom: 20px;
+}
+.dz-success-mark,
+.dz-error-mark {
+  display: none !important;
+}
+
+.reviewRow2 {
+  overflow: visible !important;
 }
 .reviewCreateTitle {
   position: relative;
@@ -167,8 +223,8 @@ span.multiselect__tag {
   color: white;
 }
 
-.rightside {
-  top: 200px;
+.rightside2 {
+  top: 300px;
   position: sticky;
 }
 
@@ -193,11 +249,11 @@ span.multiselect__tag {
   text-align: left;
 }
 .todo ul ::marker {
-  content: '>';
+  content: ">";
   color: #48b;
 }
 .todo ul ul ::marker {
-  content: '>>';
+  content: ">>";
 }
 
 .todo ul li {
@@ -240,12 +296,14 @@ span.multiselect__tag {
 }
 </style>
 <script>
-import api from '@/assets/js/util/axios.js';
-import { $ } from '@/assets/js/util/elementTool';
-import Multiselect from 'vue-multiselect';
+import vue2Dropzone from "vue2-dropzone";
+import api from "@/assets/js/util/axios.js";
+import { $ } from "@/assets/js/util/elementTool";
+import Multiselect from "vue-multiselect";
+import VueCookies from "vue-cookies";
 
 export default {
-  name: 'ReviewCreate',
+  name: "ReviewCreate",
   computed: {
     getPlan() {
       return this.$store.state.reviewStore.planForReview;
@@ -258,9 +316,23 @@ export default {
 
       badValue: [],
       badOptions: [],
+
+      uploadimageurl: [], // 업로드한 이미지의 미리보기 기능을 위해 url 저장하는 객체
+      dropOption: {
+        url: "https://httpbin.org/post",
+        method: "post",
+        autoProcessQueue: false, //자동으로 보내기 방지
+        thumbnailWidth: 150,
+        maxFilesize: 0.5,
+        maxFiles: 5,
+        addRemoveLinks: true,
+      },
     };
   },
-  components: { Multiselect },
+  components: {
+    Multiselect,
+    vue2Dropzone: vue2Dropzone,
+  },
 
   mounted() {
     this.goodOptions = [];
@@ -269,10 +341,10 @@ export default {
     // console.log("review create - planDays : ", planDays);
     planDays.forEach((day) => {
       let dayCategory = {};
-      dayCategory['day'] = day;
+      dayCategory["day"] = day;
       let detailPlan = this.$store.state.reviewStore.planForReview.detailPlan[day];
-      console.log('review create : ', detailPlan);
-      dayCategory['libs'] = detailPlan;
+      console.log("review create : ", detailPlan);
+      dayCategory["libs"] = detailPlan;
       this.goodOptions.push(dayCategory);
       this.badOptions.push(dayCategory);
     });
@@ -292,42 +364,42 @@ export default {
     async submitReview() {
       //console.log("hi");
       const postReview = {};
-      postReview['title'] = $('#title').value;
-      postReview['planIdx'] = this.getPlan.plan.planIdx;
-      postReview['recommendAttractions'] = [];
-      postReview['unRecommendAttractions'] = [];
+      postReview["title"] = $("#title").value;
+      postReview["planIdx"] = this.getPlan.plan.planIdx;
+      postReview["recommendAttractions"] = [];
+      postReview["unRecommendAttractions"] = [];
 
       this.goodValue.forEach((attr) => {
-        postReview['recommendAttractions'].push(attr.content_id);
+        postReview["recommendAttractions"].push(attr.content_id);
       });
       this.badValue.forEach((attr) => {
-        postReview['unRecommendAttractions'].push(attr.content_id);
+        postReview["unRecommendAttractions"].push(attr.content_id);
       });
-      postReview['contents'] = $('#reviewContents').value;
+      postReview["contents"] = $("#reviewContents").value;
 
       let check = true;
-      postReview['recommendAttractions'].forEach((id) => {
-        if (postReview['unRecommendAttractions'].includes(id)) {
+      postReview["recommendAttractions"].forEach((id) => {
+        if (postReview["unRecommendAttractions"].includes(id)) {
           check = false;
-          alert('하나의 여행지가 추천하는 여행지와 비추천하는 여행지 모두에 들어갈 수 없어요 😥');
+          alert("하나의 여행지가 추천하는 여행지와 비추천하는 여행지 모두에 들어갈 수 없어요 😥");
         }
       });
 
       if (check) {
         //서버 전송
         try {
-          let reviewUrl = '/reviews';
+          let reviewUrl = "/reviews";
           const res = await api.post(reviewUrl, postReview);
-          console.log('postReview >> ', postReview);
+          console.log("postReview >> ", postReview);
           const data = await res.data;
           console.log(data);
-          alert('리뷰가 등록되었습니다 😊');
+          alert("리뷰가 등록되었습니다 😊");
         } catch (e) {
-          alert('리뷰 등록에 실패하였습니다.');
+          alert("리뷰 등록에 실패하였습니다.");
           console.log(e);
         }
         //console.log("submit!!!! ", postReview);
-        let reviewDetailUrl = '/reviews/find-by-plan?planIdx=' + postReview.planIdx;
+        let reviewDetailUrl = "/reviews/find-by-plan?planIdx=" + postReview.planIdx;
         console.log(reviewDetailUrl);
         let reviews = {};
         try {
@@ -338,11 +410,57 @@ export default {
           console.log(e);
         }
 
-        this.$store.dispatch('reviewStore/nowReviewDetail', reviews, { root: true });
+        this.$store.dispatch("reviewStore/nowReviewDetail", reviews, { root: true });
         console.log(reviews);
-        console.log('Vuex 에 저장 성공! - 리뷰저장');
+        console.log("Vuex 에 저장 성공! - 리뷰저장");
         console.log(this.$store.state.reviewStore.ReviewDetail);
-        this.$router.push('/review/detail');
+        this.$router.push("/review/detail");
+      }
+    },
+
+    // 추가된 method
+    addFile(file) {
+      this.uploadimageurl.push(file);
+      this.afterComplete(file);
+      console.log(this.uploadimageurl);
+    },
+
+    removeFile(file, error, xhr) {
+      this.uploadimageurl = this.uploadimageurl.filter((f) => f.upload.fid !== file.upload.fid);
+    },
+
+    async afterComplete(upload) {
+      // console.log("in!");
+      let file = upload;
+      const formData = new FormData();
+      formData.append("image", file);
+      try {
+        const token = VueCookies.get("accesstoken").token;
+
+        const res = await api.post("/aws/s3/uploadImage", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.data;
+        console.log("통신완료 !! >> ", data);
+
+        let txtArea = document.getElementById("reviewContents");
+        let txtValue = txtArea.value;
+        let selectPos = txtArea.selectionStart; // 커서 위치 지정
+        let beforeTxt = txtValue.substring(0, selectPos); // 기존텍스트 ~ 커서시작점 까지의 문자
+        let afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length); // 커서끝지점 ~ 기존텍스트 까지의 문자
+        let addTxt = `<br><img src="${data}" style="width: 50%; height:auto;" alt="image"><br>`; // 추가 입력 할 텍스트
+
+        txtArea.value = beforeTxt + addTxt + afterTxt;
+
+        selectPos = selectPos + addTxt.length;
+        txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
+        txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
+        reviewContents.focus();
+      } catch (e) {
+        console.log(e);
       }
     },
   },
