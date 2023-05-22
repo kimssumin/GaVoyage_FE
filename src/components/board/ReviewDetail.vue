@@ -9,10 +9,14 @@
       </div>
       <section class="todo2 mt-5">
         <h1>{{ review['title'] }}</h1>
-        <p class="todo2-info">
-          작성 날짜 : {{ review['createdAt'] }}<br />
-          작성자 : @{{ review['writerName'] }}
-        </p>
+        <div class="todo2-tot">
+          <p class="todo2-info">
+            작성 날짜 : {{ review['createdAt'] }}<br />
+            작성자 : @{{ review['writerName'] }}
+          </p>
+          <Like :reviewInit="reviewLike"></Like>
+        </div>
+
         <ul>
           <li theLittleDetails="추천하는 여행지 목록입니다">추천합니다 😁</li>
           <ul>
@@ -55,12 +59,14 @@ import { makeMap } from '@/assets/js/review/showReview';
 import api from '@/assets/js/util/axios.js';
 import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
 import getMap from '@/components/map/getMap.vue';
+import Like from '../button/Like.vue';
 
 export default {
   name: 'ReviewDetail',
   components: {
     getMap,
     getAttractionInfo,
+    Like,
   },
   computed: {
     review() {
@@ -72,6 +78,10 @@ export default {
       goodOptions: [],
       badOptions: [],
       nowSelect: {},
+      reviewLike: {
+        id: this.$store.state.reviewStore.ReviewDetail.reviewIdx,
+        isLiked: this.$store.state.reviewStore.ReviewDetail.isLiked,
+      },
     };
   },
 
@@ -180,6 +190,11 @@ export default {
   margin: 30px 30px 15px;
 }
 
+.todo2-tot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .reviewBtns {
   display: flex;
   align-items: center;

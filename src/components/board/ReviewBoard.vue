@@ -6,7 +6,7 @@
       <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ review.reviewIdx }}</h6>
       <h4>{{ review.title }}</h4>
       <div id="likeAndBookmark">
-        <Like></Like>
+        <Like :reviewInit="reviewLike"></Like>
       </div>
     </div>
 
@@ -26,6 +26,11 @@ export default {
     review: {
       type: Object,
     },
+  },
+  data() {
+    return {
+      reviewLike: { id: this.review.reviewIdx, isLiked: this.review.isLiked },
+    };
   },
   components: {
     Like,
@@ -98,5 +103,6 @@ export default {
   justify-content: flex-end;
   margin-top: -80px;
   padding-bottom: 30px;
+  align-items: center;
 }
 </style>

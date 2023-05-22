@@ -18,7 +18,13 @@ export const buttonStore = {
       }
     },
 
-    updateLike: (state, payload) => {},
+    updateLike: (state, payload) => {
+      if (payload.islike == 1) {
+        state.reviewLike[payload.id] = `<i class="fa fa-heart fa-2x" aria-hidden="true"></i>`;
+      } else {
+        state.reviewLike[payload.id] = `<i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>`;
+      }
+    },
   },
 
   actions: {
