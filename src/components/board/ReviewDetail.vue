@@ -44,6 +44,8 @@
         </ul>
       </section>
     </div>
+
+    <CommentBox :reviewIdx="review['reviewIdx']"></CommentBox>
     <div class="reviewBtns">
       <router-link to="/review/list"
         ><button class="btn-get-started">다른 여행기도 궁금하신가요 ?</button></router-link
@@ -57,6 +59,7 @@
 <script>
 import { makeMap } from '@/assets/js/review/showReview';
 import api from '@/assets/js/util/axios.js';
+import CommentBox from '@/components/comment/CommentBox.vue';
 import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
 import getMap from '@/components/map/getMap.vue';
 import Like from '../button/Like.vue';
@@ -67,6 +70,7 @@ export default {
     getMap,
     getAttractionInfo,
     Like,
+    CommentBox,
   },
   computed: {
     review() {
