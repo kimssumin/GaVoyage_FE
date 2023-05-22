@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="be-comment-block">
-      <h1 class="comments-title">Comments (3)</h1>
+      <h1 class="comments-title" id="comments-title">Comments (3)</h1>
       <div class="be-comment">
         <div class="be-img-comment">
           <a href="blog-detail-2.html">
@@ -86,7 +86,7 @@
 </template>
 <script>
 export default {
-  name: 'CommentBox',
+  name: "CommentBox",
   props: {
     reviewIdx: {
       type: Number,

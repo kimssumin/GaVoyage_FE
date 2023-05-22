@@ -8,13 +8,16 @@
         </div>
       </div>
       <section class="todo2 mt-5">
-        <h1>{{ review['title'] }}</h1>
+        <h1>{{ review["title"] }}</h1>
         <div class="todo2-tot">
           <p class="todo2-info">
-            작성 날짜 : {{ review['createdAt'] }}<br />
-            작성자 : @{{ review['writerName'] }}
+            작성 날짜 : {{ review["createdAt"] }}<br />
+            작성자 : @{{ review["writerName"] }}
           </p>
-          <Like :reviewInit="reviewLike"></Like>
+          <div class="todo2-btn">
+            <Like :reviewInit="reviewLike"></Like>
+            <a href="#comments-title"><i class="far fa-comment"></i></a>
+          </div>
         </div>
 
         <ul>
@@ -57,15 +60,15 @@
   </div>
 </template>
 <script>
-import { makeMap } from '@/assets/js/review/showReview';
-import api from '@/assets/js/util/axios.js';
-import CommentBox from '@/components/comment/CommentBox.vue';
-import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
-import getMap from '@/components/map/getMap.vue';
-import Like from '../button/Like.vue';
+import { makeMap } from "@/assets/js/review/showReview";
+import api from "@/assets/js/util/axios.js";
+import CommentBox from "@/components/comment/CommentBox.vue";
+import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
+import getMap from "@/components/map/getMap.vue";
+import Like from "../button/Like.vue";
 
 export default {
-  name: 'ReviewDetail',
+  name: "ReviewDetail",
   components: {
     getMap,
     getAttractionInfo,
@@ -94,25 +97,25 @@ export default {
     this.badOptions = this.$store.state.reviewStore.ReviewDetail.unrecommendsAttractionInfo;
     this.goodOptions.forEach((good) => {
       const dataObj = { content_id: good.content_id, value: good.isScrab };
-      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+      this.$store.dispatch("buttonStore/updateScrap", dataObj, { root: true });
     });
     this.badOptions.forEach((bad) => {
       const dataObj = { content_id: bad.content_id, value: bad.isScrab };
-      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+      this.$store.dispatch("buttonStore/updateScrap", dataObj, { root: true });
     });
-    document.querySelector('.reviewContentTxt').innerHTML = this.review['contents'];
-    if (this.review['writerName'] == this.$cookies.get('accesstoken').nickname) {
-      document.querySelector('.deleteReview').style.display = 'block';
+    document.querySelector(".reviewContentTxt").innerHTML = this.review["contents"];
+    if (this.review["writerName"] == this.$cookies.get("accesstoken").nickname) {
+      document.querySelector(".deleteReview").style.display = "block";
     }
   },
   methods: {
     makeMap: makeMap,
     async deleteReview() {
-      let deleteUrl = '/reviews/' + this.review['reviewIdx'];
+      let deleteUrl = "/reviews/" + this.review["reviewIdx"];
       try {
         const res = await api.delete(deleteUrl);
         // const detail = await res.data;
-        this.$router.push('/review/list');
+        this.$router.push("/review/list");
       } catch (e) {
         console.log(e);
       }
@@ -143,11 +146,11 @@ export default {
   text-align: left;
 }
 .todo2 ul ::marker {
-  content: '>';
+  content: ">";
   color: #48b;
 }
 .todo2 ul ul ::marker {
-  content: '>>';
+  content: ">>";
 }
 
 .todo2 ul li {
@@ -199,6 +202,12 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+
+.todo2-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 .reviewBtns {
   display: flex;
   align-items: center;
@@ -212,6 +221,11 @@ export default {
   color: var(--color-blue);
   font-weight: 600;
   margin-right: 6px;
+}
+
+.fa-comment {
+  font-size: 20px;
+  color: var(--color-blue);
 }
 
 #my-list .btn-search {
