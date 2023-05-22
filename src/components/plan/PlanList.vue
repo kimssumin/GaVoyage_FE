@@ -19,7 +19,7 @@
   margin: 100px auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
@@ -30,11 +30,11 @@
 }
 </style>
 <script>
-import api from "@/assets/js/util/axios.js";
-import PlanEach from "./PlanEach.vue";
+import api from '@/assets/js/util/axios.js';
+import PlanEach from './PlanEach.vue';
 
 export default {
-  name: "PlanList",
+  name: 'PlanList',
   data() {
     return {
       plans: [],
@@ -47,16 +47,16 @@ export default {
   },
 
   async created() {
-    let planUrl = "/plans";
+    let planUrl = '/plans';
     try {
       const res = await api.get(planUrl);
       const plan = await res.data;
       console.log(plan);
       plan.forEach((p) => {
-        if (p["plan"].title.length > 7) {
-          p["plan"].title = p["plan"].title.substr(0, 8) + "..";
+        if (p['plan'].title.length > 7) {
+          p['plan'].title = p['plan'].title.substr(0, 8) + '..';
         }
-        p["plan"].userName = this.$cookies.get("accesstoken").nickname;
+        p['plan'].userName = this.$cookies.get('accesstoken').nickname;
       });
       this.plans = plan;
     } catch (e) {

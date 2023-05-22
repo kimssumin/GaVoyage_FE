@@ -1,12 +1,12 @@
-import axios from "axios";
-import { baseURL } from "./url";
-import VueCookies from "vue-cookies";
+import axios from 'axios';
+import VueCookies from 'vue-cookies';
+import { baseURL } from './url';
 
 // axios 객체 생성
 const instance = axios.create({
   baseURL: baseURL, //"http://70.12.50.218:8080",
   headers: {
-    "Content-type": "application/json",
+    'Content-type': 'application/json',
   },
   withCredentials: true,
 });
@@ -19,10 +19,10 @@ instance.interceptors.request.use(
     // const token = VueCookies.get("accesstoken").token;
     // config.headers.Authorization = `${token}`;
     // return config;
-    if (VueCookies.get("accesstoken") !== null) {
-      const token = VueCookies.get("accesstoken").token;
+    if (VueCookies.get('accesstoken') !== null) {
+      const token = VueCookies.get('accesstoken').token;
       config.headers.Authorization = `Bearer ${token}`; //`${token}`;
-      console.log(config);
+      // console.log(config);
       return config;
     } else {
       return config;

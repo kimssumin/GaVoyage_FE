@@ -8,22 +8,27 @@
         </div>
       </div>
       <section class="todo2 mt-5">
-        <h1>{{ review["title"] }}</h1>
+        <h1>{{ review['title'] }}</h1>
         <p class="todo2-info">
-          작성 날짜 : {{ review["createdAt"] }}<br />
-          작성자 : @{{ review["writerName"] }}
+          작성 날짜 : {{ review['createdAt'] }}<br />
+          작성자 : @{{ review['writerName'] }}
         </p>
         <ul>
           <li theLittleDetails="추천하는 여행지 목록입니다">추천합니다 😁</li>
           <ul>
             <span v-for="good in goodOptions" :key="good.title">
-              <li :theLittleDetails="good.addr1" @click="makeMap(good)">{{ good.title }}</li>
+              <li :theLittleDetails="good.addr1" @click="makeMap(good)">
+                {{ good.title }}
+                <!-- scrap[good.content_id] -->
+              </li>
             </span>
           </ul>
           <li theLittleDetails="비추천하는 여행지 목록입니다">비추천합니다 😥</li>
           <ul>
             <span v-for="bad in badOptions" :key="bad.title">
-              <li :theLittleDetails="bad.addr1" @click="makeMap(bad)">{{ bad.title }}</li>
+              <li :theLittleDetails="bad.addr1" @click="makeMap(bad)">
+                {{ bad.title }}
+              </li>
             </span>
           </ul>
           <li theLittleDetails="여행 전반에 대한 총평입니다">총 평</li>
@@ -46,13 +51,13 @@
   </div>
 </template>
 <script>
-import api from "@/assets/js/util/axios.js";
-import { makeMap } from "@/assets/js/review/showReview";
-import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
-import getMap from "@/components/map/getMap.vue";
+import { makeMap } from '@/assets/js/review/showReview';
+import api from '@/assets/js/util/axios.js';
+import getAttractionInfo from '@/components/map/getAttractionInfo.vue';
+import getMap from '@/components/map/getMap.vue';
 
 export default {
-  name: "ReviewDetail",
+  name: 'ReviewDetail',
   components: {
     getMap,
     getAttractionInfo,
@@ -66,24 +71,34 @@ export default {
     return {
       goodOptions: [],
       badOptions: [],
+      nowSelect: {},
     };
   },
+
   mounted() {
     this.goodOptions = this.$store.state.reviewStore.ReviewDetail.recommendsAttractionInfo;
     this.badOptions = this.$store.state.reviewStore.ReviewDetail.unrecommendsAttractionInfo;
-    document.querySelector(".reviewContentTxt").innerHTML = this.review["contents"];
-    if (this.review["writerName"] == this.$cookies.get("accesstoken").nickname) {
-      document.querySelector(".deleteReview").style.display = "block";
+    this.goodOptions.forEach((good) => {
+      const dataObj = { content_id: good.content_id, value: good.isScrab };
+      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+    });
+    this.badOptions.forEach((bad) => {
+      const dataObj = { content_id: bad.content_id, value: bad.isScrab };
+      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+    });
+    document.querySelector('.reviewContentTxt').innerHTML = this.review['contents'];
+    if (this.review['writerName'] == this.$cookies.get('accesstoken').nickname) {
+      document.querySelector('.deleteReview').style.display = 'block';
     }
   },
   methods: {
     makeMap: makeMap,
     async deleteReview() {
-      let deleteUrl = "/reviews/" + this.review["reviewIdx"];
+      let deleteUrl = '/reviews/' + this.review['reviewIdx'];
       try {
         const res = await api.delete(deleteUrl);
         // const detail = await res.data;
-        this.$router.push("/review/list");
+        this.$router.push('/review/list');
       } catch (e) {
         console.log(e);
       }
@@ -114,11 +129,11 @@ export default {
   text-align: left;
 }
 .todo2 ul ::marker {
-  content: ">";
+  content: '>';
   color: #48b;
 }
 .todo2 ul ul ::marker {
-  content: ">>";
+  content: '>>';
 }
 
 .todo2 ul li {
@@ -170,5 +185,17 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  margin-top: 20px;
+}
+
+.scrapBtn i,
+.scrapBtn {
+  color: var(--color-blue);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+#my-list .btn-search {
+  margin-top: 20px;
 }
 </style>
