@@ -97,8 +97,7 @@ export default {
 /* @import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Shrikhand&display=swap");
 header {
-  margin-top: 24px;
-  padding-bottom: 10px;
+  padding: 10px 0px;
   box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.07);
   z-index: 1;
 }

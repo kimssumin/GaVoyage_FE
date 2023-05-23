@@ -37,6 +37,7 @@ export default {
 <style scoped>
 .mylist {
   margin: 40px 0px;
+  padding-bottom: 30px;
 }
 
 .mylist h1 {

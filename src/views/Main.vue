@@ -170,4 +170,9 @@ a {
 .dataImg {
   width: 400px !important;
 }
+
+#hero {
+  position: relative;
+  top: -15px;
+}
 </style>

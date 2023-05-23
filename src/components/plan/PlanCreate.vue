@@ -174,7 +174,7 @@ export default {
 }
 .hello {
   background: var(--color-background);
-  margin-top: 3px;
+  margin-top: 30px;
 }
 
 .row {
