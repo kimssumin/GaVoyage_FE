@@ -12,15 +12,27 @@
       </div>
       <div class="details">
         <div class="rating">
-          <button class="btn-get-started">회원정보 수정</button>
+          <button
+            type="button"
+            class="btn-get-started"
+            data-bs-toggle="modal"
+            data-bs-target="#infoModif"
+          >
+            회원정보 수정
+          </button>
         </div>
       </div>
     </div>
+    <EditInfo></EditInfo>
   </div>
 </template>
 <script>
+import EditInfo from './EditInfo.vue';
 export default {
-  name: "MyPage",
+  name: 'MyPage',
+  components: {
+    EditInfo,
+  },
   data() {
     return {
       userInfo: {},
@@ -28,7 +40,7 @@ export default {
   },
 
   created() {
-    this.userInfo = this.$cookies.get("accesstoken");
+    this.userInfo = this.$cookies.get('accesstoken');
   },
 };
 </script>

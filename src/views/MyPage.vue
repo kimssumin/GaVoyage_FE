@@ -20,13 +20,11 @@
   </div>
 </template>
 <script>
-import api from "@/assets/js/util/axios.js";
-
-import LikeReviewList from "@/components/board/LikeReviewList.vue";
-import AttrBookmarkList from "@/components/board/AttrBookmarkList.vue";
-import MyPageInfo from "@/components/member/MyPageInfo.vue";
+import AttrBookmarkList from '@/components/board/AttrBookmarkList.vue';
+import LikeReviewList from '@/components/board/LikeReviewList.vue';
+import MyPageInfo from '@/components/member/MyPageInfo.vue';
 export default {
-  name: "MyPage",
+  name: 'MyPage',
   components: {
     MyPageInfo,
     AttrBookmarkList,
@@ -51,5 +49,6 @@ export default {
   backdrop-filter: blur(20px);
   border-radius: 8px;
   box-shadow: 5px 5px 40px rgba(0, 0, 0, 0.1);
+  height: 600px;
 }
 </style>

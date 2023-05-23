@@ -37,7 +37,7 @@
               >회원가입</a
             >
           </div>
-          <div id="profilenav" @click="toggle">
+          <div id="profilenav" @click="toggle" style="display: none">
             <i class="fas fa-user me-2"></i><span class="profile">김싸피님</span>
             <ul class="list" style="display: none">
               <router-link to="/mypage"
@@ -72,16 +72,16 @@
 </template>
 
 <script>
-import { changeHeader, onLogout } from "@/assets/js/member/login.js";
-import { $ } from "@/assets/js/util/elementTool";
+import { changeHeader, onLogout } from '@/assets/js/member/login.js';
+import { $ } from '@/assets/js/util/elementTool';
 export default {
   methods: {
     changeHeader: changeHeader,
     toggle() {
-      if ($(".list").style.display == "none") {
-        $(".list").style.display = "block";
+      if ($('.list').style.display == 'none') {
+        $('.list').style.display = 'block';
       } else {
-        $(".list").style.display = "none";
+        $('.list').style.display = 'none';
       }
     },
     onLogout: onLogout,
@@ -95,7 +95,7 @@ export default {
 <style scoped>
 /* @import url("https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap"); */
 /* @import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Shrikhand&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Shrikhand&display=swap');
 header {
   padding: 10px 0px;
   box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.07);
@@ -163,7 +163,7 @@ ul.hidden {
   visibility: hidden;
 }
 ul:before {
-  content: "";
+  content: '';
   width: 0.75em;
   height: 0.75em;
   background: inherit;

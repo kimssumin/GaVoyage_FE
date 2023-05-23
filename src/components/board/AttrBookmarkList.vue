@@ -64,8 +64,7 @@
   </div>
 </template>
 <script>
-import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
-import api from "@/assets/js/util/axios.js";
+import api from '@/assets/js/util/axios.js';
 export default {
   components: {},
   data() {
@@ -74,7 +73,7 @@ export default {
     };
   },
   async created() {
-    let bookmarkUrl = "/scraps/users";
+    let bookmarkUrl = '/scraps/users';
     try {
       const res = await api.get(bookmarkUrl);
       const bookmark = await res.data;
@@ -86,9 +85,9 @@ export default {
   },
 
   updated() {
-    const carouselitem = document.querySelector(".bookmark-item");
+    const carouselitem = document.querySelector('.bookmark-item');
     console.log(carouselitem);
-    carouselitem.classList.add("active");
+    carouselitem.classList.add('active');
   },
 };
 </script>
@@ -115,5 +114,7 @@ export default {
 
 #attrBookmark .dataImg {
   width: 300px;
+  height: 200px;
+  object-fit: contain;
 }
 </style>

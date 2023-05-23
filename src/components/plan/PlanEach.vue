@@ -174,6 +174,8 @@ export default {
   border: none;
   background: var(--color-blue);
   border-radius: 8px;
+  width: 25px;
+  height: 25px;
 }
 .airline {
   display: block;

@@ -3,7 +3,7 @@
     <p>총 {{ Object.keys(reviews).length }}개의 검색결과가 있습니다</p>
     <div class="carousel-inner">
       <div
-        class="carousel-item active"
+        class="carousel-item review-item"
         data-bs-interval="6000"
         v-for="review in reviews"
         :key="review['reviewIdx']"
@@ -35,8 +35,8 @@
   </div>
 </template>
 <script>
-import ReviewBoard from "@/components/board/ReviewBoard.vue";
-import api from "@/assets/js/util/axios.js";
+import api from '@/assets/js/util/axios.js';
+import ReviewBoard from '@/components/board/ReviewBoard.vue';
 export default {
   components: {
     ReviewBoard,
@@ -47,7 +47,7 @@ export default {
     };
   },
   async created() {
-    let reviewUrl = "reviews/likes";
+    let reviewUrl = 'reviews/likes';
     try {
       const res = await api.get(reviewUrl);
       const review = await res.data;
@@ -55,7 +55,7 @@ export default {
       this.reviews = review;
       this.reviews.forEach((rv) => {
         console.log(rv);
-        rv["writerName"] = rv.nickname;
+        rv['writerName'] = rv.nickname;
       });
       console.log(this.reviews);
     } catch (e) {
@@ -65,24 +65,29 @@ export default {
 
   methods: {
     reviewDetail: async function (idx, event) {
-      console.log("click", event);
-      let reviewDetailUrl = "/reviews/" + idx;
+      console.log('click', event);
+      let reviewDetailUrl = '/reviews/' + idx;
       let reviewDet = {};
       try {
         const res = await api.get(reviewDetailUrl);
         const detail = await res.data;
 
-        console.log(">> detail : ", detail);
+        console.log('>> detail : ', detail);
         reviewDet = detail;
       } catch (e) {
         console.log(e);
       }
 
-      this.$store.dispatch("reviewStore/nowReviewDetail", reviewDet, { root: true });
-      console.log("Vuex 에 저장 성공! - 리뷰조회");
+      this.$store.dispatch('reviewStore/nowReviewDetail', reviewDet, { root: true });
+      console.log('Vuex 에 저장 성공! - 리뷰조회');
       console.log(this.$store.state.reviewStore.ReviewDetail);
-      this.$router.push("/review/detail");
+      this.$router.push('/review/detail');
     },
+  },
+  updated() {
+    const carouselitem = document.querySelector('.review-item');
+    console.log(carouselitem);
+    carouselitem.classList.add('active');
   },
 };
 </script>
