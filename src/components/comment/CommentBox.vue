@@ -1,73 +1,36 @@
 <template>
   <div class="container">
     <div class="be-comment-block">
-      <h1 class="comments-title" id="comments-title">Comments (3)</h1>
-      <div class="be-comment">
+      <h1 class="comments-title" id="comments-title">
+        Comments ({{ Object.keys(comments).length }})
+      </h1>
+
+      <div class="be-comment" v-for="comment in comments" :key="comment.commentIdx">
         <div class="be-img-comment">
           <a href="blog-detail-2.html">
             <img
-              src="https://bootdey.com/img/Content/avatar/avatar1.png"
+              src="https://img.freepik.com/free-psd/3d-illustration-of-person_23-2149436192.jpg?w=740&t=st=1684800831~exp=1684801431~hmac=2c9ba5a4b6b8341f6fef2e2dd3182ae6ae03aebcbea27d1c3365b006056ac4af"
               alt=""
               class="be-ava-comment"
             />
           </a>
         </div>
         <div class="be-comment-content">
-          <span class="be-comment-name"> 사람1 </span>
+          <span class="be-comment-name">User{{ comment.userIdx }} </span>
           <span class="be-comment-time">
             <i class="fa fa-clock-o"></i>
-            May 27, 2015 at 3:14am
+            {{ comment.createdAt }}
+            <button
+              class="comment-del"
+              v-if="comment.userIdx != nowId"
+              @click="deleteComment(comment.commentIdx)"
+            >
+              삭제 <i class="fas fa-trash-alt"></i>
+            </button>
           </span>
 
           <p class="be-comment-text">
-            Pellentesque gravida tristique ultrices. Sed blandit varius mauris, vel volutpat urna
-            hendrerit id. Curabitur rutrum dolor gravida turpis tristique efficitur.
-          </p>
-        </div>
-      </div>
-      <div class="be-comment">
-        <div class="be-img-comment">
-          <a href="blog-detail-2.html">
-            <img
-              src="https://bootdey.com/img/Content/avatar/avatar2.png"
-              alt=""
-              class="be-ava-comment"
-            />
-          </a>
-        </div>
-        <div class="be-comment-content">
-          <span class="be-comment-name"> 사람2 </span>
-          <span class="be-comment-time">
-            <i class="fa fa-clock-o"></i>
-            May 27, 2015 at 3:14am
-          </span>
-          <p class="be-comment-text">
-            Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus eros
-            commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis
-            eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est. Fusce hendrerit dui in
-            turpis tristique blandit.
-          </p>
-        </div>
-      </div>
-      <div class="be-comment">
-        <div class="be-img-comment">
-          <a href="blog-detail-2.html">
-            <img
-              src="https://bootdey.com/img/Content/avatar/avatar3.png"
-              alt=""
-              class="be-ava-comment"
-            />
-          </a>
-        </div>
-        <div class="be-comment-content">
-          <span class="be-comment-name"> 사람3 </span>
-          <span class="be-comment-time">
-            <i class="fa fa-clock-o"></i>
-            May 27, 2015 at 3:14am
-          </span>
-          <p class="be-comment-text">
-            Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem
-            non ant
+            {{ comment.contents }}
           </p>
         </div>
       </div>
@@ -75,16 +38,22 @@
         <div class="row comment-up">
           <div class="col-xs-12">
             <div class="form-group">
-              <textarea class="form-input" required="" placeholder="Your text"></textarea>
+              <textarea class="form-input" required="" placeholder="댓글을 입력해보세요"></textarea>
             </div>
           </div>
-          <a class="btn btn-get-started pull-right">댓글 등록하기</a>
+          <button class="btn btn-get-started pull-right" @click="submitComment">
+            댓글 등록하기
+          </button>
         </div>
       </form>
     </div>
   </div>
 </template>
 <script>
+import api from "@/assets/js/util/axios.js";
+import VueCookies from "vue-cookies";
+import { $ } from "@/assets/js/util/elementTool";
+
 export default {
   name: "CommentBox",
   props: {
@@ -93,7 +62,65 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      comments: {},
+      userCheck: false,
+      nowId: "",
+    };
+  },
+  async created() {
+    let commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
+    try {
+      const res = await api.get(commentUrl);
+      const comment = await res.data;
+      console.log(comment);
+      this.comments = comment;
+    } catch (e) {
+      console.log(e);
+    }
+
+    this.nowId = this.$cookies.get("accesstoken").nickname;
+  },
+
+  methods: {
+    async submitComment() {
+      const text = $(".form-input").value;
+      const postCommentUrl = "/comments";
+      const commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
+      const dataObj = {
+        reviewIdx: this.reviewIdx,
+        contents: text,
+      };
+      console.log("dataObj >>", dataObj);
+      try {
+        const res = await api.post(postCommentUrl, dataObj);
+        //post
+
+        //get
+        const response = await api.get(commentUrl);
+        const comment = await response.data;
+        console.log(comment);
+        this.comments = comment;
+        $(".form-input").value = "";
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async deleteComment(cmd) {
+      const commentUrl = "/comments";
+      console.log(cmd);
+      let deleteUrl = "/comments/" + cmd;
+      try {
+        const res = await api.delete(deleteUrl);
+        const response = await api.get(commentUrl);
+        const comment = await response.data;
+        console.log(comment);
+        this.comments = comment;
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
@@ -213,5 +240,13 @@ export default {
 
 .comment-up {
   justify-content: flex-end !important;
+}
+
+.comment-del,
+.comment-del i {
+  color: rgb(187, 4, 4);
+  font-weight: 600;
+  border: none;
+  background: var(--color-background);
 }
 </style>
