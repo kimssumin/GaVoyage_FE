@@ -3,10 +3,31 @@
     <div class="reviewListTitle">
       <h1>요즘 인기있는 여행지와 여행기를 만나보아요</h1>
     </div>
-
-    <div class="reviewContainer">
+    <div class="switch">
+      <div class="switch-holder">
+        <div class="switch-label">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i><span>내 리뷰 보기</span>
+        </div>
+        <div class="switch-toggle">
+          <input type="checkbox" id="onReview" v-model="onReviewModel" />
+          <label for="onReview"></label>
+        </div>
+      </div>
+    </div>
+    <div class="reviewContainer" v-if="!onReviewModel">
       <span v-for="review in reviews" :key="review['reviewIdx']">
         <ReviewBoard
+          :review="review"
+          @click.native="reviewDetail(review.reviewIdx, $event)"
+        ></ReviewBoard>
+        <!-- <PlanDetail :plan2="plan"></PlanDetail> -->
+      </span>
+    </div>
+
+    <div class="reviewContainer" v-else-if="onReviewModel">
+      <span v-for="review in reviews" :key="review['reviewIdx']">
+        <ReviewBoard
+          v-if="review.writerName == nowUser"
           :review="review"
           @click.native="reviewDetail(review.reviewIdx, $event)"
         ></ReviewBoard>
@@ -40,6 +61,8 @@ export default {
   data() {
     return {
       reviews: [],
+      onReviewModel: false,
+      nowUser: '',
     };
   },
   components: {
@@ -47,6 +70,7 @@ export default {
   },
 
   async created() {
+    this.nowUser = this.$cookies.get('accesstoken').nickname;
     let reviewUrl = '/reviews';
     try {
       const res = await api.get(reviewUrl);
