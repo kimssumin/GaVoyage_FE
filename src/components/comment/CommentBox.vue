@@ -108,7 +108,7 @@ export default {
     },
 
     async deleteComment(cmd) {
-      const commentUrl = "/comments";
+      let commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
       console.log(cmd);
       let deleteUrl = "/comments/" + cmd;
       try {
