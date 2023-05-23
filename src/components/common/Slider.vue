@@ -61,12 +61,12 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import VueAgile from "vue-agile";
+import Vue from 'vue';
+import VueAgile from 'vue-agile';
 
 Vue.use(VueAgile);
 export default {
-  name: "InitMain",
+  name: 'InitMain',
   props: {
     msg: String,
   },
@@ -118,7 +118,7 @@ a {
 }
 .slide1::before,
 .slide2::before {
-  content: "";
+  content: '';
   opacity: 0.65;
   position: absolute;
   top: 0px;

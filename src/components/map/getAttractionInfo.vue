@@ -9,11 +9,23 @@
   </div>
 </template>
 <script></script>
-<style scoped>
+<style>
 #my-list {
   list-style: none;
   margin: auto;
   width: 80%;
   padding: 0;
+}
+
+.review-desc {
+  margin-top: 0.5rem !important;
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.desc-info-btn {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
 }
 </style>

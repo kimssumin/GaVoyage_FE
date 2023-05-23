@@ -75,17 +75,23 @@ async function detailAttr(data) {
 				        				<br/>
 				        				<span style="font-size: 14px; font-weight:bold;">주소 : ${data.addr1}</span>
 				        				<br/>
-				        				<span class = "mt-2" style="font-size: 14px;">${description.overview.substr(0, 121)}</span>
+				        				<div class = "mt-2 review-desc" style="font-size: 14px;">${description.overview.substr(
+                          0,
+                          121
+                        )}</div>
                         
 				    				</div>
                     
+                    <div class = "desc-info-btn"> 
                     <div id = "scrapBtn${data.content_id}" class= "scrapBtn">${
       store.state.buttonStore.attrScrap[data.content_id]
     }</div>
                     <button class = "btn-search"><a href= "https://search.naver.com/search.naver?where=nexearchie=utf8&query=${
                       data.title
                     }" target="_blank">더 알아보기 &nbsp; <i class="far fa-search-location"></i></a></button>
-			    				</div>`;
+			    				</div>
+                    </div>
+                    `;
 
     li.innerHTML = content;
     mlist.appendChild(li);

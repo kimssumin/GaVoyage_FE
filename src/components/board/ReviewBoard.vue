@@ -3,7 +3,7 @@
     <img class="img" src="@/assets/img/blue-sky-g64217e8e3_1920.jpg" alt="" />
     <!--"../assets/img/korea-geab21995b_1920.jpg"-->
     <div class="heading">
-      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ review.reviewIdx }}</h6>
+      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ review.place }}</h6>
       <h4>{{ review.title }}</h4>
       <div id="likeAndBookmark">
         <Like :reviewInit="reviewLike"></Like>

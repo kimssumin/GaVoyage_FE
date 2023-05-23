@@ -79,15 +79,15 @@
   <button class="btn-get-started" type="button" @click="addPlan">등록</button>
 </div> -->
 <script>
-import { $ } from "@/assets/js/util/elementTool";
-import { addPlan, planDate, selectDate } from "@/assets/js/plan/planCreate.js";
-import TopButton from "@/components/button/TopButton.vue";
-import SelectBox from "../button/SelectBox.vue";
-import getAttractionInfo from "../map/getAttractionInfo.vue";
-import getMap from "../map/getMap.vue";
-import api from "@/assets/js/util/axios.js";
+import { addPlan, planDate, selectDate } from '@/assets/js/plan/planCreate.js';
+import api from '@/assets/js/util/axios.js';
+import { $ } from '@/assets/js/util/elementTool';
+import TopButton from '@/components/button/TopButton.vue';
+import SelectBox from '../button/SelectBox.vue';
+import getAttractionInfo from '../map/getAttractionInfo.vue';
+import getMap from '../map/getMap.vue';
 export default {
-  name: "PlanCreate",
+  name: 'PlanCreate',
   props: {},
   components: {
     TopButton,
@@ -97,9 +97,9 @@ export default {
   },
   data: function () {
     return {
-      title: "",
-      startDate: "",
-      endDate: "",
+      title: '',
+      startDate: '',
+      endDate: '',
     };
   },
   methods: {
@@ -107,11 +107,11 @@ export default {
     addPlan,
     selectDate,
     async submitResult() {
-      const result = { title: "", startDate: "", endDate: "", dailyPlans: [] };
-      result.title = $("#title").value;
+      const result = { title: '', startDate: '', endDate: '', dailyPlans: [] };
+      result.title = $('#title').value;
 
-      result.startDate = $("#startDate").value;
-      result.endDate = $("#endDate").value;
+      result.startDate = $('#startDate').value;
+      result.endDate = $('#endDate').value;
       // const plans = planStore.state.plans;
       const plans = this.$store.state.planStore.plans;
       Object.keys(plans).forEach((d) => {
@@ -123,16 +123,16 @@ export default {
       });
       console.log(result);
       try {
-        let planUrl = "/plans";
+        let planUrl = '/plans';
         const res = await api.post(planUrl, result);
         const data = await res.data;
         console.log(data);
-        this.$store.dispatch("planStore/initPlans", {}, { root: true });
-        alert("계획이 등록되었습니다 😊");
+        this.$store.dispatch('planStore/initPlans', {}, { root: true });
+        alert('계획이 등록되었습니다 😊');
 
-        this.$router.push("/plan/list");
+        this.$router.push('/plan/list');
       } catch (e) {
-        alert("계획 등록에 실패하였습니다.");
+        alert('계획 등록에 실패하였습니다.');
         console.log(e);
       }
     },
@@ -197,6 +197,7 @@ export default {
   box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.08);
   border: 1px solid #eee;
   min-height: 562px;
+  height: 600px;
 }
 
 .mapContent {
@@ -267,7 +268,7 @@ h1 {
 }
 
 .selected::after {
-  content: "";
+  content: '';
   /* background: url("@/assets/img/arrow-down.svg"); */
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"/></svg>');
   background-repeat: no-repeat;
@@ -363,7 +364,7 @@ h1 {
 
 .date:before,
 .date:after {
-  content: "";
+  content: '';
   display: block;
   width: 30px;
   height: 30px;

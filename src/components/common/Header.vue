@@ -46,7 +46,11 @@
                 </li></router-link
               >
 
-              <li><i class="me-2 fa fa-pencil-square-o" aria-hidden="true"></i>회원정보 수정</li>
+              <router-link to="/mypage"
+                ><li>
+                  <i class="me-2 fa fa-pencil-square-o" aria-hidden="true"></i>회원정보 수정
+                </li></router-link
+              >
               <li id="logout" @click="onLogout">
                 <i class="me-2 fa fa-sign-out" aria-hidden="true"></i>로그아웃
               </li>
@@ -180,6 +184,7 @@ li {
   position: relative;
   cursor: pointer;
   border-radius: 5px;
+  font-weight: 500;
 }
 
 li:hover {

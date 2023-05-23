@@ -2,7 +2,7 @@
   <div
     class="modal fade"
     id="exampleModal"
-    tabindex="-1"
+    tabindex="1"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
@@ -15,17 +15,17 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="book">
+          <!-- <div class="book">
             <img
               src="https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg"
               alt="the cast of Schitt’s Creek"
             />
-          </div>
+          </div> -->
           <div class="planDetailTitle">
             <h1>{{ planD['plan'].title }}</h1>
             <div class="detailBtns">
               <button
-                class="btn-get-started close"
+                class="btn-get-started"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 @click="reviewBtn"
