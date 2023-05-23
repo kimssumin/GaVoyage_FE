@@ -208,7 +208,7 @@ export default {
   width: 80%;
 }
 
-h2 {
+.selectAll h2 {
   margin: 0;
   font-weight: bold;
 }

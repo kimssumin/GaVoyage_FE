@@ -13,7 +13,7 @@
 
     <!-- ======= 여기 어때  ======= -->
     <section id="aboutReview" class="about">
-      <div class="section-title d-flex align-items-center ml-5">
+      <div class="section-title d-flex align-items-center">
         <h2 class="align-self-center">여기 어때 ?</h2>
         <button class="btn-get-started">
           <router-link to="/review/list">더 살펴보기</router-link>

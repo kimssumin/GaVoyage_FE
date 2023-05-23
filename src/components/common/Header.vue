@@ -40,7 +40,12 @@
           <div id="profilenav" @click="toggle">
             <i class="fas fa-user me-2"></i><span class="profile">김싸피님</span>
             <ul class="list" style="display: none">
-              <li><i class="me-2 fa fa-address-card-o" aria-hidden="true"></i>마이페이지</li>
+              <router-link to="/mypage"
+                ><li>
+                  <i class="me-2 fa fa-address-card-o" aria-hidden="true"></i>마이페이지
+                </li></router-link
+              >
+
               <li><i class="me-2 fa fa-pencil-square-o" aria-hidden="true"></i>회원정보 수정</li>
               <li id="logout" @click="onLogout">
                 <i class="me-2 fa fa-sign-out" aria-hidden="true"></i>로그아웃
