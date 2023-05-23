@@ -34,7 +34,9 @@
                 id="nickname"
                 placeholder="사용자 명을 입력해주세요"
                 name="nickname"
+                @keyup="nicknameCheck"
               />
+              <p class="ms-2 mt-sm-1" id="message-nickname"></p>
             </div>
             <div class="mb-4 ms-2 me-2">
               <label for="email" class="form-label">이메일:</label>
@@ -113,7 +115,12 @@
 </template>
 
 <script>
-import { passwordCheck, resetForm, emailCheck } from "@/assets/js/member/registerCheck.js";
+import {
+  passwordCheck,
+  resetForm,
+  emailCheck,
+  nicknameCheck,
+} from "@/assets/js/member/registerCheck.js";
 import { join } from "@/assets/js/member/regist.js";
 export default {
   methods: {
@@ -121,6 +128,7 @@ export default {
     resetForm: resetForm,
     emailCheck: emailCheck,
     join: join,
+    nicknameCheck: nicknameCheck,
   },
 };
 </script>

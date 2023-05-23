@@ -71,10 +71,37 @@ export function emailCheck() {
   }
 }
 
+export function nicknameCheck() {
+  nicknameDuplicateCheck($("#nickname").value).then((data) => {
+    if (data == true) {
+      $("#message-nickname").style.color = "green";
+      $(
+        "#message-nickname"
+      ).innerHTML = `<i class="far fa-check-circle me-1"></i>사용가능한 닉네임입니다`;
+      $("#message-nickname").querySelector(".far").style.color = "green";
+    } else {
+      $("#message-nickname").style.color = "red";
+      $("#message-nickname").innerHTML = `중복된 닉네임이 존재합니다`;
+    }
+  });
+}
+
 async function emailDuplicateCheck(value) {
   console.log(value);
   let emailUrl = `/users/emailCheck/${value}`;
   const res = await api(emailUrl);
+  const data = await res.data;
+  if (data == "1") {
+    console.log(data);
+    return false;
+  }
+  return true;
+}
+
+async function nicknameDuplicateCheck(value) {
+  console.log(value);
+  let nicknameUrl = `/users/nicknameCheck/${value}`;
+  const res = await api(nicknameUrl);
   const data = await res.data;
   if (data == "1") {
     console.log(data);
