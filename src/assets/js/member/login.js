@@ -15,6 +15,8 @@ export async function onLogin() {
   const res = await api.post(searchUrl, login);
   console.log(res);
   let token = res.headers['authorization'].split(' ')[1];
+  console.log(res.headers['authorization-refresh']);
+  let reftoken = res.headers['authorization-refresh'].split(' ')[1];
   console.log(token, '!!');
   const data = await res.data;
   console.log(data);
@@ -23,6 +25,7 @@ export async function onLogin() {
 
   if (res.status === 200) {
     this.$cookies.set('accesstoken', data, '1d');
+    this.$cookies.set('refreshtoken', reftoken, '1d');
     alert('Welcome!');
     window.location.reload();
     // this.$router.push("/");
@@ -31,6 +34,7 @@ export async function onLogin() {
 
 export function onLogout() {
   this.$cookies.remove('accesstoken');
+  this.$cookies.remove('refreshtoken');
   window.location.reload();
 }
 

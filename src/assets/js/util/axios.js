@@ -38,12 +38,33 @@ instance.interceptors.request.use(
 // 2. 응답 인터셉터
 
 instance.interceptors.response.use(
-  (response) => {
+  async (response) => {
     /*
         http status가 200인 경우
         응답 성공 직전 호출
         .then() 으로 이어짐
     */
+    const { config } = response;
+    const originalRequest = config;
+
+    if (response?.data?.code == 40300) {
+      //서버에서 정한 오류코드(토큰만료에 대한)
+      const refresh_token = VueCookies.get('refreshtoken');
+      return await instance
+        .get(`/account/token?refreshToken=${refresh_token}`)
+        .then(async (res) => {
+          if (res.data.message === 'OK') {
+            VueCookies.set('accesstoken', res.data.payload.access_token);
+            originalRequest.headers.Authorization = `${res.data.payload.access_token}`.split(
+              ' '
+            )[1];
+            return axios(originalRequest);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     return response;
   },
