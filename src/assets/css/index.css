@@ -51,6 +51,12 @@ body {
   right: 30px;
   position: absolute;
 }
+
+.infoWindow,
+.infoWindow * {
+  color: var(--color-black);
+}
+
 .agile__dot {
   margin: 5px 0;
 }

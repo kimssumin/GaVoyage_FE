@@ -19,26 +19,26 @@
             <div class="card2-body">
               <div class="row mb-3">
                 <div class="col-sm-3">
-                  <h6 class="mb-0">Full Name</h6>
+                  <h6 class="mb-0">이름(닉네임)</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" value="John Doe" />
+                  <input type="text" class="form-control" id="nickname" :value="nowUser.nickname" />
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-3">
-                  <h6 class="mb-0">Email</h6>
+                  <h6 class="mb-0">이메일</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" value="john@example.com" />
+                  <input type="text" class="form-control" id="email" :value="nowUser.email" />
                 </div>
               </div>
               <div class="row mb-3">
                 <div class="col-sm-3">
-                  <h6 class="mb-0">Phone</h6>
+                  <h6 class="mb-0">전화번호</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" value="(239) 816-9029" />
+                  <input type="text" class="form-control" id="phoneNumber" value="010-1234-1234" />
                 </div>
               </div>
               <div class="row-btn">
@@ -55,6 +55,14 @@
 <script>
 export default {
   name: 'EditInfo',
+  data() {
+    return {
+      nowUser: {},
+    };
+  },
+  created() {
+    this.nowUser = this.$cookies.get('accesstoken');
+  },
 };
 </script>
 <style>

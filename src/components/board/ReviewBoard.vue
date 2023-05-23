@@ -14,7 +14,8 @@
       <span class="writeDate">{{ review.createdAt }}</span>
       <span class="user-id">{{ review.writerName }} 님의 여행</span>
     </div>
-    <p class="texts">{{ review.contents.slice(0, 30) }}</p>
+    <p class="texts">더욱 자세한 후기를 보고싶다면, 클릭해주세요</p>
+    <!-- {{ review.contents.slice(0, 30) }} -->
   </div>
 </template>
 <script>
@@ -40,7 +41,7 @@ export default {
 <style>
 #box {
   width: 270px;
-  height: 400px;
+  height: 390px;
   border-radius: 8px;
   overflow: hidden;
   margin: 20px 15px 80px;

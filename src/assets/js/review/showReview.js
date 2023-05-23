@@ -25,7 +25,7 @@ export function makeMap(data) {
   // 마커에 표시할 인포윈도우를 생성합니다
   let infowindow = new kakao.maps.InfoWindow({
     content:
-      '<div style="width:350px; height: 170px">' +
+      '<div class = "infoWindow" style="width:350px; height: 170px">' +
       '<div style="height:20%;" class="row mt-1 ms-2 fw-bold">' +
       data.title +
       '</div>' +

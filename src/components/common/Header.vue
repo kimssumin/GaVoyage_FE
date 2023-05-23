@@ -104,6 +104,7 @@ header {
   padding: 10px 0px;
   box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.07);
   z-index: 1;
+  background: var(--color-white);
 }
 
 #navbarul div {
