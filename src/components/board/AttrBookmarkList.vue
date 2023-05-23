@@ -1,16 +1,46 @@
 <template>
   <div id="attrBookmark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <p>총 {{ Object.keys(bookmark).length }}개의 검색결과가 있습니다</p>
     <div class="carousel-inner">
       <div
-        class="carousel-item active"
+        class="carousel-item bookmark-item"
         data-bs-interval="6000"
-        v-for="review in reviews"
-        :key="review['reviewIdx']"
+        v-for="bm in bookmark"
+        :key="bm['content_id']"
       >
-        <ReviewBoard
-          :review="review"
-          @click.native="reviewDetail(review.reviewIdx, $event)"
-        ></ReviewBoard>
+        <div class="row mt-2" style="border: 1px; display: flex">
+          <div style="text-align: center">
+            <h4 style="font-weight: bold">관광지 정보📝</h4>
+            <div>
+              <ul id="my-list">
+                <div class="m1">
+                  <hr />
+                  <h5 id="data-title" style="font-weight: bold">{{ bm.title }}</h5>
+                  <span id="data-id" style="display: none">{{ bm.content_id }}</span>
+                  <hr />
+                  <div style="margin: 10px">
+                    <img
+                      class="dataImg mb-4"
+                      :src="bm.first_image"
+                      onerror="this.src='https://cdn-icons-png.flaticon.com/512/4944/4944051.png'"
+                    />
+                    <br />
+                    <span style="font-size: 14px; font-weight: bold">주소 : {{ bm.addr1 }}</span>
+                    <br />
+                  </div>
+
+                  <button class="btn-search">
+                    <a
+                      v-bind:href="`https://search.naver.com/search.naver?where=nexearchie=utf8&query=${bm.title}`"
+                      target="_blank"
+                      >더 알아보기 &nbsp; <i class="far fa-search-location"></i
+                    ></a>
+                  </button>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <button
@@ -34,107 +64,31 @@
   </div>
 </template>
 <script>
-import ReviewBoard from "@/components/board/ReviewBoard.vue";
+import getAttractionInfo from "@/components/map/getAttractionInfo.vue";
 import api from "@/assets/js/util/axios.js";
 export default {
-  components: {
-    ReviewBoard,
-  },
+  components: {},
   data() {
     return {
-      reviews: [
-        {
-          reviewIdx: 2,
-          writerName: "김싸피",
-          title: "리뷰 제목입니다~",
-          contents: "",
-          hit: 0,
-          isLiked: 1,
-          createdAt: "2023-05-23",
-          recommendsAttractionInfo: [
-            {
-              content_id: 130290,
-              content_type_id: 14,
-              title: "계양문화회관",
-              addr1: "인천광역시 계양구 계양산로35번길 11",
-              addr2: "(계산동)",
-              zipcode: "21042",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/09/1577309_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/09/1577309_image3_1.jpg",
-              readcount: 21485,
-              latitude: 37.54604921,
-              longitude: 126.7181287,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 2,
-              isScrab: 0,
-            },
-          ],
-          unrecommendsAttractionInfo: [
-            {
-              content_id: 130787,
-              content_type_id: 14,
-              title: "인천 계양도서관",
-              addr1: "인천광역시 계양구 계양산로134번길 18",
-              addr2: "(계산동)",
-              zipcode: "21030",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/51/1860351_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/51/1860351_image3_1.jpg",
-              readcount: 30753,
-              latitude: 37.54604386,
-              longitude: 126.7301609,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 2,
-              isScrab: 0,
-            },
-          ],
-        },
-        {
-          reviewIdx: 3,
-          writerName: "김싸피",
-          title: "리뷰 제목입니다~",
-          contents: "",
-          hit: 0,
-          isLiked: 0,
-          createdAt: "2023-05-23",
-          recommendsAttractionInfo: [
-            {
-              content_id: 125468,
-              content_type_id: 12,
-              title: "마니산(강화)",
-              addr1: "인천광역시 강화군 화도면 마니산로675번길 18",
-              addr2: "",
-              zipcode: "23060",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/74/1659674_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/74/1659674_image3_1.jpg",
-              readcount: 114012,
-              latitude: 37.63246729,
-              longitude: 126.4237865,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 1,
-              isScrab: 0,
-            },
-          ],
-          unrecommendsAttractionInfo: [],
-        },
-      ],
+      bookmark: [],
     };
   },
   async created() {
-    // let reviewUrl = "/reviews";
-    // try {
-    //   const res = await api.get(reviewUrl);
-    //   const review = await res.data;
-    //   console.log(review);
-    //   this.reviews = review;
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    let bookmarkUrl = "/scraps/users";
+    try {
+      const res = await api.get(bookmarkUrl);
+      const bookmark = await res.data;
+      console.log(bookmark);
+      this.bookmark = bookmark;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  updated() {
+    const carouselitem = document.querySelector(".bookmark-item");
+    console.log(carouselitem);
+    carouselitem.classList.add("active");
   },
 };
 </script>
@@ -157,5 +111,9 @@ export default {
   transition: all 0.3s cubic-bezier(0.42, 0, 0.58, 1);
   background: var(--color-white);
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#attrBookmark .dataImg {
+  width: 300px;
 }
 </style>

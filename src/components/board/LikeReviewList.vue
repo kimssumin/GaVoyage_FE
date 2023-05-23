@@ -1,5 +1,6 @@
 <template>
   <div id="likeCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <p>총 {{ Object.keys(reviews).length }}개의 검색결과가 있습니다</p>
     <div class="carousel-inner">
       <div
         class="carousel-item active"
@@ -42,99 +43,46 @@ export default {
   },
   data() {
     return {
-      reviews: [
-        {
-          reviewIdx: 2,
-          writerName: "김싸피",
-          title: "리뷰 제목입니다~",
-          contents: "",
-          hit: 0,
-          isLiked: 1,
-          createdAt: "2023-05-23",
-          recommendsAttractionInfo: [
-            {
-              content_id: 130290,
-              content_type_id: 14,
-              title: "계양문화회관",
-              addr1: "인천광역시 계양구 계양산로35번길 11",
-              addr2: "(계산동)",
-              zipcode: "21042",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/09/1577309_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/09/1577309_image3_1.jpg",
-              readcount: 21485,
-              latitude: 37.54604921,
-              longitude: 126.7181287,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 2,
-              isScrab: 0,
-            },
-          ],
-          unrecommendsAttractionInfo: [
-            {
-              content_id: 130787,
-              content_type_id: 14,
-              title: "인천 계양도서관",
-              addr1: "인천광역시 계양구 계양산로134번길 18",
-              addr2: "(계산동)",
-              zipcode: "21030",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/51/1860351_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/51/1860351_image3_1.jpg",
-              readcount: 30753,
-              latitude: 37.54604386,
-              longitude: 126.7301609,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 2,
-              isScrab: 0,
-            },
-          ],
-        },
-        {
-          reviewIdx: 3,
-          writerName: "김싸피",
-          title: "리뷰 제목입니다~",
-          contents: "",
-          hit: 0,
-          isLiked: 0,
-          createdAt: "2023-05-23",
-          recommendsAttractionInfo: [
-            {
-              content_id: 125468,
-              content_type_id: 12,
-              title: "마니산(강화)",
-              addr1: "인천광역시 강화군 화도면 마니산로675번길 18",
-              addr2: "",
-              zipcode: "23060",
-              tel: "",
-              first_image: "http://tong.visitkorea.or.kr/cms/resource/74/1659674_image2_1.jpg",
-              first_image2: "http://tong.visitkorea.or.kr/cms/resource/74/1659674_image3_1.jpg",
-              readcount: 114012,
-              latitude: 37.63246729,
-              longitude: 126.4237865,
-              mlevel: "6",
-              sido_code: 2,
-              gugun_code: 1,
-              isScrab: 0,
-            },
-          ],
-          unrecommendsAttractionInfo: [],
-        },
-      ],
+      reviews: [],
     };
   },
   async created() {
-    // let reviewUrl = "/reviews";
-    // try {
-    //   const res = await api.get(reviewUrl);
-    //   const review = await res.data;
-    //   console.log(review);
-    //   this.reviews = review;
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    let reviewUrl = "reviews/likes";
+    try {
+      const res = await api.get(reviewUrl);
+      const review = await res.data;
+
+      this.reviews = review;
+      this.reviews.forEach((rv) => {
+        console.log(rv);
+        rv["writerName"] = rv.nickname;
+      });
+      console.log(this.reviews);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  methods: {
+    reviewDetail: async function (idx, event) {
+      console.log("click", event);
+      let reviewDetailUrl = "/reviews/" + idx;
+      let reviewDet = {};
+      try {
+        const res = await api.get(reviewDetailUrl);
+        const detail = await res.data;
+
+        console.log(">> detail : ", detail);
+        reviewDet = detail;
+      } catch (e) {
+        console.log(e);
+      }
+
+      this.$store.dispatch("reviewStore/nowReviewDetail", reviewDet, { root: true });
+      console.log("Vuex 에 저장 성공! - 리뷰조회");
+      console.log(this.$store.state.reviewStore.ReviewDetail);
+      this.$router.push("/review/detail");
+    },
   },
 };
 </script>
@@ -142,6 +90,7 @@ export default {
 #likeCarousel {
   margin: auto;
   width: 80%;
+  margin-bottom: 55px;
 }
 
 .carousel-item {

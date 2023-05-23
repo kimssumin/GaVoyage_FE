@@ -16,13 +16,13 @@
           </a>
         </div>
         <div class="be-comment-content">
-          <span class="be-comment-name">User{{ comment.userIdx }} </span>
+          <span class="be-comment-name">@{{ comment.nickname }} </span>
           <span class="be-comment-time">
             <i class="fa fa-clock-o"></i>
             {{ comment.createdAt }}
             <button
               class="comment-del"
-              v-if="comment.userIdx != nowId"
+              v-if="comment.nickname == nowId"
               @click="deleteComment(comment.commentIdx)"
             >
               삭제 <i class="fas fa-trash-alt"></i>
