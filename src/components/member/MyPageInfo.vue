@@ -2,8 +2,11 @@
   <div class="profile">
     <div class="card">
       <div class="card-img">
-        <img v-if="!userInfo.profile" src="@/assets/img/profile/1.jpg" />
-        <img v-if="userInfo.profile" src="@/assets/img/profile/2.jpg" />
+        <img v-if="userInfo.userImageUrl == null" src="@/assets/img/profile/1.jpg" />
+        <img
+          v-else-if="userInfo.userImageUrl != null"
+          :src="require(`@/assets/img/profile/${userInfo.userImageUrl}.jpg`)"
+        />
       </div>
       <div class="desc">
         <h6 class="primary-text">{{ userInfo.nickname }}</h6>
@@ -35,12 +38,12 @@
   </div>
 </template>
 <script>
-import EditInfo from "./EditInfo.vue";
-import ProfileInfo from "./ProfileInfo.vue";
-import api from "@/assets/js/util/axios.js";
+import api from '@/assets/js/util/axios.js';
+import EditInfo from './EditInfo.vue';
+import ProfileInfo from './ProfileInfo.vue';
 
 export default {
-  name: "MyPage",
+  name: 'MyPage',
   components: {
     EditInfo,
     ProfileInfo,
@@ -52,7 +55,15 @@ export default {
   },
 
   created() {
-    this.userInfo = this.$cookies.get("accesstoken");
+    let profileUrl = '/users/login';
+    try {
+      api.get(profileUrl).then(({ data }) => {
+        console.log('profile data arrived', data);
+        this.userInfo = data;
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 };
 </script>

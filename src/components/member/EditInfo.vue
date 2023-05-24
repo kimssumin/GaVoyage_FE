@@ -38,7 +38,13 @@
                   <h6 class="mb-0">이메일</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" id="email" :value="nowUser.email" />
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    id="email"
+                    :value="nowUser.email"
+                  />
                 </div>
               </div>
               <div class="row mb-3">
@@ -46,12 +52,18 @@
                   <h6 class="mb-0">전화번호</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" id="phoneNumber" value="010-1234-1234" />
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    id="phoneNumber"
+                    :value="nowUser.phoneNumber"
+                  />
                 </div>
               </div>
               <div class="row-btn">
                 <button class="btn-get-started" @click="modifInfo">수정하기</button>
-                <button class="btn-get-deleted">회원탈퇴</button>
+                <button class="btn-get-deleted" @click="deleteInfo">회원탈퇴</button>
               </div>
             </div>
           </div>
@@ -61,38 +73,51 @@
   </div>
 </template>
 <script>
-import { nicknameCheck } from "@/assets/js/member/registerCheck.js";
-import { $ } from "@/assets/js/util/elementTool";
-import api from "@/assets/js/util/axios.js";
+import { onLogout } from '@/assets/js/member/login';
+import { nicknameCheck } from '@/assets/js/member/registerCheck.js';
+import api from '@/assets/js/util/axios.js';
+import { $ } from '@/assets/js/util/elementTool';
 
 export default {
-  name: "EditInfo",
+  name: 'EditInfo',
   data() {
     return {
       nowUser: {},
     };
   },
   created() {
-    this.nowUser = this.$cookies.get("accesstoken");
+    let profileUrl = '/users/login';
+    try {
+      api.get(profileUrl).then(({ data }) => {
+        console.log('profile data arrived', data);
+        this.nowUser = data;
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
   methods: {
     nicknameCheck: nicknameCheck,
     async modifInfo() {
-      const modifUrl = "//";
+      const modifUrl = '/users/update/nickname';
       try {
-        const res = await api.post(modifUrl, $("#nickname").value);
-        this.$router.push("/mylist");
+        const res = await api.post(modifUrl, { nickname: $('#nickname').value });
+        const data = { ...this.$cookies.get('accesstoken') };
+        data.nickname = $('#nickname').value;
+        this.$cookies.set('accesstoken', data, '1d');
+        window.location.reload();
       } catch (e) {
         console.log(e);
       }
     },
 
     async deleteInfo() {
-      const deleteUrl = "//";
+      const deleteUrl = '/users';
       try {
         const res = await api.delete(deleteUrl);
-        alert("회원탈퇴가 완료되었습니다");
-        this.$router.push("/");
+        alert('회원탈퇴가 완료되었습니다');
+        onLogout();
+        this.$router.push('/');
       } catch (e) {
         console.log(e);
       }

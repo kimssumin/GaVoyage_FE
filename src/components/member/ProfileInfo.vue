@@ -19,22 +19,22 @@
             <div class="card2-body">
               <h1 class="ms-3">프로필 사진을 선택해보세요</h1>
               <div class="row mb-3">
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 1 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 1 }">
                   <img id="1" src="@/assets/img/profile/1.jpg" @click="selectImg" />
                 </div>
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 2 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 2 }">
                   <img id="2" src="@/assets/img/profile/2.jpg" @click="selectImg" />
                 </div>
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 3 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 3 }">
                   <img id="3" src="@/assets/img/profile/3.jpg" @click="selectImg" />
                 </div>
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 4 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 4 }">
                   <img id="4" src="@/assets/img/profile/4.jpg" @click="selectImg" />
                 </div>
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 5 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 5 }">
                   <img id="5" src="@/assets/img/profile/5.jpg" @click="selectImg" />
                 </div>
-                <div v-bind:class="{ 'card-img': true, active: nowImg == 6 }">
+                <div v-bind:class="{ 'card-img': true, active: nowImg.userImageUrl == 6 }">
                   <img id="6" src="@/assets/img/profile/6.jpg" @click="selectImg" />
                 </div>
               </div>
@@ -50,28 +50,29 @@
   </div>
 </template>
 <script>
+import api from '@/assets/js/util/axios.js';
 export default {
-  name: "ProfileInfo",
+  name: 'ProfileInfo',
   data() {
     return {
       nowUser: {},
-      nowImg: "",
+      nowImg: { userImageUrl: null },
     };
   },
   created() {
-    this.nowUser = this.$cookies.get("accesstoken");
+    this.nowUser = this.$cookies.get('accesstoken');
   },
 
   methods: {
     selectImg(event) {
       console.log(event.currentTarget.id);
-      this.nowImg = event.currentTarget.id;
+      this.nowImg.userImageUrl = event.currentTarget.id;
     },
 
     async submitProfile() {
-      const profileUrl = "/users/update/userimageurl";
+      const profileUrl = '/users/update/userimageurl';
       const res = await api.post(profileUrl, this.nowImg);
-      this.$router.push("/mypage");
+      window.location.reload();
     },
   },
 };

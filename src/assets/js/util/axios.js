@@ -51,13 +51,19 @@ instance.interceptors.response.use(
       //서버에서 정한 오류코드(토큰만료에 대한)
       console.log('refresh 토큰 보내주자~!!!');
       const refresh_token = VueCookies.get('refreshtoken');
-      originalRequest.headers['authorization-refresh'] = `Bearer ${refresh_token}`;
-      return axios(originalRequest)
+      originalRequest.headers['Authorization-refresh'] = `Bearer ${refresh_token}`;
+      console.log('내가 다시 보내는 refresh 요청 : ', originalRequest);
+      console.log('내가 다시 보내는 refresh 토큰 : ', originalRequest.headers);
+
+      await instance(originalRequest)
         .then(async (res) => {
           if (res.status === 200) {
-            console.log('response > ', res);
+            console.log('refresh 토큰 전송 성공 & response > ', res);
             let token = res.headers['authorization'].split(' ')[1];
             let reftoken = res.headers['authorization-refresh'].split(' ')[1];
+
+            console.log('내 새로운 access token : ', token);
+            console.log('내 새로운 refresh-access token : ', reftoken);
             let nickname = VueCookies.get('accesstoken').nickname;
             let email = VueCookies.get('accesstoken').email;
             const data = {};
@@ -68,11 +74,17 @@ instance.interceptors.response.use(
 
             VueCookies.set('accesstoken', data, '1d');
             VueCookies.set('refreshtoken', reftoken, '1d');
-            originalRequest.headers['authorization'] = `Bearer ${token}`;
-            return response;
-            // return axios(originalRequest);
+            originalRequest.headers['Authorization'] = `Bearer ${token}`;
+            originalRequest.headers['Authorization-refresh'] = `Bearer ${reftoken}`;
+            console.log('최종 전송 > ', originalRequest.headers);
+
+            return instance(originalRequest);
           }
         })
+        .then((res) => {
+          window.location.reload();
+        })
+
         .catch((err) => {
           console.log(err);
         });
