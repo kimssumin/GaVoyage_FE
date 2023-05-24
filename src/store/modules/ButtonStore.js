@@ -8,10 +8,12 @@ export const buttonStore = {
   mutations: {
     updateScrap: (state, payload) => {
       if (payload.value >= 1) {
+        state.attrScrap = { ...state.attrScrap };
         state.attrScrap[
           payload.content_id
         ] = `<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i>BOOKMARK`;
       } else {
+        state.attrScrap = { ...state.attrScrap };
         state.attrScrap[
           payload.content_id
         ] = `<i class="fa fa-bookmark-o fa-lg" aria-hidden="true"></i>BOOKMARK`;
@@ -20,8 +22,10 @@ export const buttonStore = {
 
     updateLike: (state, payload) => {
       if (payload.islike == 1) {
+        state.reviewLike = { ...state.reviewLike };
         state.reviewLike[payload.id] = `<i class="fa fa-heart fa-2x" aria-hidden="true"></i>`;
       } else {
+        state.reviewLike = { ...state.reviewLike };
         state.reviewLike[payload.id] = `<i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>`;
       }
     },
@@ -29,11 +33,11 @@ export const buttonStore = {
 
   actions: {
     updateScrap: (context, payload) => {
-      context.commit('updateScrap', payload);
+      context.commit("updateScrap", payload);
     },
 
     updateLike: (context, payload) => {
-      context.commit('updateLike', payload);
+      context.commit("updateLike", payload);
     },
   },
 };

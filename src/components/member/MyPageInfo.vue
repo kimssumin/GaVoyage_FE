@@ -2,9 +2,8 @@
   <div class="profile">
     <div class="card">
       <div class="card-img">
-        <img
-          src="https://img.freepik.com/free-psd/3d-illustration-of-person_23-2149436192.jpg?w=740&t=st=1684800831~exp=1684801431~hmac=2c9ba5a4b6b8341f6fef2e2dd3182ae6ae03aebcbea27d1c3365b006056ac4af"
-        />
+        <img v-if="!userInfo.profile" src="@/assets/img/profile/1.jpg" />
+        <img v-if="userInfo.profile" src="@/assets/img/profile/3.jpg" />
       </div>
       <div class="desc">
         <h6 class="primary-text">{{ userInfo.nickname }}</h6>
@@ -12,6 +11,14 @@
       </div>
       <div class="details">
         <div class="rating">
+          <button
+            type="button"
+            class="btn-get-started"
+            data-bs-toggle="modal"
+            data-bs-target="#profileModif"
+          >
+            프로필 수정
+          </button>
           <button
             type="button"
             class="btn-get-started"
@@ -24,14 +31,17 @@
       </div>
     </div>
     <EditInfo></EditInfo>
+    <ProfileInfo></ProfileInfo>
   </div>
 </template>
 <script>
-import EditInfo from './EditInfo.vue';
+import EditInfo from "./EditInfo.vue";
+import ProfileInfo from "./ProfileInfo.vue";
 export default {
-  name: 'MyPage',
+  name: "MyPage",
   components: {
     EditInfo,
+    ProfileInfo,
   },
   data() {
     return {
@@ -40,7 +50,7 @@ export default {
   },
 
   created() {
-    this.userInfo = this.$cookies.get('accesstoken');
+    this.userInfo = this.$cookies.get("accesstoken");
   },
 };
 </script>
