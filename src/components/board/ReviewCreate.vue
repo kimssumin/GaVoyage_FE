@@ -209,7 +209,7 @@ a:dz-remove {
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
   width: 100%;
   height: 150px;
   border: none;

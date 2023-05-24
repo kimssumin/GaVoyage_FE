@@ -22,7 +22,7 @@
             />
           </div> -->
           <div class="planDetailTitle">
-            <h1>{{ planD['plan'].title }}</h1>
+            <h1>{{ planD["plan"].title }}</h1>
             <div class="detailBtns">
               <button
                 class="btn-get-started"
@@ -35,8 +35,8 @@
               <!-- <button class="deleteBtn">수정</button> -->
               <button class="deleteBtn" @click="deletePlan">삭제</button>
             </div>
-            <h5>출발일 : {{ planD['plan'].startDate }}</h5>
-            <h5>도착일 : {{ planD['plan'].endDate }}</h5>
+            <h5>출발일 : {{ planD["plan"].startDate }}</h5>
+            <h5>도착일 : {{ planD["plan"].endDate }}</h5>
           </div>
           <!-- /*timeline*/ -->
           <div class="container">
@@ -45,7 +45,7 @@
                 <div class="cardPlan">
                   <div class="card-body">
                     <h6 class="card-title">Timeline</h6>
-                    <div id="content">
+                    <div id="content" class="mb-4">
                       <ul class="timeline">
                         <li
                           class="event"
@@ -56,7 +56,7 @@
                           <div v-for="(attr, key, index) in planD['plans'][p]" :key="index">
                             <h3 class="title">{{ attr.title }}</h3>
                             <p>
-                              {{ attr.addr1 + ' ' + attr.addr2 }}
+                              {{ attr.addr1 + " " + attr.addr2 }}
                             </p>
                           </div>
                         </li>
@@ -73,9 +73,9 @@
   </div>
 </template>
 <script>
-import api from '@/assets/js/util/axios.js';
+import api from "@/assets/js/util/axios.js";
 export default {
-  name: 'PlanDetail',
+  name: "PlanDetail",
   props: {
     userName: {
       type: String,
@@ -83,13 +83,13 @@ export default {
   },
   data() {
     return {
-      reviewOrnot: '리뷰쓰기',
+      reviewOrnot: "리뷰쓰기",
     };
   },
   beforeUpdate() {
     // console.log('this.childValue', this.plan);
     if (this.planD.hasReview == 1) {
-      this.reviewOrnot = '리뷰보기';
+      this.reviewOrnot = "리뷰보기";
     }
   },
 
@@ -101,7 +101,7 @@ export default {
 
   methods: {
     async deletePlan() {
-      let planDetailUrl = '/plans/' + this.planD['plan'].planIdx;
+      let planDetailUrl = "/plans/" + this.planD["plan"].planIdx;
       try {
         const res = await api.delete(planDetailUrl);
         // const detail = await res.data;
@@ -114,48 +114,48 @@ export default {
     async reviewBtn() {
       if (this.planD.hasReview == 0) {
         // 리뷰가 없다 -> 리뷰쓰자!
-        let planDetailUrl = '/plans/' + this.planD['plan'].planIdx;
+        let planDetailUrl = "/plans/" + this.planD["plan"].planIdx;
         let plans = {};
         let planDays = [];
         try {
           const res = await api.get(planDetailUrl);
           const detail = await res.data;
 
-          console.log('>> detail : ', detail);
+          console.log(">> detail : ", detail);
           if (Object.keys(detail).length != 0) {
             plans = detail;
             planDays = Object.keys(plans);
             planDays.sort();
-            console.log('here!!', planDays);
-            console.log('checkName!!', this.planD['plan']['userName']);
+            console.log("here!!", planDays);
+            console.log("checkName!!", this.planD["plan"]["userName"]);
           }
         } catch (e) {
           console.log(e);
         }
-        this.planD['detailPlan'] = plans;
-        this.planD['planDays'] = planDays;
-        this.$store.dispatch('reviewStore/nowPlanForReview', this.planD, { root: true });
-        console.log('Vuex 에 저장 성공! - 리뷰');
+        this.planD["detailPlan"] = plans;
+        this.planD["planDays"] = planDays;
+        this.$store.dispatch("reviewStore/nowPlanForReview", this.planD, { root: true });
+        console.log("Vuex 에 저장 성공! - 리뷰");
         console.log(this.$store.state.reviewStore.planForReview);
-        this.$router.push('/review/create');
+        this.$router.push("/review/create");
       } else {
         //리뷰 있다! -> 리뷰 보여주자
-        let reviewDetailUrl = '/reviews/find-by-plan?planIdx=' + this.planD['plan'].planIdx;
+        let reviewDetailUrl = "/reviews/find-by-plan?planIdx=" + this.planD["plan"].planIdx;
         let reviews = {};
         try {
           const res = await api.get(reviewDetailUrl);
           const detail = await res.data;
 
-          console.log('>> detail : ', detail);
+          console.log(">> detail : ", detail);
           reviews = detail;
         } catch (e) {
           console.log(e);
         }
 
-        this.$store.dispatch('reviewStore/nowReviewDetail', reviews, { root: true });
-        console.log('Vuex 에 저장 성공! - 리뷰조회');
+        this.$store.dispatch("reviewStore/nowReviewDetail", reviews, { root: true });
+        console.log("Vuex 에 저장 성공! - 리뷰조회");
         console.log(this.$store.state.reviewStore.ReviewDetail);
-        this.$router.push('/review/detail');
+        this.$router.push("/review/detail");
       }
     },
   },
@@ -219,7 +219,7 @@ export default {
 }
 .book:before,
 .book:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
 }
@@ -362,7 +362,7 @@ export default {
   border-radius: 50%;
   height: 9px;
   width: 9px;
-  content: '';
+  content: "";
   top: 5px;
 }
 

@@ -69,7 +69,7 @@ export default {
     },
 
     async submitProfile() {
-      const profileUrl = "/";
+      const profileUrl = "/users/update/userimageurl";
       const res = await api.post(profileUrl, this.nowImg);
       this.$router.push("/mypage");
     },

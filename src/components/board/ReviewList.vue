@@ -53,16 +53,16 @@
 }
 </style>
 <script>
-import api from '@/assets/js/util/axios.js';
-import ReviewBoard from './ReviewBoard.vue';
+import api from "@/assets/js/util/axios.js";
+import ReviewBoard from "./ReviewBoard.vue";
 
 export default {
-  name: 'ReviewList',
+  name: "ReviewList",
   data() {
     return {
       reviews: [],
       onReviewModel: false,
-      nowUser: '',
+      nowUser: "",
     };
   },
   components: {
@@ -70,15 +70,20 @@ export default {
   },
 
   async created() {
-    this.nowUser = this.$cookies.get('accesstoken').nickname;
-    let reviewUrl = '/reviews';
+    this.nowUser = this.$cookies.get("accesstoken").nickname;
+    let reviewUrl = "/reviews";
     try {
       const res = await api.get(reviewUrl);
       const review = await res.data;
       console.log(review);
       this.reviews = review;
-      this.reviews.forEach((review) => {
-        review['place'] = 'GaVoyage';
+      this.reviews.forEach(async (review) => {
+        review["place"] = "GaVoyage";
+        const likeUrl = "/likes/" + review.reviewIdx;
+        const res2 = await api.get(likeUrl);
+        const data = await res2.data;
+
+        this.reviews["isLiked"] = data;
       });
     } catch (e) {
       console.log(e);
@@ -86,23 +91,23 @@ export default {
   },
   methods: {
     reviewDetail: async function (idx, event) {
-      console.log('click', event);
-      let reviewDetailUrl = '/reviews/' + idx;
+      console.log("click", event);
+      let reviewDetailUrl = "/reviews/" + idx;
       let reviewDet = {};
       try {
         const res = await api.get(reviewDetailUrl);
         const detail = await res.data;
 
-        console.log('>> detail : ', detail);
+        console.log(">> detail : ", detail);
         reviewDet = detail;
       } catch (e) {
         console.log(e);
       }
 
-      this.$store.dispatch('reviewStore/nowReviewDetail', reviewDet, { root: true });
-      console.log('Vuex 에 저장 성공! - 리뷰조회');
+      this.$store.dispatch("reviewStore/nowReviewDetail", reviewDet, { root: true });
+      console.log("Vuex 에 저장 성공! - 리뷰조회");
       console.log(this.$store.state.reviewStore.ReviewDetail);
-      this.$router.push('/review/detail');
+      this.$router.push("/review/detail");
     },
   },
 };

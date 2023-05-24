@@ -8,11 +8,7 @@
       <div class="be-comment" v-for="comment in comments" :key="comment.commentIdx">
         <div class="be-img-comment">
           <a href="blog-detail-2.html">
-            <img
-              src="https://img.freepik.com/free-psd/3d-illustration-of-person_23-2149436192.jpg?w=740&t=st=1684800831~exp=1684801431~hmac=2c9ba5a4b6b8341f6fef2e2dd3182ae6ae03aebcbea27d1c3365b006056ac4af"
-              alt=""
-              class="be-ava-comment"
-            />
+            <img class="be-ava-comment" v-if="!comment.profile" src="@/assets/img/profile/1.jpg" />
           </a>
         </div>
         <div class="be-comment-content">

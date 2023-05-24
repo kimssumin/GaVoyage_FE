@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-img">
         <img v-if="!userInfo.profile" src="@/assets/img/profile/1.jpg" />
-        <img v-if="userInfo.profile" src="@/assets/img/profile/3.jpg" />
+        <img v-if="userInfo.profile" src="@/assets/img/profile/2.jpg" />
       </div>
       <div class="desc">
         <h6 class="primary-text">{{ userInfo.nickname }}</h6>
@@ -37,6 +37,8 @@
 <script>
 import EditInfo from "./EditInfo.vue";
 import ProfileInfo from "./ProfileInfo.vue";
+import api from "@/assets/js/util/axios.js";
+
 export default {
   name: "MyPage",
   components: {

@@ -3,7 +3,7 @@
     <div class="top1">
       <div class="big1">
         <p class="from1">GaVoyage</p>
-        <p class="to1"><i class="fas fa-arrow-right"></i>{{ plan['plan'].title }}</p>
+        <p class="to1"><i class="fas fa-arrow-right"></i>{{ plan["plan"].title }}</p>
       </div>
       <div class="top--side">
         <i class="fas fa-plane"></i>
@@ -12,12 +12,12 @@
     <div class="bottom1">
       <div class="column1">
         <div class="rows row-1">
-          <p class="row--left"><span>출발일</span>{{ plan['plan'].startDate }}</p>
-          <p class="row--right"><span>도착일</span>{{ plan['plan'].endDate }}</p>
+          <p class="row--left"><span>출발일</span>{{ plan["plan"].startDate }}</p>
+          <p class="row--right"><span>도착일</span>{{ plan["plan"].endDate }}</p>
         </div>
         <div class="rows row-2">
-          <p class="row--left"><span>Created At</span>{{ plan['plan'].createdAt }}</p>
-          <p class="row--right"><span>ModifiedAt</span>{{ plan['plan'].modifiedAt }}</p>
+          <p class="row--left"><span>Created At</span>{{ plan["plan"].createdAt }}</p>
+          <p class="row--right"><span>ModifiedAt</span>{{ plan["plan"].modifiedAt }}</p>
         </div>
         <div class="rows row-4">
           <button
@@ -26,6 +26,7 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             @click="detailBtn"
+            style="background: #5e636cad"
           >
             상세보기
           </button>
@@ -40,8 +41,8 @@
           <!-- <router-link to="/review/create" v-if="reviewOrnot" > -->
         </div>
         <div class="rows row-3">
-          <p class="row--left"><span>Passenger</span>{{ plan['plan'].userName }}</p>
-          <p class="planIdx" style="display: none">{{ plan['plan'].planIdx }}</p>
+          <p class="row--left"><span>Passenger</span>{{ plan["plan"].userName }}</p>
+          <p class="planIdx" style="display: none">{{ plan["plan"].planIdx }}</p>
         </div>
       </div>
       <div class="bar--code"></div>
@@ -50,10 +51,10 @@
   </div>
 </template>
 <script>
-import api from '@/assets/js/util/axios.js';
-import PlanDetail from './PlanDetail.vue';
+import api from "@/assets/js/util/axios.js";
+import PlanDetail from "./PlanDetail.vue";
 export default {
-  name: 'PlanEach',
+  name: "PlanEach",
   props: {
     plan: {
       type: Object,
@@ -61,14 +62,14 @@ export default {
   },
   data() {
     return {
-      reviewOrnot: '리뷰쓰기',
+      reviewOrnot: "리뷰쓰기",
     };
   },
 
   mounted() {
     //console.log('this.childValue', this.plan);
     if (this.plan.hasReview == 1) {
-      this.reviewOrnot = '리뷰보기';
+      this.reviewOrnot = "리뷰보기";
       // document.querySelector(".reviewbtn").style.backgroundColor = "gray";
     }
   },
@@ -80,26 +81,26 @@ export default {
   methods: {
     async detailBtn() {
       //detail data
-      let planDetailUrl = '/plans/' + this.plan['plan'].planIdx;
+      let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
       let plans = {};
       let planDays = [];
       try {
         const res = await api.get(planDetailUrl);
         const detail = await res.data;
 
-        console.log('>> detail : ', detail);
+        console.log(">> detail : ", detail);
         if (Object.keys(detail).length != 0) {
           plans = detail;
           planDays = Object.keys(plans);
           planDays.sort();
-          console.log('here!!', planDays);
-          console.log('checkName!!', this.plan['plan']['userName']);
+          console.log("here!!", planDays);
+          console.log("checkName!!", this.plan["plan"]["userName"]);
         }
       } catch (e) {
         console.log(e);
       }
-      this.plan['plans'] = plans;
-      this.plan['planDays'] = planDays;
+      this.plan["plans"] = plans;
+      this.plan["planDays"] = planDays;
 
       // if (plans[0][0]['first_image'].length !== 0) {
       //   this.plan['imgsrc'] = plans[0][0]['first_image'];
@@ -108,56 +109,56 @@ export default {
       //     'https://i.pinimg.com/564x/46/ac/60/46ac6067341ded58d7ec67510189e125.jpg';
       // }
       // const planDetail = this.$store.state.planStore.planDetails;
-      this.$store.dispatch('planStore/nowPlanDetail', this.plan, { root: true });
-      console.log('Vuex 에 저장 성공! - 상세보기');
+      this.$store.dispatch("planStore/nowPlanDetail", this.plan, { root: true });
+      console.log("Vuex 에 저장 성공! - 상세보기");
       console.log(this.$store.state.planStore.planDetails);
     },
 
     async reviewBtn() {
       if (this.plan.hasReview == 0) {
         // 리뷰가 없다 -> 리뷰쓰자!
-        let planDetailUrl = '/plans/' + this.plan['plan'].planIdx;
+        let planDetailUrl = "/plans/" + this.plan["plan"].planIdx;
         let plans = {};
         let planDays = [];
         try {
           const res = await api.get(planDetailUrl);
           const detail = await res.data;
 
-          console.log('>> detail : ', detail);
+          console.log(">> detail : ", detail);
           if (Object.keys(detail).length != 0) {
             plans = detail;
             planDays = Object.keys(plans);
             planDays.sort();
-            console.log('here!!', planDays);
-            console.log('checkName!!', this.plan['plan']['userName']);
+            console.log("here!!", planDays);
+            console.log("checkName!!", this.plan["plan"]["userName"]);
           }
         } catch (e) {
           console.log(e);
         }
-        this.plan['detailPlan'] = plans;
-        this.plan['planDays'] = planDays;
-        this.$store.dispatch('reviewStore/nowPlanForReview', this.plan, { root: true });
-        console.log('Vuex 에 저장 성공! - 리뷰');
+        this.plan["detailPlan"] = plans;
+        this.plan["planDays"] = planDays;
+        this.$store.dispatch("reviewStore/nowPlanForReview", this.plan, { root: true });
+        console.log("Vuex 에 저장 성공! - 리뷰");
         console.log(this.$store.state.reviewStore.planForReview);
-        this.$router.push('/review/create');
+        this.$router.push("/review/create");
       } else {
         //리뷰 있다! -> 리뷰 보여주자
-        let reviewDetailUrl = '/reviews/find-by-plan?planIdx=' + this.plan['plan'].planIdx;
+        let reviewDetailUrl = "/reviews/find-by-plan?planIdx=" + this.plan["plan"].planIdx;
         let reviews = {};
         try {
           const res = await api.get(reviewDetailUrl);
           const detail = await res.data;
 
-          console.log('>> detail : ', detail);
+          console.log(">> detail : ", detail);
           reviews = detail;
         } catch (e) {
           console.log(e);
         }
 
-        this.$store.dispatch('reviewStore/nowReviewDetail', reviews, { root: true });
-        console.log('Vuex 에 저장 성공! - 리뷰조회');
+        this.$store.dispatch("reviewStore/nowReviewDetail", reviews, { root: true });
+        console.log("Vuex 에 저장 성공! - 리뷰조회");
         console.log(this.$store.state.reviewStore.ReviewDetail);
-        this.$router.push('/review/detail');
+        this.$router.push("/review/detail");
       }
     },
   },
@@ -190,7 +191,8 @@ export default {
 .airline .top1 {
   padding: 0 10px;
   height: 30%;
-  background: #819ae3b0; /*#033eefb0; */
+  background: #dee2e6;
+  /* background: #1841b9b0; /*#819ae3b0; #033eefb0; */
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
 }
@@ -221,7 +223,8 @@ export default {
 }
 .top1 .big1 .from1 {
   text-align: left;
-  color: #8b98d7; /*var(--color-blue);*/
+  color: #ffffff;
+  /* color: #8b98d7; var(--color-blue); */
   font-size: 40px;
   text-shadow: -1px 0 var(--color-white), 0 1px var(--color-white), 1px 0 var(--color-white),
     0 -1px var(--color-white);
@@ -293,7 +296,7 @@ export default {
   flex-direction: column;
 }
 .bottom1 .row-2::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   bottom: -120px;
@@ -310,7 +313,7 @@ export default {
   top: -5%;
 }
 .bottom1 .bar--code::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
   height: 100%;
@@ -323,7 +326,7 @@ export default {
     210px 0 var(--color-black), 135px 0 var(--color-black), 120px 0 var(--color-black);
 }
 .bottom1 .bar--code::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 3px;
   height: 100%;

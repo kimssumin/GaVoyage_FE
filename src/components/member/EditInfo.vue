@@ -22,7 +22,15 @@
                   <h6 class="mb-0">이름(닉네임)</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  <input type="text" class="form-control" id="nickname" :value="nowUser.nickname" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nickname"
+                    placeholder="사용자 명을 입력해주세요"
+                    name="nickname"
+                    @keyup="nicknameCheck"
+                  />
+                  <p class="ms-2 mt-sm-1" id="message-nickname"></p>
                 </div>
               </div>
               <div class="row mb-3">
@@ -42,7 +50,7 @@
                 </div>
               </div>
               <div class="row-btn">
-                <button class="btn-get-started">수정하기</button>
+                <button class="btn-get-started" @click="modifInfo">수정하기</button>
                 <button class="btn-get-deleted">회원탈퇴</button>
               </div>
             </div>
@@ -53,22 +61,49 @@
   </div>
 </template>
 <script>
+import { nicknameCheck } from "@/assets/js/member/registerCheck.js";
+import { $ } from "@/assets/js/util/elementTool";
+import api from "@/assets/js/util/axios.js";
+
 export default {
-  name: 'EditInfo',
+  name: "EditInfo",
   data() {
     return {
       nowUser: {},
     };
   },
   created() {
-    this.nowUser = this.$cookies.get('accesstoken');
+    this.nowUser = this.$cookies.get("accesstoken");
+  },
+  methods: {
+    nicknameCheck: nicknameCheck,
+    async modifInfo() {
+      const modifUrl = "//";
+      try {
+        const res = await api.post(modifUrl, $("#nickname").value);
+        this.$router.push("/mylist");
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
+    async deleteInfo() {
+      const deleteUrl = "//";
+      try {
+        const res = await api.delete(deleteUrl);
+        alert("회원탈퇴가 완료되었습니다");
+        this.$router.push("/");
+      } catch (e) {
+        console.log(e);
+      }
+    },
   },
 };
 </script>
 <style>
 .card2 .row {
   display: flex;
-  align-items: center;
+  align-items: baseline;
 }
 
 .row-btn {

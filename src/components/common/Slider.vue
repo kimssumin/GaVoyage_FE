@@ -61,12 +61,12 @@
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import VueAgile from 'vue-agile';
+import Vue from "vue";
+import VueAgile from "vue-agile";
 
 Vue.use(VueAgile);
 export default {
-  name: 'InitMain',
+  name: "InitMain",
   props: {
     msg: String,
   },
@@ -100,10 +100,10 @@ a {
 }
 
 .slide1 {
-  width: 100%;
+  width: 150%;
   background-position: center;
-  background: url(https://cdn.pixabay.com/photo/2018/09/25/17/14/airplane-3702676_960_720.jpg);
-  background-size: cover;
+  background: url(https://img.freepik.com/free-vector/isometric-coastal-line-composition_1284-19887.jpg?w=1060&t=st=1684903640~exp=1684904240~hmac=c3be151990f083a123594327701e2428952d66b48abbc216e5c940e747bfabc4);
+  /* background-size: cover; */
 }
 .slide2 {
   width: 100%;
@@ -116,9 +116,10 @@ a {
   background-position: center;
   background: url(https://img.freepik.com/free-photo/crumpled-white-paperboard_95678-119.jpg?w=1380&t=st=1683301032~exp=1683301632~hmac=f4f337315f1d37c52110c1123be314aab47e4c80015021f02cbc559d59d0097f);
 }
-.slide1::before,
+
+/* .slide1::before, */
 .slide2::before {
-  content: '';
+  content: "";
   opacity: 0.65;
   position: absolute;
   top: 0px;
@@ -127,7 +128,8 @@ a {
   bottom: 0px;
   background-color: #000;
 }
-.slide1 *,
+
+/* .slide1 *, */
 .slide2 * {
   color: #fff;
   text-align: center;

@@ -21,8 +21,14 @@ export const buttonStore = {
     },
 
     updateLike: (state, payload) => {
+      console.log("updatelike > ", payload);
       if (payload.islike == 1) {
         state.reviewLike = { ...state.reviewLike };
+        const { id } = payload;
+        state.reviewLike = {
+          ...state.reviewLike,
+          [id]: `<i class="fa fa-heart fa-2x" aria-hidden="true"></i>`,
+        };
         state.reviewLike[payload.id] = `<i class="fa fa-heart fa-2x" aria-hidden="true"></i>`;
       } else {
         state.reviewLike = { ...state.reviewLike };

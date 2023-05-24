@@ -1,12 +1,12 @@
-import axios from 'axios';
-import VueCookies from 'vue-cookies';
-import { baseURL } from './url';
+import axios from "axios";
+import VueCookies from "vue-cookies";
+import { baseURL } from "./url";
 
 // axios 객체 생성
 const instance = axios.create({
   baseURL: baseURL, //"http://70.12.50.218:8080",
   headers: {
-    'Content-type': 'application/json',
+    "Content-type": "application/json",
   },
   withCredentials: true,
 });
@@ -19,8 +19,8 @@ instance.interceptors.request.use(
     // const token = VueCookies.get("accesstoken").token;
     // config.headers.Authorization = `${token}`;
     // return config;
-    if (VueCookies.get('accesstoken') !== null) {
-      const token = VueCookies.get('accesstoken').token;
+    if (VueCookies.get("accesstoken") !== null) {
+      const token = VueCookies.get("accesstoken").token;
       config.headers.Authorization = `Bearer ${token}`; //`${token}`;
       // console.log(config);
       return config;
@@ -47,18 +47,28 @@ instance.interceptors.response.use(
     const { config } = response;
     const originalRequest = config;
 
-    if (response?.data?.code == 40300) {
+    if (response?.data?.status == 5000) {
       //서버에서 정한 오류코드(토큰만료에 대한)
-      const refresh_token = VueCookies.get('refreshtoken');
-      return await instance
-        .get(`/account/token?refreshToken=${refresh_token}`)
+      const refresh_token = VueCookies.get("refreshtoken");
+      originalRequest.headers["authorization-refresh"] = `Bearer ${refresh_token}`;
+      return axios(originalRequest)
         .then(async (res) => {
-          if (res.data.message === 'OK') {
-            VueCookies.set('accesstoken', res.data.payload.access_token);
-            originalRequest.headers.Authorization = `${res.data.payload.access_token}`.split(
-              ' '
-            )[1];
-            return axios(originalRequest);
+          if (res.status === 200) {
+            console.log("response > ", res);
+            let token = res.headers["authorization"].split(" ")[1];
+            let reftoken = res.headers["authorization-refresh"].split(" ")[1];
+            let nickname = VueCookies.get("accesstoken").nickname;
+            let email = VueCookies.get("accesstoken").email;
+            const data = {};
+
+            data["nickname"] = nickname;
+            data["email"] = email;
+            data["token"] = token;
+
+            VueCookies.set("accesstoken", data, "1d");
+            VueCookies.set("refreshtoken", reftoken, "1d");
+            originalRequest.headers["authorization"] = `Bearer ${token}`;
+            // return axios(originalRequest);
           }
         })
         .catch((err) => {
