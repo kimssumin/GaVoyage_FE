@@ -8,7 +8,16 @@
       <div class="be-comment" v-for="comment in comments" :key="comment.commentIdx">
         <div class="be-img-comment">
           <a href="blog-detail-2.html">
-            <img class="be-ava-comment" v-if="!comment.profile" src="@/assets/img/profile/1.jpg" />
+            <img
+              class="be-ava-comment"
+              v-if="comment.userImageUrl != null"
+              :src="require(`@/assets/img/profile/${comment.userImageUrl}.jpg`)"
+            />
+            <img
+              class="be-ava-comment"
+              v-else-if="comment.userImageUrl == null"
+              src="@/assets/img/profile/1.jpg"
+            />
           </a>
         </div>
         <div class="be-comment-content">
@@ -17,6 +26,7 @@
             <i class="fa fa-clock-o"></i>
             {{ comment.createdAt }}
             <button
+              type="button"
               class="comment-del"
               v-if="comment.nickname == nowId"
               @click="deleteComment(comment.commentIdx)"
@@ -37,7 +47,7 @@
               <textarea class="form-input" required="" placeholder="댓글을 입력해보세요"></textarea>
             </div>
           </div>
-          <button class="btn btn-get-started pull-right" @click="submitComment">
+          <button type="button" class="btn btn-get-started pull-right" @click="submitComment">
             댓글 등록하기
           </button>
         </div>
@@ -46,12 +56,11 @@
   </div>
 </template>
 <script>
-import api from "@/assets/js/util/axios.js";
-import VueCookies from "vue-cookies";
-import { $ } from "@/assets/js/util/elementTool";
+import api from '@/assets/js/util/axios.js';
+import { $ } from '@/assets/js/util/elementTool';
 
 export default {
-  name: "CommentBox",
+  name: 'CommentBox',
   props: {
     reviewIdx: {
       type: Number,
@@ -61,11 +70,11 @@ export default {
     return {
       comments: {},
       userCheck: false,
-      nowId: "",
+      nowId: '',
     };
   },
   async created() {
-    let commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
+    let commentUrl = '/comments/by-reviewIdx/' + this.reviewIdx;
     try {
       const res = await api.get(commentUrl);
       const comment = await res.data;
@@ -75,19 +84,19 @@ export default {
       console.log(e);
     }
 
-    this.nowId = this.$cookies.get("accesstoken").nickname;
+    this.nowId = this.$cookies.get('accesstoken').nickname;
   },
 
   methods: {
     async submitComment() {
-      const text = $(".form-input").value;
-      const postCommentUrl = "/comments";
-      const commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
+      const text = $('.form-input').value;
+      const postCommentUrl = '/comments';
+      const commentUrl = '/comments/by-reviewIdx/' + this.reviewIdx;
       const dataObj = {
         reviewIdx: this.reviewIdx,
         contents: text,
       };
-      console.log("dataObj >>", dataObj);
+      console.log('dataObj >>', dataObj);
       try {
         const res = await api.post(postCommentUrl, dataObj);
         //post
@@ -97,16 +106,16 @@ export default {
         const comment = await response.data;
         console.log(comment);
         this.comments = comment;
-        $(".form-input").value = "";
+        $('.form-input').value = '';
       } catch (e) {
         console.log(e);
       }
     },
 
     async deleteComment(cmd) {
-      let commentUrl = "/comments/by-reviewIdx/" + this.reviewIdx;
+      let commentUrl = '/comments/by-reviewIdx/' + this.reviewIdx;
       console.log(cmd);
-      let deleteUrl = "/comments/" + cmd;
+      let deleteUrl = '/comments/' + cmd;
       try {
         const res = await api.delete(deleteUrl);
         const response = await api.get(commentUrl);

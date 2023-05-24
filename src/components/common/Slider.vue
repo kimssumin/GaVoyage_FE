@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="inner">
+  <div class="inner slides">
     <agile
       :nav-buttons="false"
       :autoplay-speed="4000"
@@ -61,12 +61,12 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import VueAgile from "vue-agile";
+import Vue from 'vue';
+import VueAgile from 'vue-agile';
 
 Vue.use(VueAgile);
 export default {
-  name: "InitMain",
+  name: 'InitMain',
   props: {
     msg: String,
   },
@@ -108,18 +108,18 @@ a {
 .slide2 {
   width: 100%;
   background-position: center;
-  background: url(https://img.freepik.com/free-photo/creative-reels-composition_23-2149711507.jpg?w=1380&t=st=1683301728~exp=1683302328~hmac=f35d04d0d74823d97cf3c1bbde24a8523600c3be10fcfa331be48d8a0ce968e7);
-  background-size: cover;
+  background: url(https://img.freepik.com/free-vector/summer-background-with-pool-view-isometric-style_23-2147807076.jpg?w=900&t=st=1684936570~exp=1684937170~hmac=dbbc66d55e6134e95ca14d1012f87e0ce5e754bc28bf481d4fe526c649e7cc13);
+  /* background-size: cover; */
 }
 .slide3 {
   width: 100%;
   background-position: center;
-  background: url(https://img.freepik.com/free-photo/crumpled-white-paperboard_95678-119.jpg?w=1380&t=st=1683301032~exp=1683301632~hmac=f4f337315f1d37c52110c1123be314aab47e4c80015021f02cbc559d59d0097f);
+  background: url(https://img.freepik.com/premium-psd/3d-male-character-ready-holiday_541652-341.jpg?w=900);
 }
 
 /* .slide1::before, */
 .slide2::before {
-  content: "";
+  content: '';
   opacity: 0.65;
   position: absolute;
   top: 0px;
@@ -135,5 +135,9 @@ a {
   text-align: center;
   position: relative;
   z-index: 100;
+}
+
+.slides h2 {
+  font-weight: 700;
 }
 </style>
