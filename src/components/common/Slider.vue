@@ -100,7 +100,7 @@ a {
 }
 
 .slide1 {
-  width: 150%;
+  width: 100%;
   background-position: center;
   background: url(https://img.freepik.com/free-vector/isometric-coastal-line-composition_1284-19887.jpg?w=1060&t=st=1684903640~exp=1684904240~hmac=c3be151990f083a123594327701e2428952d66b48abbc216e5c940e747bfabc4);
   /* background-size: cover; */

@@ -46,6 +46,9 @@
           </div>
           <getMap></getMap>
           <getAttractionInfo></getAttractionInfo>
+          <button class="btn-get-started">
+            <router-link to="/plan/create">여행지가 마음에 드시나요 ?</router-link>
+          </button>
         </div>
       </div>
     </section>

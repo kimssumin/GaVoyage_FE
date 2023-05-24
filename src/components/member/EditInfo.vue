@@ -155,4 +155,8 @@ export default {
   border-image: initial;
   background: rgb(204, 5, 5);
 }
+
+#infoModif #message-nickname {
+  text-align: left;
+}
 </style>
