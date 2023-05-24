@@ -7,7 +7,7 @@
     />
     <!--"../assets/img/korea-geab21995b_1920.jpg"-->
     <div class="heading">
-      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{ review.place }}</h6>
+      <h6><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;GaVoyage</h6>
       <h4 class="mt-3">{{ review.title }}</h4>
       <div id="likeAndBookmark">
         <Like :reviewInit="{ isLiked: review.isLiked, id: review.reviewIdx }"></Like>
@@ -23,31 +23,32 @@
   </div>
 </template>
 <script>
-import Like from "../button/Like.vue";
+import Like from '../button/Like.vue';
 // import api froms "@/assets/js/util/axios.js";
 export default {
-  name: "ReviewBoard",
+  name: 'ReviewBoard',
   props: {
     review: {
       type: Object,
     },
   },
+  created() {},
+
   updated() {
-    console.log("update check", this.review);
+    console.log('update check', this.review);
   },
   mounted() {
-    console.log("mounted check", this.review);
+    console.log('mounted check', this.review);
+    this.review.recommendsAttractionInfo.forEach((recommendAttr) => {
+      let dataObj = { content_id: recommendAttr.content_id, value: recommendAttr.isScrab };
+      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+    });
+    this.review.unrecommendsAttractionInfo.forEach((unrecommendAttr) => {
+      let dataObj = { content_id: unrecommendAttr.content_id, value: unrecommendAttr.isScrab };
+      this.$store.dispatch('buttonStore/updateScrap', dataObj, { root: true });
+    });
   },
-  created() {
-    // console.log("child review", this.review);
-    // console.log(this.$store.state.buttonStore.reviewLike);
-    // const likeUrl = "/likes/" + this.review.reviewIdx;
-    // const res = await api.get(likeUrl);
-    // const data = await res.data;
-    // this.reviewLike["id"] = this.review.reviewIdx;
-    // this.reviewLike["isLiked"] = data;
-    // console.log("review like", this.reviewLike.isLiked);
-  },
+
   data() {
     return {
       reviewLike: { id: this.review.reviewIdx, isLiked: 0 },

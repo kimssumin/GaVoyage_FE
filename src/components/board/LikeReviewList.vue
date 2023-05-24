@@ -46,17 +46,18 @@ export default {
       reviews: [],
     };
   },
-  async created() {
-    let reviewUrl = 'reviews/likes';
+  created() {
+    let reviewUrl = '/reviews';
     try {
-      const res = await api.get(reviewUrl);
-      const review = await res.data;
-
-      this.reviews = review;
-      this.reviews.forEach((rv) => {
-        console.log(rv);
-        rv['writerName'] = rv.nickname;
+      api.get(reviewUrl).then(({ data }) => {
+        console.log('review arrived', data);
+        data.forEach((eachReview) => {
+          if (eachReview.isLiked == 1) {
+            this.reviews.push(eachReview);
+          }
+        });
       });
+
       console.log(this.reviews);
     } catch (e) {
       console.log(e);
