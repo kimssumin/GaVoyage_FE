@@ -26,7 +26,7 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             @click="detailBtn"
-            style="background: #5e636cad"
+            style="background: var(--color-blue)"
           >
             상세보기
           </button>
@@ -191,7 +191,7 @@ export default {
 .airline .top1 {
   padding: 0 10px;
   height: 30%;
-  background: #dee2e6;
+  background: #3377e1;
   /* background: #1841b9b0; /*#819ae3b0; #033eefb0; */
   border-top-right-radius: 25px;
   border-top-left-radius: 25px;
