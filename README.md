@@ -62,7 +62,7 @@
 
 <br>
 
-## **팀 구성**
+## 🟩 **팀 구성**
 
 <table>
   <td align = "center"><b>FrontEnd</b></td>
